@@ -1,0 +1,22 @@
+Bitácora de programación de la App DesafíoBetterfly
+
+Preparativos:
+De la experiencia me queda que en este tipo de desafíos, no se puede perder tiempo en elementos como el análisis de la API o el diseño de la interfaz gráfica, así que en función de ellos preparé algunas cosas antes de iniciar el reto.
+
+Construí el Scaffold del proyecto. Decidí hacerlo en Kotlin, ya que me al dominar Java y Kotlin como lenguajes nativos, ayuda mostrar conocimiento.
+Luego decidí construirlo con una arquitectura MVP. Actualmente estoy realizando el Curso de Arquitecturas Android de Platzi y aunque MVVM es la siguiente parte del curso que voy a explorar, la idea de MVP como una alternativa de arquitectura que facilita que el usuario pueda tener una app que responda sin tener delays, me agrada bastante.
+
+Luego para ahorrar tiempo, cree el proyecto en mi GitHub, https://github.com/cyberfanta/DesafioBetterfly. Cree el archivo Readme.md ya que cuando esté en el challenge por la presión personal de cumplir la meta, siempre lo dejo para el final lo que aumenta el chance de ignorarlo y esta vez no quiero que sea así.
+
+A continuación, debía agregarle una licencia de uso. Realmente de este proyecto lo que me interesa es la experiencia de realizarlo y que, si dado el caso alguien decido utilizarlo, por lo menos indiquen que el autor original soy yo. Por lo tanto y reconociendo que me queda un largo camino que explorar en el tema de las licencias, me he decidido por la licencia Apache 2.0, que según lo que me indica GitHub, cumple con lo que estoy buscando.
+
+El correo llegó y visualicé que se trata de hacer una aplicación api rest de un portal dedicado a Rick and Morty. Esto me indicó que mi app debería ser no solo funcional, sino también bonita. Así que antes de iniciar el reto decidí construir una interfaz basada en algunas plantillas que vi por internet para apps móviles. Decidí hacerlo en Figma y el enlace es https://www.figma.com/file/9s73Gyp0Mf1185UyRmKjCs/DesafioBetterfly?node-id=1%3A2 por si desean ver el diseño planificado y elijo Figma por ser colaborativa, de software libre y super simple para hacer diseños de una manera rápida. Y me encanta.
+
+Luego entré al servidor Api de Rick and Morty, y aunque el correo decía que podía usar este o algún otro, nunca había hecho una app para una serie de tv, así que preferí continuar con esta opción. Me parece que es un reto a mi altura. Noto que existen básicamente 3 tipos de datos, personajes (Character), lugares (Location) y los capítulos (Episode). Cada uno de ellos tiene 5 formas de búsquedas: 1.- Sin ninguna variable, se trae los primeros 20 elementos de la estructura de datos. 2.- Con la variable page, se trae 20 elementos pertenecientes a esa página. 3.- Con un número, se trae un elemento detallado. 4.- Con más de un número separado por comas, se trae varios elementos. 5.- Con variables diferentes a page, se trae los 20 elementos filtrados por las variables elegidas, estas variables dependen de la estructura de datos elegida.
+
+Estas búsquedas de la Api las voy a gestionar en al Arquitectura MVP, específicamente en el Presenter.
+
+Android posee un componente llamado el Coregrapher, que se encarga de indicar cuando tu app pierde frames de despliegue de la UI. Si pierdes muchos frames, Android cierra tu app por lenta. Para evitar esto y considerando que mi Presenter depende de la velocidad de la internet del usuario, la misma debe ser un proceso asíncrono por medio de un hilo que se despliega cada vez que se necesite hacer una consulta.
+
+En seguida al montar un diseño en el Figma, me dí cuenta que el color más predominante era el color crema, así que decidí basar mi paleta de colores en el color crema. En el proyecto Android cambie el tema por defecto para que se base en el color crema #FFF7E8C3 y tocó crear el color crema_dark #FFFEDF92.
+
