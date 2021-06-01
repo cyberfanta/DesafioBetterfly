@@ -41,7 +41,7 @@ This project was made using [Kotlin](https://developer.android.com/kotlin?hl=es-
 With architecture MVP (Model View Presenter) to make sure that the app will make its best to show the content with no delay to the user.
 
 ## License 📄
-This proyect is under license (Creative Commons) - please check the file [LICENSE.md](LICENSE.md) for details
+This proyect is under license (Apache License) - please check the file [LICENSE.md](LICENSE.md) for details
 
 ## Author ✒️
 * **Julio César León** - *Initial Work* - [Julio León](https://github.com/cyberfanta)
