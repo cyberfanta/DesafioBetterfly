@@ -24,3 +24,8 @@ Al incluir uno de los vectores en el proyecto, me doy cuenta que la exportación
 
 El desafío indica que opcionalmente, si podemos integrar alguna herramienta de Firebase, así que elijo las analíticas para ver como los usuarios utilizan la aplicación y poder realizar análisis de UX para mejorarla en el futuro. La herramienta de performance para ver el tiempo que demora la App en responder.
 
+Junio 1, 2021
+2pm Inicio oficial de la programación de la app. Se resolvió un problema con el GitIgnore del Android Studio. El mismo subia información delicada, ahora está protegida.
+3pm La primera interfaz ha sido diagramada.
+5pm Realicé el diagrama de clases de mi aplicación utilizando draw.io, allí se puede visualizar el plan que tengo para el desarrollo de mi app. Inicio la implementación de las clases en la app.
+
