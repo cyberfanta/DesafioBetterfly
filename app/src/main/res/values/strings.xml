@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DesafioBetterfly</string>
+    <string name="contentDescription">contentDescription</string>
 </resources>

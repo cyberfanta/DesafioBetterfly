@@ -6,13 +6,172 @@
     android:layout_height="match_parent"
     tools:context=".views.MainActivity">
 
-    <TextView
+    <ImageView
+        android:id="@+id/mainBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/contentDescription"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/Background" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainTitle" />
+
+    <ImageView
+        android:id="@+id/mainTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/contentDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/Title" />
+
+    <ImageView
+        android:id="@+id/footerBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:contentDescription="@string/contentDescription"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_footercolor" />
+
+    <ImageView
+        android:id="@+id/characterButtonColor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/contentDescription"
+        app:layout_constraintBottom_toBottomOf="@+id/characterButton"
+        app:layout_constraintEnd_toEndOf="@+id/characterButton"
+        app:layout_constraintStart_toStartOf="@+id/characterButton"
+        app:layout_constraintTop_toTopOf="@+id/characterButton"
+        app:srcCompat="@drawable/ic_rick_color" />
+
+    <ImageView
+        android:id="@+id/characterButtonBN"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/contentDescription"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/characterButton"
+        app:layout_constraintEnd_toEndOf="@+id/characterButton"
+        app:layout_constraintStart_toStartOf="@+id/characterButton"
+        app:layout_constraintTop_toTopOf="@+id/characterButton"
+        app:srcCompat="@drawable/ic_rick_b_w" />
+
+    <Button
+        android:id="@+id/characterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        app:backgroundTint="@color/white_transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/locationButtonColor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/contentDescription"
+        app:layout_constraintBottom_toBottomOf="@+id/locationButton"
+        app:layout_constraintEnd_toEndOf="@+id/locationButton"
+        app:layout_constraintStart_toStartOf="@+id/locationButton"
+        app:layout_constraintTop_toTopOf="@+id/locationButton"
+        app:srcCompat="@drawable/ic_location_color" />
+
+    <ImageView
+        android:id="@+id/locationButtonBN"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/contentDescription"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/locationButton"
+        app:layout_constraintEnd_toEndOf="@+id/locationButton"
+        app:layout_constraintStart_toStartOf="@+id/locationButton"
+        app:layout_constraintTop_toTopOf="@+id/locationButton"
+        app:srcCompat="@drawable/ic_location_b_w" />
+
+    <Button
+        android:id="@+id/locationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        app:backgroundTint="@color/white_transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/characterButton" />
+
+    <ImageView
+        android:id="@+id/episodeButtonColor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/contentDescription"
+        app:layout_constraintBottom_toBottomOf="@+id/episodeButton"
+        app:layout_constraintEnd_toEndOf="@+id/episodeButton"
+        app:layout_constraintStart_toStartOf="@+id/episodeButton"
+        app:layout_constraintTop_toTopOf="@+id/episodeButton"
+        app:srcCompat="@drawable/ic_episode_color" />
+
+    <ImageView
+        android:id="@+id/episodeButtonBN"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/contentDescription"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/episodeButton"
+        app:layout_constraintEnd_toEndOf="@+id/episodeButton"
+        app:layout_constraintStart_toStartOf="@+id/episodeButton"
+        app:layout_constraintTop_toTopOf="@+id/episodeButton"
+        app:srcCompat="@drawable/ic_episode_b_w" />
+
+    <Button
+        android:id="@+id/episodeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="16dp"
+        app:backgroundTint="@color/white_transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/characterButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
