@@ -11,4 +11,14 @@
     <color name="cream">#FFF7E8C3</color>
     <color name="cream_dark">#FFFEDF92</color>
 
+<!--    Menu Colors-->
+    <color name="soft_black_37">#cc464B56</color>
+    <color name="shadow_0_color_buttom">>#40BEAC64</color>
+    <color name="shadow_1_color_buttom">#30C2B689</color>
+    <color name="shadow_2_color_buttom">#20C8C1A7</color>
+    <color name="shadow_3_color_buttom">#10D3D0C4</color>
+    <color name="color_background_button">@color/cream_dark</color>
+    <color name="colorSource4Down">@color/cream</color>
+    <color name="color_strokes">#BFA53F</color>
+
 </resources>

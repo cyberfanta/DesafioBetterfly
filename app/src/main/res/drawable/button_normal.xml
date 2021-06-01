@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shadow Stack -->
+    <item>
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            <solid android:color="@color/shadow_0_color_buttom" />
+
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            <solid android:color="@color/shadow_1_color_buttom" />
+
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            <solid android:color="@color/shadow_2_color_buttom" />
+
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            <solid android:color="@color/shadow_3_color_buttom" />
+
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item>
+        <shape>
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/color_background_button"
+                android:centerX="60%"
+                android:endColor="@color/colorSource4Down"
+                android:startColor="@color/color_background_button"
+                android:type="linear"
+                />
+            <stroke
+                android:width="2dp"
+                android:color="@color/color_strokes"
+                />
+            <corners
+                android:radius="5dp"
+                />
+        </shape>
+    </item>
+</layer-list>
