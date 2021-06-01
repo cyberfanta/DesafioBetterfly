@@ -4,13 +4,12 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowMetrics
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cyberfanta.desafiobetterfly.R
@@ -55,6 +54,32 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+    //Main Menu
+    /**
+     * Create the setting menu of the application
+     */
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    /**
+     * Handle the setting menu of the application
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.item_about) {
+            val constraintLayout = findViewById<ConstraintLayout>(R.id.author)
+            constraintLayout.visibility = View.VISIBLE
+            setAnimation(constraintLayout, "translationX", 300, false, deviceWidth.toFloat(), 0f)
+            authorOpened = true
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    // Author Menu
     /**
      * Show the developer info
      */
