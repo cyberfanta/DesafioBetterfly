@@ -20,3 +20,7 @@ Android posee un componente llamado el Coregrapher, que se encarga de indicar cu
 
 En seguida al montar un diseño en el Figma, me dí cuenta que el color más predominante era el color crema, así que decidí basar mi paleta de colores en el color crema. En el proyecto Android cambie el tema por defecto para que se base en el color crema #FFF7E8C3 y tocó crear el color crema_dark #FFFEDF92.
 
+Al incluir uno de los vectores en el proyecto, me doy cuenta que la exportación de archivos SVG de Figma no es perfecto. Así que me tocó utilizar Adobe Illustrator para arreglar los SVG.
+
+El desafío indica que opcionalmente, si podemos integrar alguna herramienta de Firebase, así que elijo las analíticas para ver como los usuarios utilizan la aplicación y poder realizar análisis de UX para mejorarla en el futuro. La herramienta de performance para ver el tiempo que demora la App en responder.
+
