@@ -12,7 +12,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.util.*
 
 class ConnectionToApi {
-    @Suppress("PrivatePropertyName")
+    @Suppress("PrivatePropertyName", "unused")
     private val TAG = this::class.java.simpleName
 
     // Objects to read data from server

@@ -6,6 +6,9 @@ import com.cyberfanta.desafiobetterfly.models.episode.*
 import com.cyberfanta.desafiobetterfly.models.location.*
 
 class QueryManager {
+    @Suppress("PrivatePropertyName", "unused")
+    private val TAG = this::class.java.simpleName
+
     private val url = arrayOf(
         "https://rickandmortyapi.com/api/character/",
         "https://rickandmortyapi.com/api/location/",

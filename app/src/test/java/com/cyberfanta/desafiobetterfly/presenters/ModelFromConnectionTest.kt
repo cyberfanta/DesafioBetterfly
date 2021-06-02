@@ -9,7 +9,7 @@ import junit.framework.TestCase
 import org.junit.Assert
 
 class ModelFromConnectionTest : TestCase() {
-    @Suppress("PrivatePropertyName")
+    @Suppress("PrivatePropertyName", "unused")
     private val TAG = this::class.java.simpleName
 
     private var modelFromConnection = ModelFromConnection()

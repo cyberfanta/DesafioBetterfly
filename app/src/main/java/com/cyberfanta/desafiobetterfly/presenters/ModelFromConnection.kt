@@ -4,7 +4,7 @@ import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.google.gson.Gson
 
 class ModelFromConnection {
-    @Suppress("PrivatePropertyName")
+    @Suppress("PrivatePropertyName", "unused")
     private val TAG = this::class.java.simpleName
 
     private val connectionToApi = ConnectionToApi()

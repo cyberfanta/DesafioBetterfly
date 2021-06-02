@@ -6,7 +6,7 @@ import junit.framework.TestCase
 import org.junit.Assert
 
 class ConnectionToApiTest : TestCase() {
-    @Suppress("PrivatePropertyName")
+    @Suppress("PrivatePropertyName", "unused")
     private val TAG = this::class.java.simpleName
 
     private var connectionToApi = ConnectionToApi()
