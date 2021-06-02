@@ -14,11 +14,13 @@ class BitmapManager {
 
     @Synchronized
     @Throws(IOException::class)
-    private fun loadBitmap(url: String) {
-        val bitmapUrl = URL(url)
-        val bitmap = BitmapFactory.decodeStream(bitmapUrl.openConnection().getInputStream())
-        if (bitmap != null)
-            bitmapList[url] = bitmap
+    fun loadBitmap(url: String) {
+        if (!bitmapList.containsKey(url)) {
+            val bitmapUrl = URL(url)
+            val bitmap = BitmapFactory.decodeStream(bitmapUrl.openConnection().getInputStream())
+            if (bitmap != null)
+                bitmapList[url] = bitmap
+        }
     }
 
     fun getBitmap(name: String): Bitmap {

@@ -19,5 +19,6 @@ enum class AppState {
     Character_Images_Loaded,
     Location_Images_Failed,
     Episode_Images_Loaded,
+    Character_Avatar_Loaded,
     Load_Failed
 }

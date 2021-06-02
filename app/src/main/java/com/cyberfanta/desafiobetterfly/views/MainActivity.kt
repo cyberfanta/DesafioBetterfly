@@ -14,6 +14,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cyberfanta.desafiobetterfly.R
@@ -21,6 +22,7 @@ import com.cyberfanta.desafiobetterfly.enumerator.AppState
 import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 import com.google.firebase.analytics.FirebaseAnalytics
+import java.util.*
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +43,8 @@ class MainActivity : AppCompatActivity() {
     private var queriesManagerThread1 = Thread(AsyncQueryManager())
     private var queriesManagerThread2 = Thread(AsyncQueryManager())
     private var queriesManagerThread3 = Thread(AsyncQueryManager())
+    private var queriesManagerThread4 = Thread(AsyncBitmapQueryManager())
+    private var queriesManagerThread5 = Thread(AsyncBitmapQueryManager())
     private var characterPagesLoaded = 1
     private var locationPagesLoaded = 1
     private var episodePagesLoaded = 1
@@ -49,6 +53,10 @@ class MainActivity : AppCompatActivity() {
     //4 = characterDetail, 5 = locationDetail, 6 = episodeDetail
     private var currentTypeSearch = 1
     private var currentIdSearch = 0
+    private var currentBitmapSearch: Queue<Int?> = LinkedList()
+    private var currentBitmapData: Queue<BitmapMessage?> = LinkedList()
+
+    private var deleteMe = 0
 
     /**
      * The initial point of this app
@@ -148,20 +156,20 @@ class MainActivity : AppCompatActivity() {
         override fun run() {
             val message = handler.obtainMessage()
             try {
-                queryManager.getCharacterPage(characterPagesLoaded)
+                queryManager.getCharacterPage(1)
                 val message1 = handler.obtainMessage()
                 message1.obj = AppState.Character_Page_Loaded
                 handler.sendMessageAtFrontOfQueue(message1)
 
-                queryManager.getLocationPage(locationPagesLoaded)
+                queryManager.getLocationPage(1)
                 val message2 = handler.obtainMessage()
                 message2.obj = AppState.Location_Page_Loaded
-                handler.sendMessageAtFrontOfQueue(message1)
+                handler.sendMessageAtFrontOfQueue(message2)
 
-                queryManager.getEpisodePage(episodePagesLoaded)
+                queryManager.getEpisodePage(1)
                 val message3 = handler.obtainMessage()
                 message3.obj = AppState.Episode_Page_Loaded
-                handler.sendMessageAtFrontOfQueue(message1)
+                handler.sendMessageAtFrontOfQueue(message3)
             } catch (e: ConnectionException) {
                 message.obj = AppState.Load_Failed
                 handler.sendMessageAtFrontOfQueue(message)
@@ -211,6 +219,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
+     * Asynchronous Load bitmaps for QueryManager Class
+     */
+    private inner class AsyncBitmapQueryManager : Runnable {
+        override fun run() {
+            val message = handler.obtainMessage()
+
+            try {
+                currentBitmapData.add(
+                    currentBitmapSearch.poll()?.let { queryManager.getCharacterAvatar(it) }!!
+                )
+                message.obj = AppState.Character_Avatar_Loaded
+            } catch (e: ConnectionException) {
+                message.obj = AppState.Load_Failed
+            }
+            handler.sendMessageAtFrontOfQueue(message)
+        }
+    }
+
+    /**
      * Handle the actions when asynchronous task are ready to update the ui
      */
     @Suppress("DEPRECATION")
@@ -220,17 +247,43 @@ class MainActivity : AppCompatActivity() {
             if (message.obj != null) {
                 when {
                     message.obj.equals(AppState.Character_Page_Loaded) -> {
-//                        loadOpportunityCards()
-                        Log.i(TAG, queryManager.getCharacterPage(characterPagesLoaded).toString())
+                        val page = queryManager.getCharacterPage(characterPagesLoaded)
+                        Log.i(TAG, page.toString())
+                        currentBitmapSearch.add(page?.results?.get(0)?.id!!)
+
+                        //Load an image
+                        if (!queriesManagerThread4.isAlive)
+                            queriesManagerThread4.start()
+
+                        currentBitmapSearch.add(page.results.get(1)?.id!!)
+
+                        //Load an image
+                        if (!queriesManagerThread5.isAlive)
+                            queriesManagerThread5.start()
                     }
                     message.obj.equals(AppState.Location_Page_Loaded) -> {
-//                        loadPeopleCards()
                     }
                     message.obj.equals(AppState.Episode_Page_Loaded) -> {
 //                        loadJobData()
 
 //                        val imageView = findViewById<ImageView>(R.id.loading)
 //                        imageView.visibility = View.GONE
+                    }
+                    message.obj.equals(AppState.Character_Avatar_Loaded) -> {
+                        if (deleteMe == 0) {
+                            val tv: TextView = findViewById(R.id.textView)
+                            val iv: ImageView = findViewById(R.id.imageView)
+                            val data = currentBitmapData.poll()
+                            tv.text = data?.id.toString()
+                            iv.setImageBitmap(data?.bitmap)
+                            deleteMe++
+                        } else {
+                            val tv: TextView = findViewById(R.id.textView2)
+                            val iv: ImageView = findViewById(R.id.imageView2)
+                            val data = currentBitmapData.poll()
+                            tv.text = data?.id.toString()
+                            iv.setImageBitmap(data?.bitmap)
+                        }
                     }
                 }
             }

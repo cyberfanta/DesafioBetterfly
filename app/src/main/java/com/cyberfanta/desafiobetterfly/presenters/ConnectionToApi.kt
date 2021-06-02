@@ -39,6 +39,7 @@ class ConnectionToApi {
         )
     }
 
+    @Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER")
     @Throws(ConnectionException::class)
     private fun loadJson(request: Request): String {
         var answer = ""

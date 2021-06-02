@@ -1,9 +1,11 @@
 package com.cyberfanta.desafiobetterfly.presenters
 
+import android.graphics.Bitmap
 import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.models.character.*
 import com.cyberfanta.desafiobetterfly.models.episode.*
 import com.cyberfanta.desafiobetterfly.models.location.*
+import com.cyberfanta.desafiobetterfly.views.BitmapMessage
 
 class QueryManager {
     @Suppress("PrivatePropertyName", "unused")
@@ -35,7 +37,7 @@ class QueryManager {
         if (!characterPageList.containsKey(page)) {
             characterPageList[page] =
                 modelFromConnection.getObject(Character::class.java, url[0] + "?page=" + page)
-            loadAllBitmaps(page)
+//            loadAllBitmaps(page)
         }
 
         return characterPageList[page]
@@ -44,7 +46,16 @@ class QueryManager {
     private fun loadAllBitmaps(page: Int) {
         for (characterItem in characterPageList[page]?.results!!)
             characterItem?.image?.let { bitmapManager.getBitmap(it) }
+    }
 
+    @Synchronized
+    fun getCharacterAvatar(id: Int): BitmapMessage? {
+        for (characterPage in characterPageList) {
+            for (results in characterPage.value.results!!)
+                if (results?.id == id)
+                    results.image?.let { return BitmapMessage(id, bitmapManager.getBitmap(it)) }
+        }
+        return null
     }
 
     @Throws(ConnectionException::class)
