@@ -30,3 +30,5 @@ Junio 1, 2021
 5pm Realicé el diagrama de clases de mi aplicación utilizando draw.io, allí se puede visualizar el plan que tengo para el desarrollo de mi app. Inicio la implementación de las clases en la app.
 6pm Antes de hacer las clases, se me ocurrió poner el menú de about con la información del author.
 7:30pm Me propongo a hacer la primera corrida de la app para ver el estado actual antes de empezar a implementar el diagrama de clases, después de lidiar con varios problemas en la interfaz y un problema con la imagen de fondo, lo que me obligó a utilizar Adobe Photoshop para resolverlo. Ya la UI base de mi app está full funcional.
+9pm Agregue una pequeña animación de cambio de colores cuando presionas un botón en el footer. Cree una rama llamada Presenter para activar la funcionalidad de obtener los datos de los caracteres.
+9:30pm La primera clase del presentador, la conexión con el API está desplegada. Sin embargo, es hora de empezar a incorporar mis pruebas unitarias. Incorporo ConnectionToApiTest a la estructura del proyecto para ir probando que todo está en orden.
