@@ -43,3 +43,5 @@ Junio 2,2021
 11am Completo la implementación del LinkedHashMap después de darme cuenta de un error que no habia visto y que es derivado de mi estilo de programación de Java que ya no aplica en Kotlin. Inicio la implementación de mis pruebas unitarias para mi QueryManager.
 12pm Las primeras pruebas unitarias con el objeto Character funcionan de maravilla. Ahora a construir el resto de las lecturas.
 1pm Completo todas las pruebas unitarias para la clase QueryManager. Tengo ahora los datos Json y sus objetos creados. Ahora toca hacer la lectura de las imagenes.
+1:30pm Para completar la lectura de los datos provistos en el Json, el Character tiene un avatar. Para ellos estoy generando una nueva clase llamada BitmapManager para almacenar todos los avatares. Pero por alguna razón que voy a investigar, al utilizar la clase BitmapFactory.decodeStream para obtener los bitmaps, no me permite hacer pruebas con Junit. Queda pendiente investigar como se hacen esta pruebas unitarias. La voy a saltar ya que en otras oprtunidades he utilizado esa clase sin ningún problema.
+1:40pm La integración de BitmapManager en el QueryManager está completada.

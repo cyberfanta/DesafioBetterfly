@@ -12,6 +12,7 @@ class QueryManager {
         "https://rickandmortyapi.com/api/episode/"
     )
     private val modelFromConnection = ModelFromConnection()
+    private val bitmapManager = BitmapManager()
 
     private val characterPageList = LinkedHashMap<Int, Character>(0)
     private val characterFilterPageList = LinkedHashMap<String, CharacterFilter>(0)
@@ -28,10 +29,19 @@ class QueryManager {
     //-- Character
     @Throws(ConnectionException::class)
     fun getCharacterPage(page: Int): Character? {
-        if (!characterPageList.containsKey(page))
-            characterPageList[page] = modelFromConnection.getObject(Character::class.java, url[0] + "?page=" + page)
+        if (!characterPageList.containsKey(page)) {
+            characterPageList[page] =
+                modelFromConnection.getObject(Character::class.java, url[0] + "?page=" + page)
+            loadAllBitmaps(page)
+        }
 
         return characterPageList[page]
+    }
+
+    private fun loadAllBitmaps(page: Int) {
+        for (characterItem in characterPageList[page]?.results!!)
+            characterItem?.image?.let { bitmapManager.getBitmap(it) }
+
     }
 
     @Throws(ConnectionException::class)
