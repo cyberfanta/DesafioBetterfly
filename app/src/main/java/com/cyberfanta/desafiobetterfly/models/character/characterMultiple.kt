@@ -4,8 +4,26 @@ import com.google.gson.annotations.SerializedName
 
 data class CharacterMultiple(
 
-	@field:SerializedName("characterMultiple")
+	@field:SerializedName("CharacterMultiple")
 	val characterMultiple: List<CharacterMultipleItem?>? = null
+)
+
+data class Location4(
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("url")
+	val url: String? = null
+)
+
+data class Origin4(
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("url")
+	val url: String? = null
 )
 
 data class CharacterMultipleItem(
@@ -45,22 +63,4 @@ data class CharacterMultipleItem(
 
 	@field:SerializedName("status")
 	val status: String? = null
-)
-
-data class Origin4(
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("url")
-	val url: String? = null
-)
-
-data class Location4(
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("url")
-	val url: String? = null
 )

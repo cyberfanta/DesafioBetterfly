@@ -1,6 +1,6 @@
 package com.cyberfanta.desafiobetterfly.enumerator
 
-enum class appState {
+enum class AppState {
     Characters_Loaded,
     Locations_Loaded,
     Episodes_Loaded,
@@ -18,5 +18,7 @@ enum class appState {
     Episode_Filter_Loaded,
     Character_Images_Loaded,
     Location_Images_Failed,
-    Episode_Images_Loaded
+    Episode_Images_Loaded,
+    Character_Avatar_Loaded,
+    Load_Failed
 }

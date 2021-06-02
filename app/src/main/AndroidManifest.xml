@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cyberfanta.desafiobetterfly">
 
     <uses-permission
@@ -18,7 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DesafioBetterfly"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".views.MainActivity">
+        <activity android:name=".views.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
