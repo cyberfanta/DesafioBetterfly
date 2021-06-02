@@ -12,13 +12,12 @@ class ModelFromConnectionTest : TestCase() {
     @Suppress("PrivatePropertyName")
     private val TAG = this::class.java.simpleName
 
-    private var modelFromConnection: ModelFromConnection? = null
+    private var modelFromConnection = ModelFromConnection()
     private lateinit var url: Array<String>
 
     @Throws(Exception::class)
     override fun setUp() {
         super.setUp()
-        modelFromConnection = ModelFromConnection()
         url = arrayOf(
             "https://rickandmortyapi.com/api/character",
             "https://rickandmortyapi.com/api/character/19",
@@ -43,7 +42,7 @@ class ModelFromConnectionTest : TestCase() {
     fun testGetCharacterOk() {
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(Character::class.java, url[0])::class.java,
+                modelFromConnection.getObject(Character::class.java, url[0])::class.java,
                 Character::class.java
             )
         } catch (e: ConnectionException) {
@@ -53,7 +52,7 @@ class ModelFromConnectionTest : TestCase() {
 
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(CharacterDetail::class.java, url[1])::class.java,
+                modelFromConnection.getObject(CharacterDetail::class.java, url[1])::class.java,
                 CharacterDetail::class.java
             )
         } catch (e: ConnectionException) {
@@ -63,7 +62,7 @@ class ModelFromConnectionTest : TestCase() {
 
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(CharacterFilter::class.java, url[2])::class.java,
+                modelFromConnection.getObject(CharacterFilter::class.java, url[2])::class.java,
                 CharacterFilter::class.java
             )
         } catch (e: ConnectionException) {

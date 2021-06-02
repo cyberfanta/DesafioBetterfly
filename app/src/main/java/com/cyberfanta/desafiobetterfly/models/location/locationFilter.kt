@@ -44,7 +44,7 @@ data class Info7(
 	val pages: Int? = null,
 
 	@field:SerializedName("prev")
-	val prev: Any? = null,
+	val prev: String? = null,
 
 	@field:SerializedName("count")
 	val count: Int? = null
