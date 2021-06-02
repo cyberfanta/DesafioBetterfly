@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
@@ -24,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private var deviceHeight:Int = 0
 
 
+    /**
+     * The initial point of this app
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,10 +36,12 @@ class MainActivity : AppCompatActivity() {
         //Calculate Current Device Size
         calculateDeviceDimensions()
 
-
-        //Binding onClick function for author menu option
+        //Binding onClick function for about menu option
         val author : ConstraintLayout = findViewById(R.id.author)
-        author.setOnClickListener { authorSelected(author) }
+        author.setOnClickListener {
+            authorSelected(author)
+            authorOpened = false
+        }
     }
 
     /**
@@ -111,7 +115,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Calculate the device dimension
      */
-    private fun calculateDeviceDimensions(){
+    private fun calculateDeviceDimensions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val windowMetrics: WindowMetrics = windowManager.currentWindowMetrics
             val insets: Insets = windowMetrics.windowInsets

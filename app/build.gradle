@@ -15,6 +15,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        multiDexEnabled true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables {
@@ -55,7 +57,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     //Multithreading compilation
-    def multidex_version = "2.0.1"
-    implementation "androidx.multidex:multidex:$multidex_version"
+    implementation "androidx.multidex:multidex:2.0.1"
 
 }

@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/Background" />
+        app:srcCompat="@drawable/background2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
@@ -39,17 +39,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/Title" />
+        app:srcCompat="@drawable/title" />
 
     <ImageView
         android:id="@+id/footerBackground"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/contentDescription"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_footercolor" />
+        app:srcCompat="@drawable/ic_footercolor2" />
 
     <ImageView
         android:id="@+id/characterButtonColor"
@@ -86,7 +87,7 @@
         android:id="@+id/characterButton"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         app:backgroundTint="@color/white_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,9 +98,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="12dp"
         android:contentDescription="@string/contentDescription"
         app:layout_constraintBottom_toBottomOf="@+id/locationButton"
         app:layout_constraintEnd_toEndOf="@+id/locationButton"
@@ -112,9 +113,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="12dp"
         android:contentDescription="@string/contentDescription"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/locationButton"
@@ -128,7 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         app:backgroundTint="@color/white_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/characterButton" />
@@ -169,7 +170,7 @@
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_marginStart="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         app:backgroundTint="@color/white_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/characterButton" />
