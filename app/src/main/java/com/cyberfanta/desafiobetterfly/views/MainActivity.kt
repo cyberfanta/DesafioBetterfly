@@ -9,6 +9,8 @@ import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
+import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cyberfanta.desafiobetterfly.R
@@ -36,11 +38,37 @@ class MainActivity : AppCompatActivity() {
         //Calculate Current Device Size
         calculateDeviceDimensions()
 
+        //Binding all onClick functions
+        bindingAllOnClickFunctions()
+    }
+
+    /**
+     * Load all onClick functions for all views on MainActivity
+     */
+    private fun bindingAllOnClickFunctions (){
         //Binding onClick function for about menu option
         val author : ConstraintLayout = findViewById(R.id.author)
         author.setOnClickListener {
             authorSelected(author)
             authorOpened = false
+        }
+
+        //Binding for characterButton
+        val button1 : Button = findViewById(R.id.characterButton)
+        button1.setOnClickListener {
+            footerAction(button1)
+        }
+
+        //Binding for locationButton
+        val button2 : Button = findViewById(R.id.locationButton)
+        button2.setOnClickListener {
+            footerAction(button2)
+        }
+
+        //Binding for episodeButton
+        val button3 : Button = findViewById(R.id.episodeButton)
+        button3.setOnClickListener {
+            footerAction(button3)
         }
     }
 
@@ -131,5 +159,45 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Footer function to deal with the behavior
+     */
+    private fun footerAction(view: View) {
+        val characterIVColor : ImageView = findViewById(R.id.characterButtonColor)
+        val locationIVColor : ImageView = findViewById(R.id.locationButtonColor)
+        val episodeIVColor : ImageView = findViewById(R.id.episodeButtonColor)
+        val characterIVBN : ImageView = findViewById(R.id.characterButtonBN)
+        val locationIVBN : ImageView = findViewById(R.id.locationButtonBN)
+        val episodeIVBN : ImageView = findViewById(R.id.episodeButtonBN)
 
+        when(view.id) {
+            R.id.characterButton -> {
+                locationIVColor.visibility = View.INVISIBLE
+                episodeIVColor.visibility = View.INVISIBLE
+                locationIVBN.visibility = View.VISIBLE
+                episodeIVBN.visibility = View.VISIBLE
+
+                characterIVColor.visibility = View.VISIBLE
+                characterIVBN.visibility = View.INVISIBLE
+            }
+            R.id.locationButton -> {
+                characterIVColor.visibility = View.INVISIBLE
+                episodeIVColor.visibility = View.INVISIBLE
+                characterIVBN.visibility = View.VISIBLE
+                episodeIVBN.visibility = View.VISIBLE
+
+                locationIVColor.visibility = View.VISIBLE
+                locationIVBN.visibility = View.INVISIBLE
+            }
+            R.id.episodeButton -> {
+                characterIVColor.visibility = View.INVISIBLE
+                locationIVColor.visibility = View.INVISIBLE
+                characterIVBN.visibility = View.VISIBLE
+                locationIVBN.visibility = View.VISIBLE
+
+                episodeIVColor.visibility = View.VISIBLE
+                episodeIVBN.visibility = View.INVISIBLE
+            }
+        }
+    }
 }
