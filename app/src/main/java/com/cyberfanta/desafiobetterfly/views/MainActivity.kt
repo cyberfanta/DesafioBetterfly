@@ -18,10 +18,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cyberfanta.desafiobetterfly.R
 import com.cyberfanta.desafiobetterfly.enumerator.AppState
 import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
+import com.cyberfanta.desafiobetterfly.views.cards.CardAdapterCharacters
+import com.cyberfanta.desafiobetterfly.views.cards.CardItemCharacters
 import com.google.firebase.analytics.FirebaseAnalytics
 import java.util.*
 import kotlin.system.exitProcess
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     private var deviceWidth: Int = 0
     private var deviceHeight:Int = 0
 
-    //Async Variables
+    //Async Task Variables
     private lateinit var queryManager: QueryManager
     private var queriesManagerThread0 = Thread(InitializingQueryManager())
     private var queriesManagerThread1 = Thread(AsyncQueryManager())
@@ -57,7 +61,11 @@ class MainActivity : AppCompatActivity() {
     private var currentBitmapSearch: Queue<Int?> = LinkedList()
     private var currentBitmapData: Queue<BitmapMessage?> = LinkedList()
 
-    private var deleteMe = 0
+    //Recyclers View Variables
+    private lateinit var adapterCharacters: CardAdapterCharacters
+    private var cardListCharacters: ArrayList<CardItemCharacters>
+            = ArrayList<CardItemCharacters>(20)
+
 
     /**
      * The initial point of this app
@@ -77,6 +85,9 @@ class MainActivity : AppCompatActivity() {
 
         //Binding all onClick functions
         bindingAllOnClickFunctions()
+
+        //Initialize all recyclers view
+        initializeAllRecyclersView()
     }
 
     /**
@@ -301,27 +312,41 @@ class MainActivity : AppCompatActivity() {
 //                        imageView.visibility = View.GONE
                     }
                     message.obj.equals(AppState.Character_Avatar_Loaded) -> {
-                        if (deleteMe == 0) {
-                            val tv: TextView = findViewById(R.id.textView)
-                            val iv: ImageView = findViewById(R.id.imageView)
-                            val data = currentBitmapData.poll()
-                            tv.text = data?.id.toString()
-                            iv.setImageBitmap(data?.bitmap)
-                            deleteMe++
-                        } else {
-                            val tv: TextView = findViewById(R.id.textView2)
-                            val iv: ImageView = findViewById(R.id.imageView2)
-                            val data = currentBitmapData.poll()
-                            tv.text = data?.id.toString()
-                            iv.setImageBitmap(data?.bitmap)
-                        }
+//                        if (deleteMe == 0) {
+//                            val tv: TextView = findViewById(R.id.textView)
+//                            val iv: ImageView = findViewById(R.id.imageView)
+//                            val data = currentBitmapData.poll()
+//                            tv.text = data?.id.toString()
+//                            iv.setImageBitmap(data?.bitmap)
+//                            deleteMe++
+//                        } else {
+//                            val tv: TextView = findViewById(R.id.textView2)
+//                            val iv: ImageView = findViewById(R.id.imageView2)
+//                            val data = currentBitmapData.poll()
+//                            tv.text = data?.id.toString()
+//                            iv.setImageBitmap(data?.bitmap)
+//                        }
                     }
                 }
             }
         }
     }
 
-    // Author Menu
+    //RecyclerView UI
+    /**
+     * Initialize all the recyclerView
+     */
+    private fun initializeAllRecyclersView() {
+        //CharactersRV
+        var recycler: RecyclerView = findViewById(R.id.charactersRV)
+        recycler.setHasFixedSize(true)
+        val layoutManagerCharactersRV: RecyclerView.LayoutManager = GridLayoutManager(this, 3)
+        adapterCharacters = CardAdapterCharacters(cardListCharacters)
+        recycler.layoutManager = layoutManagerCharactersRV
+        recycler.adapter = adapterCharacters
+    }
+
+        // Author Menu
     /**
      * Show the developer info
      */
@@ -371,6 +396,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Footer Menu
     /**
      * Footer function to deal with the behavior
      */

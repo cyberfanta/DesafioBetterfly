@@ -47,3 +47,4 @@ Junio 2,2021
 1:40pm La integración de BitmapManager en el QueryManager está completada.
 3:00pm Se incorporó de manera exitosa el proceso asincrono para la obtención de los datos desde la internet, sin embargo, demora en obtener todos los avatares, así que voy a poner esa mejora para el siguiente paso en la lista de mejoras a realizar.
 5:15pm Después de algunos pequeños cambios, logro implementar la mejora que dije que iba a hacer luego. Ahora las data se carga y las imagenes se cargan luego conforme se suben de la internet.
+9:30pm Completo la construcción del primer RecyclerView. Empiezo con las corridas para ir registrando como queda.

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Betterfly Challenge</string>
     <string name="contentDescription">contentDescription</string>
+    <string name="contentDescriptionShort">CDS</string>
 
     <!--    Menú-->
     <string name="item_about">About</string>
