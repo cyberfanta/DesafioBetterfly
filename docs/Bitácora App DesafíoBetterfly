@@ -56,3 +56,4 @@ Junio 2,2021
 Junio 3,2021
 10am La meta del día de hoy es resolver el problema con las imágenes y si termino antes de las 12, estimo al menos una hora para activar los RecyclersView para los capítulos y para las locaciones. Así que estoy con tiempo corto, pero puedo lograrlo.
 12:50pm Logré resolver el tema de las imágenes en los recyclersView. El problema era el nombre del widget del cardItem, le había puesto avatar cuando en toda la implementación la llamé image. Esto me ralentizó el desarrollo por varias horas.
+6pm Ya tenemos el mínimo producto viable. Ahora podriamos entregar, pero voy a aprovechar para entregar un poco más, con las ideas que tengo en mente.

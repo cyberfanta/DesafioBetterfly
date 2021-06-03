@@ -247,10 +247,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:shadowColor="@color/black"
+                    android:shadowColor="@color/white"
                     android:shadowRadius="3"
                     android:text="@string/author_name_1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/soft_black_37"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -258,10 +258,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:shadowColor="@color/black"
+                    android:shadowColor="@color/white"
                     android:shadowRadius="3"
                     android:text="@string/author_name_2"
-                    android:textColor="@color/white"
+                    android:textColor="@color/soft_black_37"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -269,10 +269,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:shadowColor="@color/black"
+                    android:shadowColor="@color/white"
                     android:shadowRadius="3"
                     android:text="@string/author_profession"
-                    android:textColor="@color/white"
+                    android:textColor="@color/soft_black_37"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -280,10 +280,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:shadowColor="@color/black"
+                    android:shadowColor="@color/white"
                     android:shadowRadius="3"
                     android:text="@string/author_email"
-                    android:textColor="@color/white"
+                    android:textColor="@color/soft_black_37"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -291,10 +291,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:shadowColor="@color/black"
+                    android:shadowColor="@color/white"
                     android:shadowRadius="3"
                     android:text="@string/author_phone"
-                    android:textColor="@color/white"
+                    android:textColor="@color/soft_black_37"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

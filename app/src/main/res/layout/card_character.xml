@@ -2,8 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
     android:layout_marginBottom="8dp"
@@ -40,7 +40,7 @@
 
         <View
             android:id="@+id/view2"
-            style="@style/characterCardView"
+            style="@style/characterCardViewNumber"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/id"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".75" />
+            app:layout_constraintGuide_percent=".70" />
 
         <TextView
             android:id="@+id/name"
@@ -69,7 +69,7 @@
 
         <TextView
             android:id="@+id/id"
-            style="@style/characterCardText"
+            style="@style/characterCardNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/contentDescriptionShort"

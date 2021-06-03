@@ -2,4 +2,5 @@
 <resources>
     <dimen name="detail_background_corner_radius">10dp</dimen>
     <dimen name="detail_background_stroke_width">1dp</dimen>
+    <dimen name="card_view_number_background_corner_radius">5dp</dimen>
 </resources>

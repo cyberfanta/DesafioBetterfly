@@ -6,7 +6,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
@@ -17,10 +16,8 @@ import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cyberfanta.desafiobetterfly.R
@@ -31,8 +28,6 @@ import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 import com.cyberfanta.desafiobetterfly.views.cards.CardAdapterCharacters
 import com.cyberfanta.desafiobetterfly.views.cards.CardItemCharacters
 import com.google.firebase.analytics.FirebaseAnalytics
-import java.lang.Exception
-import java.text.FieldPosition
 import java.util.*
 import kotlin.system.exitProcess
 
