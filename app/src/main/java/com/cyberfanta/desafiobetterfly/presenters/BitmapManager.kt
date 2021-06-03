@@ -10,7 +10,9 @@ class BitmapManager {
     @Suppress("PrivatePropertyName", "unused")
     private val TAG = this::class.java.simpleName
 
-    private val bitmapList = LinkedHashMap<String, Bitmap>(0)
+    companion object {
+        private val bitmapList = LinkedHashMap<String, Bitmap>(0)
+    }
 
     @Synchronized
     @Throws(IOException::class)

@@ -8,7 +8,7 @@
         <item name="android:shadowRadius">3</item>
         <item name="autoSizeMaxTextSize">14sp</item>
         <item name="autoSizeMinTextSize">8sp</item>
-        <item name="autoSizeStepGranularity">2sp</item>
+        <item name="autoSizeStepGranularity">1sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">0dp</item>
@@ -20,5 +20,58 @@
     </style>
     <style name="characterCardView">
         <item name="android:background">@color/white_transparent_2</item>
+        <item name="android:padding">3dp</item>
+    </style>
+
+    <style name="characterDetailLabel">
+        <item name="android:background">@drawable/detail_label_background</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="characterDetailLabelTop">
+        <item name="android:background">@drawable/detail_label_background_top</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="characterDetailLabelBottom">
+        <item name="android:background">@drawable/detail_label_background_botton</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="characterDetail">
+        <item name="android:background">@drawable/detail_background</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="characterDetailTop">
+        <item name="android:background">@drawable/detail_background_top</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="characterDetailBottom">
+        <item name="android:background">@drawable/detail_background_botton</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 </resources>

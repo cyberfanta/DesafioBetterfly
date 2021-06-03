@@ -1,5 +1,6 @@
 package com.cyberfanta.desafiobetterfly.presenters
 
+import android.util.Log
 import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.models.character.*
 import com.cyberfanta.desafiobetterfly.models.episode.*
@@ -21,17 +22,19 @@ class QueryManager {
     private val modelFromConnection = ModelFromConnection()
     private val bitmapManager = BitmapManager()
 
-    private val characterPageList : Queue<Int> = LinkedList()
-    private val characterFilterPageList = LinkedHashMap<String, CharacterFilter>(0)
-    private val characterDetailList = LinkedHashMap<Int, CharacterDetail>(0)
+    companion object {
+        private val characterPageList : Queue<Int> = LinkedList()
+        private val characterFilterPageList = LinkedHashMap<String, CharacterFilter>(0)
+        private val characterDetailList = LinkedHashMap<Int, CharacterDetail>(0)
 
-    private val locationPageList : Queue<Int> = LinkedList()
-    private val locationFilterPageList = LinkedHashMap<String, LocationFilter>(0)
-    private val locationDetailList = LinkedHashMap<Int, LocationDetail>(0)
+        private val locationPageList : Queue<Int> = LinkedList()
+        private val locationFilterPageList = LinkedHashMap<String, LocationFilter>(0)
+        private val locationDetailList = LinkedHashMap<Int, LocationDetail>(0)
 
-    private val episodePageList : Queue<Int> = LinkedList()
-    private val episodeFilterPageList = LinkedHashMap<String, EpisodeFilter>(0)
-    private val episodeDetailList = LinkedHashMap<Int, EpisodeDetail>(0)
+        private val episodePageList : Queue<Int> = LinkedList()
+        private val episodeFilterPageList = LinkedHashMap<String, EpisodeFilter>(0)
+        private val episodeDetailList = LinkedHashMap<Int, EpisodeDetail>(0)
+    }
 
     //-- Character
     @Throws(ConnectionException::class)
@@ -40,15 +43,17 @@ class QueryManager {
         if (!characterPageList.contains(page)) {
             characterPage = modelFromConnection.getObject(Character::class.java, url[0] + "?page=" + page)
 
+            Log.i(TAG, characterPage.toString())
+
             for (characterDetail in characterPage.results!!)
-                if (!characterDetailList.containsKey(characterDetail?.id))
+//                if (!characterDetailList.containsKey(characterDetail?.id))
                     characterDetailList[characterDetail?.id!!] = characterDetail
 
             characterPageList.add(page)
         } else {
             val list = mutableListOf<CharacterDetail>()
             try {
-                for (i in (0*page)..(19*page))
+                for (i in (1+((page-1)*20))..(20+((page-1)*20)))
                     list.add(characterDetailList[i]!!)
             } catch (ignored : IndexOutOfBoundsException) {}
             characterPage = Character(list, null)
@@ -84,7 +89,7 @@ class QueryManager {
         } else {
             val list = mutableListOf<CharacterDetail>()
             try {
-                for (i in (0*page)..(19*page))
+                for (i in (1+((page-1)*20))..(20+((page-1)*20)))
                     list.add(characterDetailList[i]!!)
             } catch (ignored : IndexOutOfBoundsException) {}
             characterPage = CharacterFilter(list, null)
@@ -94,11 +99,11 @@ class QueryManager {
     }
 
     @Throws(ConnectionException::class)
-    fun getCharacterDetail(id: Int): CharacterDetail? {
+    fun getCharacterDetail(id: Int): CharacterDetail {
         if (!characterDetailList.containsKey(id))
             characterDetailList[id] = modelFromConnection.getObject(CharacterDetail::class.java, url[0] + id)
 
-        return characterDetailList[id]
+        return characterDetailList[id]!!
     }
 
     //-- Location
@@ -116,7 +121,7 @@ class QueryManager {
         } else {
             val list = mutableListOf<LocationDetail>()
             try {
-                for (i in (0*page)..(19*page))
+                for (i in (1+((page-1)*20))..(20+((page-1)*20)))
                     list.add(locationDetailList[i]!!)
             } catch (ignored : IndexOutOfBoundsException) {}
             locationPage = Location(list, null)
@@ -144,7 +149,7 @@ class QueryManager {
         } else {
             val list = mutableListOf<LocationDetail>()
             try {
-                for (i in (0*page)..(19*page))
+                for (i in (1+((page-1)*20))..(20+((page-1)*20)))
                     list.add(locationDetailList[i]!!)
             } catch (ignored : IndexOutOfBoundsException) {}
             locationPage = LocationFilter(list, null)
@@ -154,11 +159,11 @@ class QueryManager {
     }
 
     @Throws(ConnectionException::class)
-    fun getLocationDetail(id: Int): LocationDetail? {
+    fun getLocationDetail(id: Int): LocationDetail {
         if (!locationDetailList.containsKey(id))
             locationDetailList[id] = modelFromConnection.getObject(LocationDetail::class.java, url[1] + id)
 
-        return locationDetailList[id]
+        return locationDetailList[id]!!
     }
 
     //-- Episode
@@ -176,7 +181,7 @@ class QueryManager {
         } else {
             val list = mutableListOf<EpisodeDetail>()
             try {
-                for (i in (0*page)..(19*page))
+                for (i in (1+((page-1)*20))..(20+((page-1)*20)))
                     list.add(episodeDetailList[i]!!)
             } catch (ignored : IndexOutOfBoundsException) {}
             episodePage = Episode(list, null)
@@ -204,7 +209,7 @@ class QueryManager {
         } else {
             val list = mutableListOf<EpisodeDetail>()
             try {
-                for (i in (0*page)..(19*page))
+                for (i in (1+((page-1)*20))..(20+((page-1)*20)))
                     list.add(episodeDetailList[i]!!)
             } catch (ignored : IndexOutOfBoundsException) {}
             episodePage = EpisodeFilter(list, null)
@@ -214,11 +219,11 @@ class QueryManager {
     }
 
     @Throws(ConnectionException::class)
-    fun getEpisodeDetail(id: Int): EpisodeDetail? {
+    fun getEpisodeDetail(id: Int): EpisodeDetail {
         if (!episodeDetailList.containsKey(id))
             episodeDetailList[id] = modelFromConnection.getObject(EpisodeDetail::class.java, url[2] + id)
 
-        return episodeDetailList[id]
+        return episodeDetailList[id]!!
     }
 
 }

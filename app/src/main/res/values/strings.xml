@@ -13,4 +13,15 @@
     <string name="author_email" translatable="false">julioleon2004@gmail.com</string>
     <string name="author_phone" translatable="false">+58 (424) 225.92.20</string>
 
+    <!--    Character Detail-->
+    <string name="idLabel">ID:</string>
+    <string name="nameLabel">NAME:</string>
+    <string name="statusLabel">STATUS:</string>
+    <string name="specieLabel">SPECIE:</string>
+    <string name="typeLabel">TYPE:</string>
+    <string name="genderLabel">GENDER:</string>
+    <string name="originLabel">ORIGIN:</string>
+    <string name="locationLabel">LOCATION:</string>
+    <string name="episodeLabel">EPISODES:</string>
+
 </resources>

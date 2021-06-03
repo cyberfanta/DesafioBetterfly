@@ -39,7 +39,8 @@ class CardAdapterCharacters (private val cardItemCharacters: ArrayList<CardItemC
 
     //Internal class to describe the object items to be put into a card item
     class CardViewHolder(itemView: View, itemClickListener: OnItemClickListener?) : RecyclerView.ViewHolder(itemView) {
-        var image: ImageView = itemView.findViewById(R.id.image)
+//        var image: ImageView = itemView.findViewById(R.id.image)
+        lateinit var image: ImageView
         var name: TextView = itemView.findViewById(R.id.name)
         var id: TextView = itemView.findViewById(R.id.id)
 

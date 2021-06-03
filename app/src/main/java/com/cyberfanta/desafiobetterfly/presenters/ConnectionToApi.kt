@@ -53,7 +53,7 @@ class ConnectionToApi {
                 throw ConnectionException("ERROR_WITH_RESPONSE")
 
             response.close()
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             throw ConnectionException("CONNECTION_FAIL")
         }
         return answer

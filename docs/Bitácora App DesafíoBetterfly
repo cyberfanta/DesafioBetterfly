@@ -48,3 +48,7 @@ Junio 2,2021
 3:00pm Se incorporó de manera exitosa el proceso asincrono para la obtención de los datos desde la internet, sin embargo, demora en obtener todos los avatares, así que voy a poner esa mejora para el siguiente paso en la lista de mejoras a realizar.
 5:15pm Después de algunos pequeños cambios, logro implementar la mejora que dije que iba a hacer luego. Ahora las data se carga y las imagenes se cargan luego conforme se suben de la internet.
 9:30pm Completo la construcción del primer RecyclerView. Empiezo con las corridas para ir registrando como queda.
+11:30pm Al conectar los RecyclerView con el QueryManager, me di cuenta que se puede simplificar, ya que el servidor API tiene sus búsquedas basadas en 3 endpoints.
+1am Ya se despliegan los elementos en el RecyclerView, todavía hay un detalle con las imágenes. Empiezo a diagramar una vista a detalle super simple para cumplir con la meta.
+4am Ya la vista a detalle está completa. Sin embargo, aun tengo el problema de la carga de las imágenes. Dejo pendiente para mañana. Al parecer no me va a quedar tiempo para hacer los 3 recyclers view. Ya veremos como se mueve mañana.
+5am Me di un último spring nocturno y resolví el problema de la imagen en la vista de detalle. Ahora si hago un commit, para cerrar la noche.

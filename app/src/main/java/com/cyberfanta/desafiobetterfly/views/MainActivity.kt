@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
@@ -27,6 +28,7 @@ import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 import com.cyberfanta.desafiobetterfly.views.cards.CardAdapterCharacters
 import com.cyberfanta.desafiobetterfly.views.cards.CardItemCharacters
 import com.google.firebase.analytics.FirebaseAnalytics
+import java.lang.Exception
 import java.util.*
 import kotlin.system.exitProcess
 
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     private var episodePagesLoaded = 1
     //currentTypeSearch:
     // 1 = character , 2 = location , 3 = episode,
-    //4 = characterDetail, 5 = locationDetail, 6 = episodeDetail
+    // 4 = characterDetail, 5 = locationDetail, 6 = episodeDetail
     private var currentTypeSearch = 1
     private var currentIdSearch = 0
     private var currentBitmapSearch: Queue<Int?> = LinkedList()
@@ -88,6 +90,10 @@ class MainActivity : AppCompatActivity() {
 
         //Initialize all recyclers view
         initializeAllRecyclersView()
+
+        //Initial loading for recyclers view
+        if (!queriesManagerThread0.isAlive)
+            queriesManagerThread0.start()
     }
 
     /**
@@ -125,10 +131,6 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onStart() {
         super.onStart()
-
-        //Initial loading for recyclers view
-        if (!queriesManagerThread0.isAlive)
-            queriesManagerThread0.start()
     }
 
     /**
@@ -242,15 +244,16 @@ class MainActivity : AppCompatActivity() {
                     }
                     4 -> {
                         queryManager.getCharacterDetail(currentIdSearch)
-                        message.obj = AppState.Character_Page_Loaded
+                        queryManager.getCharacterAvatar(currentIdSearch)
+                        message.obj = AppState.Character_Detail_Loaded
                     }
                     5 -> {
                         queryManager.getLocationDetail(currentIdSearch)
-                        message.obj = AppState.Location_Page_Loaded
+                        message.obj = AppState.Location_Detail_Loaded
                     }
                     6 -> {
                         queryManager.getEpisodeDetail(currentIdSearch)
-                        message.obj = AppState.Episode_Page_Loaded
+                        message.obj = AppState.Episode_Detail_Loaded
                     }
                 }
             } catch (e: ConnectionException) {
@@ -289,10 +292,12 @@ class MainActivity : AppCompatActivity() {
             if (message.obj != null) {
                 when {
                     message.obj.equals(AppState.Character_Page_Loaded) -> {
-                        val page = queryManager.getCharacterPage(characterPagesLoaded)
-                        Log.i(TAG, page.toString())
-                        loadCharacterPage(page)
-                        characterPagesLoaded++
+                        try {
+                            val page = queryManager.getCharacterPage(characterPagesLoaded)
+                            Log.i(TAG, page.toString())
+                            loadCharacterPage(page)
+                            characterPagesLoaded++
+                        } catch (ignored: Exception) {}
 //                        currentBitmapSearch.add(page?.results?.get(0)?.id!!)
 //
 //                        //Load an image
@@ -312,6 +317,13 @@ class MainActivity : AppCompatActivity() {
 
 //                        val imageView = findViewById<ImageView>(R.id.loading)
 //                        imageView.visibility = View.GONE
+                    }
+                    message.obj.equals(AppState.Character_Detail_Loaded) -> {
+                        loadCharacterDetail()
+                    }
+                    message.obj.equals(AppState.Location_Detail_Loaded) -> {
+                    }
+                    message.obj.equals(AppState.Episode_Detail_Loaded) -> {
                     }
                     message.obj.equals(AppState.Character_Avatar_Loaded) -> {
 //                        if (deleteMe == 0) {
@@ -353,9 +365,12 @@ class MainActivity : AppCompatActivity() {
 //                val imageView = findViewById<ImageView>(R.id.loading)
 //                imageView.visibility = View.VISIBLE
 
-                currentIdSearch = cardListCharacters[position].id?.toInt()!!
-                currentTypeSearch = 2
-//                queryFromApi2()
+                currentIdSearch = position + 1
+//                currentIdSearch = cardListCharacters[position].id?.toInt()!!
+                currentTypeSearch = 4
+                Log.i(TAG, "currentIdSearch: $currentIdSearch")
+                Log.i(TAG, "currentTypeSearch: $currentTypeSearch")
+                queryFromApi()
             }
         })
 
@@ -365,8 +380,8 @@ class MainActivity : AppCompatActivity() {
 //                val imageView = findViewById<ImageView>(R.id.loading)
 //                imageView.visibility = View.VISIBLE
 
-                currentTypeSearch = 0
-//                queryFromApi()
+                currentTypeSearch = 1
+                queryFromApi()
             }
         })
 
@@ -375,30 +390,73 @@ class MainActivity : AppCompatActivity() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    currentTypeSearch = 0
-//                    queryFromApi()
+                    currentTypeSearch = 1
+                    queryFromApi()
                 }
             }
         })
-
     }
 
     /**
-     * Recycler view filler
+     * Running the async task to get data
+     */
+    fun queryFromApi() {
+        if (!queriesManagerThread1.isAlive) {
+            queriesManagerThread1 = Thread(AsyncQueryManager())
+            queriesManagerThread1.start()
+        } else if (!queriesManagerThread2.isAlive) {
+            queriesManagerThread2 = Thread(AsyncQueryManager())
+            queriesManagerThread2.start()
+        } else if (!queriesManagerThread3.isAlive) {
+            queriesManagerThread3 = Thread(AsyncQueryManager())
+            queriesManagerThread3.start()
+        }
+    }
+
+    /**
+     * Running the async task to get images
+     */
+    fun queryFromApi2() {
+        if (!queriesManagerThread4.isAlive) {
+            queriesManagerThread4 = Thread(AsyncBitmapQueryManager())
+            queriesManagerThread4.start()
+        } else if (!queriesManagerThread5.isAlive) {
+            queriesManagerThread5 = Thread(AsyncBitmapQueryManager())
+            queriesManagerThread5.start()
+        }
+    }
+
+    /**
+     * Recycler view filler for characters
      */
     fun loadCharacterPage(page: Character) {
         val size: Int = cardListCharacters.size
 
-        for (i in 0..19) {
-            val detail = page.results?.get(i)
-            val cardCharacter = detail?.let { CardItemCharacters(it) }
-//            cardCharacter.image = queryManager.getCharacterAvatar(detail.id)
+        for (characterDetail in page.results!!) {
+            val cardCharacter = characterDetail?.let { CardItemCharacters(it) }
+//            val cardCharacter = characterDetail?.let {
+//                CardItemCharacters(
+//                    it,
+//                    characterDetail.id?.let { it1 -> queryManager.getCharacterAvatar(it1).bitmap }!!
+//                )
+//            }
+//            cardCharacter?.image = queryManager.getCharacterAvatar(characterDetail?.id!!).bitmap
             cardListCharacters.add(cardCharacter!!)
+            adapterCharacters.notifyItemRangeInserted(size, 20)
         }
 
-        adapterCharacters.notifyItemRangeInserted(size, 20)
     }
 
+    /**
+     * Recycler view filler for character details
+     */
+    fun loadCharacterDetail() {
+        val intent = Intent(this, CharacterActivity::class.java)
+        intent.putExtra("deviceWidth", deviceWidth.toString())
+        intent.putExtra("deviceHeight", deviceHeight.toString())
+        intent.putExtra("currentIdSearch", currentIdSearch.toString())
+        startActivity(intent)
+    }
 
 
 
