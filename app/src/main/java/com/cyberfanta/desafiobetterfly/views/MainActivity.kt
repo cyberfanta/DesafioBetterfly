@@ -6,6 +6,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
@@ -16,8 +17,10 @@ import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cyberfanta.desafiobetterfly.R
@@ -29,6 +32,7 @@ import com.cyberfanta.desafiobetterfly.views.cards.CardAdapterCharacters
 import com.cyberfanta.desafiobetterfly.views.cards.CardItemCharacters
 import com.google.firebase.analytics.FirebaseAnalytics
 import java.lang.Exception
+import java.text.FieldPosition
 import java.util.*
 import kotlin.system.exitProcess
 
@@ -52,6 +56,8 @@ class MainActivity : AppCompatActivity() {
     private var queriesManagerThread3 = Thread(AsyncQueryManager())
     private var queriesManagerThread4 = Thread(AsyncBitmapQueryManager())
     private var queriesManagerThread5 = Thread(AsyncBitmapQueryManager())
+    private var queriesManagerThread6 = Thread(AsyncBitmapQueryManager())
+    private var queriesManagerThread7 = Thread(AsyncBitmapQueryManager())
     private var characterPagesLoaded = 1
     private var locationPagesLoaded = 1
     private var episodePagesLoaded = 1
@@ -268,17 +274,44 @@ class MainActivity : AppCompatActivity() {
      */
     private inner class AsyncBitmapQueryManager : Runnable {
         override fun run() {
-            val message = handler.obtainMessage()
+
+//            currentBitmapSearch.add(bitmap?.id!!)
+//            currentBitmapData.poll()?.let { loadCharacterImage(it) }
+//            val bitmapSearch = currentBitmapSearch
+//            : Queue<Int?> = LinkedList()
 
             try {
-                currentBitmapData.add(
-                    currentBitmapSearch.poll()?.let { queryManager.getCharacterAvatar(it) }!!
-                )
-                message.obj = AppState.Character_Avatar_Loaded
+                do{
+                    val message = handler.obtainMessage()
+//                    currentBitmapData.add(
+//                        currentBitmapSearch.poll().let { it?.let { it1 ->
+//                            queryManager.getCharacterAvatar(
+//                                it1
+//                            )
+//                        } }
+//                    )
+
+                    currentBitmapData.add(queryManager.getCharacterAvatar(currentBitmapSearch.poll()!!))
+
+                    message.obj = AppState.Character_Avatar_Loaded
+                    handler.sendMessageAtFrontOfQueue(message)
+                } while (currentBitmapSearch.size > 0)
+//                for (bitmap in bitmapSearch) {
+//                    val message = handler.obtainMessage()
+//                    currentBitmapData.add(
+//                        bitmapSearch.poll().let { it?.let { it1 ->
+//                            queryManager.getCharacterAvatar(
+//                                it1
+//                            )
+//                        } }
+//                    )
+//                    message.obj = AppState.Character_Avatar_Loaded
+//                    handler.sendMessageAtFrontOfQueue(message)
+//                }
             } catch (e: ConnectionException) {
+                val message = handler.obtainMessage()
                 message.obj = AppState.Load_Failed
             }
-            handler.sendMessageAtFrontOfQueue(message)
         }
     }
 
@@ -297,7 +330,15 @@ class MainActivity : AppCompatActivity() {
                             Log.i(TAG, page.toString())
                             loadCharacterPage(page)
                             characterPagesLoaded++
-                        } catch (ignored: Exception) {}
+
+                            for (bitmap in page.results!!)
+                                currentBitmapSearch.add(bitmap?.id!!)
+
+                            queryFromApi2()
+
+                        } catch (e: Exception) {
+                            //todo: Feedback to the user
+                        }
 //                        currentBitmapSearch.add(page?.results?.get(0)?.id!!)
 //
 //                        //Load an image
@@ -309,6 +350,7 @@ class MainActivity : AppCompatActivity() {
 //                        //Load an image
 //                        if (!queriesManagerThread5.isAlive)
 //                            queriesManagerThread5.start()
+
                     }
                     message.obj.equals(AppState.Location_Page_Loaded) -> {
                     }
@@ -326,6 +368,8 @@ class MainActivity : AppCompatActivity() {
                     message.obj.equals(AppState.Episode_Detail_Loaded) -> {
                     }
                     message.obj.equals(AppState.Character_Avatar_Loaded) -> {
+                        currentBitmapData.poll()?.let { loadCharacterImage(it) }
+
 //                        if (deleteMe == 0) {
 //                            val tv: TextView = findViewById(R.id.textView)
 //                            val iv: ImageView = findViewById(R.id.imageView)
@@ -423,6 +467,12 @@ class MainActivity : AppCompatActivity() {
         } else if (!queriesManagerThread5.isAlive) {
             queriesManagerThread5 = Thread(AsyncBitmapQueryManager())
             queriesManagerThread5.start()
+        } else if (!queriesManagerThread6.isAlive) {
+            queriesManagerThread6 = Thread(AsyncBitmapQueryManager())
+            queriesManagerThread6.start()
+        } else if (!queriesManagerThread7.isAlive) {
+            queriesManagerThread7 = Thread(AsyncBitmapQueryManager())
+            queriesManagerThread7.start()
         }
     }
 
@@ -434,17 +484,18 @@ class MainActivity : AppCompatActivity() {
 
         for (characterDetail in page.results!!) {
             val cardCharacter = characterDetail?.let { CardItemCharacters(it) }
-//            val cardCharacter = characterDetail?.let {
-//                CardItemCharacters(
-//                    it,
-//                    characterDetail.id?.let { it1 -> queryManager.getCharacterAvatar(it1).bitmap }!!
-//                )
-//            }
-//            cardCharacter?.image = queryManager.getCharacterAvatar(characterDetail?.id!!).bitmap
             cardListCharacters.add(cardCharacter!!)
-            adapterCharacters.notifyItemRangeInserted(size, 20)
         }
 
+        adapterCharacters.notifyItemRangeInserted(size, 20)
+    }
+
+    /**
+     * Load images for characters cards
+     */
+    fun loadCharacterImage(bitmapMessage: BitmapMessage) {
+        cardListCharacters[bitmapMessage.id-1].image = bitmapMessage.bitmap!!
+        adapterCharacters.notifyItemChanged(bitmapMessage.id-1)
     }
 
     /**

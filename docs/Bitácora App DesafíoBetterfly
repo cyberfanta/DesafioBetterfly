@@ -52,3 +52,7 @@ Junio 2,2021
 1am Ya se despliegan los elementos en el RecyclerView, todavía hay un detalle con las imágenes. Empiezo a diagramar una vista a detalle super simple para cumplir con la meta.
 4am Ya la vista a detalle está completa. Sin embargo, aun tengo el problema de la carga de las imágenes. Dejo pendiente para mañana. Al parecer no me va a quedar tiempo para hacer los 3 recyclers view. Ya veremos como se mueve mañana.
 5am Me di un último spring nocturno y resolví el problema de la imagen en la vista de detalle. Ahora si hago un commit, para cerrar la noche.
+
+Junio 3,2021
+10am La meta del día de hoy es resolver el problema con las imágenes y si termino antes de las 12, estimo al menos una hora para activar los RecyclersView para los capítulos y para las locaciones. Así que estoy con tiempo corto, pero puedo lograrlo.
+12:50pm Logré resolver el tema de las imágenes en los recyclersView. El problema era el nombre del widget del cardItem, le había puesto avatar cuando en toda la implementación la llamé image. Esto me ralentizó el desarrollo por varias horas.

@@ -16,7 +16,7 @@
         android:layout_gravity="center">
 
         <ImageView
-            android:id="@+id/avatar"
+            android:id="@+id/image"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
@@ -32,9 +32,9 @@
             style="@style/characterCardView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/avatar"
-            app:layout_constraintEnd_toEndOf="@+id/avatar"
-            app:layout_constraintStart_toStartOf="@id/avatar"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="@+id/image"
+            app:layout_constraintStart_toStartOf="@id/image"
             app:layout_constraintTop_toTopOf="@id/name"
             app:layout_constraintVertical_bias="1" />
 
@@ -63,9 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:text="@string/contentDescription"
-            app:layout_constraintBottom_toBottomOf="@+id/avatar"
-            app:layout_constraintEnd_toEndOf="@+id/avatar"
-            app:layout_constraintStart_toStartOf="@+id/avatar" />
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="@+id/image"
+            app:layout_constraintStart_toStartOf="@+id/image" />
 
         <TextView
             android:id="@+id/id"
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:text="@string/contentDescriptionShort"
             app:layout_constraintBottom_toTopOf="@+id/name"
-            app:layout_constraintEnd_toEndOf="@+id/avatar"
+            app:layout_constraintEnd_toEndOf="@+id/image"
             app:layout_constraintStart_toStartOf="@+id/guideline2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
