@@ -29,7 +29,7 @@ data class ResultsItem9(
 data class EpisodeFilter(
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem9?>? = null,
+	val results: List<EpisodeDetail?>? = null,
 
 	@field:SerializedName("info")
 	val info: Info9? = null

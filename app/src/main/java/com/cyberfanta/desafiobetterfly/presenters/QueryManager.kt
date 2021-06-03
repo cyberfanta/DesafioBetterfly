@@ -1,11 +1,13 @@
 package com.cyberfanta.desafiobetterfly.presenters
 
-import android.graphics.Bitmap
 import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.models.character.*
 import com.cyberfanta.desafiobetterfly.models.episode.*
 import com.cyberfanta.desafiobetterfly.models.location.*
 import com.cyberfanta.desafiobetterfly.views.BitmapMessage
+import java.lang.IndexOutOfBoundsException
+import java.util.*
+import kotlin.collections.LinkedHashMap
 
 class QueryManager {
     @Suppress("PrivatePropertyName", "unused")
@@ -19,56 +21,76 @@ class QueryManager {
     private val modelFromConnection = ModelFromConnection()
     private val bitmapManager = BitmapManager()
 
-    private val characterPageList = LinkedHashMap<Int, Character>(0)
+    private val characterPageList : Queue<Int> = LinkedList()
     private val characterFilterPageList = LinkedHashMap<String, CharacterFilter>(0)
     private val characterDetailList = LinkedHashMap<Int, CharacterDetail>(0)
 
-    private val locationPageList = LinkedHashMap<Int, Location>(0)
+    private val locationPageList : Queue<Int> = LinkedList()
     private val locationFilterPageList = LinkedHashMap<String, LocationFilter>(0)
     private val locationDetailList = LinkedHashMap<Int, LocationDetail>(0)
 
-    private val episodePageList = LinkedHashMap<Int, Episode>(0)
+    private val episodePageList : Queue<Int> = LinkedList()
     private val episodeFilterPageList = LinkedHashMap<String, EpisodeFilter>(0)
     private val episodeDetailList = LinkedHashMap<Int, EpisodeDetail>(0)
 
     //-- Character
     @Throws(ConnectionException::class)
-    fun getCharacterPage(page: Int): Character? {
-        if (!characterPageList.containsKey(page)) {
-            characterPageList[page] =
-                modelFromConnection.getObject(Character::class.java, url[0] + "?page=" + page)
-//            loadAllBitmaps(page)
+    fun getCharacterPage(page: Int): Character {
+        val characterPage : Character
+        if (!characterPageList.contains(page)) {
+            characterPage = modelFromConnection.getObject(Character::class.java, url[0] + "?page=" + page)
+
+            for (characterDetail in characterPage.results!!)
+                if (!characterDetailList.containsKey(characterDetail?.id))
+                    characterDetailList[characterDetail?.id!!] = characterDetail
+
+            characterPageList.add(page)
+        } else {
+            val list = mutableListOf<CharacterDetail>()
+            try {
+                for (i in (0*page)..(19*page))
+                    list.add(characterDetailList[i]!!)
+            } catch (ignored : IndexOutOfBoundsException) {}
+            characterPage = Character(list, null)
         }
 
-        return characterPageList[page]
-    }
-
-    private fun loadAllBitmaps(page: Int) {
-        for (characterItem in characterPageList[page]?.results!!)
-            characterItem?.image?.let { bitmapManager.getBitmap(it) }
+        return characterPage
     }
 
     @Synchronized
-    fun getCharacterAvatar(id: Int): BitmapMessage? {
-        for (characterPage in characterPageList) {
-            for (results in characterPage.value.results!!)
-                if (results?.id == id)
-                    results.image?.let { return BitmapMessage(id, bitmapManager.getBitmap(it)) }
-        }
-        return null
+    fun getCharacterAvatar(id: Int): BitmapMessage {
+        if (!characterDetailList.containsKey(id))
+            getCharacterDetail(id)
+
+        return BitmapMessage(id, characterDetailList[id]?.image?.let { bitmapManager.getBitmap(it) })
     }
 
     @Throws(ConnectionException::class)
-    fun getCharacterFilterPage(filters: Map<String, String>, page: Int): CharacterFilter? {
+    fun getCharacterFilterPage(filters: Map<String, String>, page: Int): CharacterFilter {
         var filterList = "?"
         for (filter in filters)
             filterList += filter.key + "=" + filter.value + "&"
         val filter = "$filterList?page=$page"
+        val characterPage : CharacterFilter
 
-        if (!characterFilterPageList.containsKey(filter))
-            characterFilterPageList[filter] = modelFromConnection.getObject(CharacterFilter::class.java, url[0] + filter)
+        if (!characterFilterPageList.containsKey(filter)) {
+            characterPage = modelFromConnection.getObject(CharacterFilter::class.java, url[0] + filter)
 
-        return characterFilterPageList[filter]
+            for (characterDetail in characterPage.results!!)
+                if (!characterDetailList.containsKey(characterDetail?.id))
+                    characterDetailList[characterDetail?.id!!] = characterDetail
+
+            characterFilterPageList[filter] = characterPage
+        } else {
+            val list = mutableListOf<CharacterDetail>()
+            try {
+                for (i in (0*page)..(19*page))
+                    list.add(characterDetailList[i]!!)
+            } catch (ignored : IndexOutOfBoundsException) {}
+            characterPage = CharacterFilter(list, null)
+        }
+
+        return characterPage
     }
 
     @Throws(ConnectionException::class)
@@ -81,24 +103,54 @@ class QueryManager {
 
     //-- Location
     @Throws(ConnectionException::class)
-    fun getLocationPage(page: Int): Location? {
-        if (!locationPageList.containsKey(page))
-            locationPageList[page] = modelFromConnection.getObject(Location::class.java, url[1] + "?page=" + page)
+    fun getLocationPage(page: Int): Location {
+        val locationPage : Location
+        if (!locationPageList.contains(page)) {
+            locationPage = modelFromConnection.getObject(Location::class.java, url[1] + "?page=" + page)
 
-        return locationPageList[page]
+            for (locationDetail in locationPage.results!!)
+                if (!locationDetailList.containsKey(locationDetail?.id))
+                    locationDetailList[locationDetail?.id!!] = locationDetail
+
+            locationPageList.add(page)
+        } else {
+            val list = mutableListOf<LocationDetail>()
+            try {
+                for (i in (0*page)..(19*page))
+                    list.add(locationDetailList[i]!!)
+            } catch (ignored : IndexOutOfBoundsException) {}
+            locationPage = Location(list, null)
+        }
+
+        return locationPage
     }
 
     @Throws(ConnectionException::class)
-    fun getLocationFilterPage(filters: Map<String, String>, page: Int): LocationFilter? {
+    fun getLocationFilterPage(filters: Map<String, String>, page: Int): LocationFilter {
         var filterList = "?"
         for (filter in filters)
             filterList += filter.key + "=" + filter.value + "&"
         val filter = "$filterList?page=$page"
+        val locationPage : LocationFilter
 
-        if (!locationFilterPageList.containsKey(filter))
-            locationFilterPageList[filter] = modelFromConnection.getObject(LocationFilter::class.java, url[1] + filter)
+        if (!locationFilterPageList.containsKey(filter)) {
+            locationPage = modelFromConnection.getObject(LocationFilter::class.java, url[1] + filter)
 
-        return locationFilterPageList[filter]
+            for (locationDetail in locationPage.results!!)
+                if (!locationDetailList.containsKey(locationDetail?.id))
+                    locationDetailList[locationDetail?.id!!] = locationDetail
+
+            locationFilterPageList[filter] = locationPage
+        } else {
+            val list = mutableListOf<LocationDetail>()
+            try {
+                for (i in (0*page)..(19*page))
+                    list.add(locationDetailList[i]!!)
+            } catch (ignored : IndexOutOfBoundsException) {}
+            locationPage = LocationFilter(list, null)
+        }
+
+        return locationPage
     }
 
     @Throws(ConnectionException::class)
@@ -111,24 +163,54 @@ class QueryManager {
 
     //-- Episode
     @Throws(ConnectionException::class)
-    fun getEpisodePage(page: Int): Episode? {
-        if (!episodePageList.containsKey(page))
-            episodePageList[page] = modelFromConnection.getObject(Episode::class.java, url[2] + "?page=" + page)
+    fun getEpisodePage(page: Int): Episode {
+        val episodePage : Episode
+        if (!episodePageList.contains(page)) {
+            episodePage = modelFromConnection.getObject(Episode::class.java, url[2] + "?page=" + page)
 
-        return episodePageList[page]
+            for (episodeDetail in episodePage.results!!)
+                if (!episodeDetailList.containsKey(episodeDetail?.id))
+                    episodeDetailList[episodeDetail?.id!!] = episodeDetail
+
+            episodePageList.add(page)
+        } else {
+            val list = mutableListOf<EpisodeDetail>()
+            try {
+                for (i in (0*page)..(19*page))
+                    list.add(episodeDetailList[i]!!)
+            } catch (ignored : IndexOutOfBoundsException) {}
+            episodePage = Episode(list, null)
+        }
+
+        return episodePage
     }
 
     @Throws(ConnectionException::class)
-    fun getEpisodeFilterPage(filters: Map<String, String>, page: Int): EpisodeFilter? {
+    fun getEpisodeFilterPage(filters: Map<String, String>, page: Int): EpisodeFilter {
         var filterList = "?"
         for (filter in filters)
             filterList += filter.key + "=" + filter.value + "&"
         val filter = "$filterList?page=$page"
+        val episodePage : EpisodeFilter
 
-        if (!episodeFilterPageList.containsKey(filter))
-            episodeFilterPageList[filter] = modelFromConnection.getObject(EpisodeFilter::class.java, url[2] + filter)
+        if (!episodeFilterPageList.containsKey(filter)) {
+            episodePage = modelFromConnection.getObject(EpisodeFilter::class.java, url[2] + filter)
 
-        return episodeFilterPageList[filter]
+            for (episodeDetail in episodePage.results!!)
+                if (!episodeDetailList.containsKey(episodeDetail?.id))
+                    episodeDetailList[episodeDetail?.id!!] = episodeDetail
+
+            episodeFilterPageList[filter] = episodePage
+        } else {
+            val list = mutableListOf<EpisodeDetail>()
+            try {
+                for (i in (0*page)..(19*page))
+                    list.add(episodeDetailList[i]!!)
+            } catch (ignored : IndexOutOfBoundsException) {}
+            episodePage = EpisodeFilter(list, null)
+        }
+
+        return episodePage
     }
 
     @Throws(ConnectionException::class)

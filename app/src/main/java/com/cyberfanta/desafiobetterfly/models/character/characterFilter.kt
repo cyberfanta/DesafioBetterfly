@@ -14,7 +14,7 @@ data class Origin3(
 data class CharacterFilter(
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem3?>? = null,
+	val results: List<CharacterDetail?>? = null,
 
 	@field:SerializedName("info")
 	val info: Info3? = null

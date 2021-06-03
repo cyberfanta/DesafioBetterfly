@@ -15,7 +15,6 @@ import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cyberfanta.desafiobetterfly.R
 import com.cyberfanta.desafiobetterfly.enumerator.AppState
 import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
+import com.cyberfanta.desafiobetterfly.models.character.Character
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 import com.cyberfanta.desafiobetterfly.views.cards.CardAdapterCharacters
 import com.cyberfanta.desafiobetterfly.views.cards.CardItemCharacters
@@ -291,17 +291,19 @@ class MainActivity : AppCompatActivity() {
                     message.obj.equals(AppState.Character_Page_Loaded) -> {
                         val page = queryManager.getCharacterPage(characterPagesLoaded)
                         Log.i(TAG, page.toString())
-                        currentBitmapSearch.add(page?.results?.get(0)?.id!!)
-
-                        //Load an image
-                        if (!queriesManagerThread4.isAlive)
-                            queriesManagerThread4.start()
-
-                        currentBitmapSearch.add(page.results.get(1)?.id!!)
-
-                        //Load an image
-                        if (!queriesManagerThread5.isAlive)
-                            queriesManagerThread5.start()
+                        loadCharacterPage(page)
+                        characterPagesLoaded++
+//                        currentBitmapSearch.add(page?.results?.get(0)?.id!!)
+//
+//                        //Load an image
+//                        if (!queriesManagerThread4.isAlive)
+//                            queriesManagerThread4.start()
+//
+//                        currentBitmapSearch.add(page.results.get(1)?.id!!)
+//
+//                        //Load an image
+//                        if (!queriesManagerThread5.isAlive)
+//                            queriesManagerThread5.start()
                     }
                     message.obj.equals(AppState.Location_Page_Loaded) -> {
                     }
@@ -344,9 +346,63 @@ class MainActivity : AppCompatActivity() {
         adapterCharacters = CardAdapterCharacters(cardListCharacters)
         recycler.layoutManager = layoutManagerCharactersRV
         recycler.adapter = adapterCharacters
+
+        adapterCharacters.setOnItemClickListener(object:
+            CardAdapterCharacters.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+//                val imageView = findViewById<ImageView>(R.id.loading)
+//                imageView.visibility = View.VISIBLE
+
+                currentIdSearch = cardListCharacters[position].id?.toInt()!!
+                currentTypeSearch = 2
+//                queryFromApi2()
+            }
+        })
+
+        adapterCharacters.setOnBottomReachedListener(object:
+            CardAdapterCharacters.OnBottomReachedListener {
+            override fun onBottomReached(position: Int) {
+//                val imageView = findViewById<ImageView>(R.id.loading)
+//                imageView.visibility = View.VISIBLE
+
+                currentTypeSearch = 0
+//                queryFromApi()
+            }
+        })
+
+        recycler.addOnScrollListener(object:
+            RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    currentTypeSearch = 0
+//                    queryFromApi()
+                }
+            }
+        })
+
     }
 
-        // Author Menu
+    /**
+     * Recycler view filler
+     */
+    fun loadCharacterPage(page: Character) {
+        val size: Int = cardListCharacters.size
+
+        for (i in 0..19) {
+            val detail = page.results?.get(i)
+            val cardCharacter = detail?.let { CardItemCharacters(it) }
+//            cardCharacter.image = queryManager.getCharacterAvatar(detail.id)
+            cardListCharacters.add(cardCharacter!!)
+        }
+
+        adapterCharacters.notifyItemRangeInserted(size, 20)
+    }
+
+
+
+
+    // Author Menu
     /**
      * Show the developer info
      */

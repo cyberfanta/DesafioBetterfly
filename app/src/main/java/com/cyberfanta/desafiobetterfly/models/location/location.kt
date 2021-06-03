@@ -44,7 +44,7 @@ data class Info5(
 data class Location(
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem5?>? = null,
+	val results: List<LocationDetail?>? = null,
 
 	@field:SerializedName("info")
 	val info: Info5? = null

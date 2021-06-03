@@ -41,7 +41,7 @@ class QueryManagerTest : TestCase() {
     fun testGetCharacterPage() {
         try {
             Assert.assertSame(
-                queryManager.getCharacterPage(url[0].toInt())!!::class.java,
+                queryManager.getCharacterPage(url[0].toInt())::class.java,
                 Character::class.java
             )
         } catch (e: ConnectionException) {
@@ -53,7 +53,7 @@ class QueryManagerTest : TestCase() {
     fun testGetCharacterFilterPage() {
         try {
             Assert.assertSame(
-                queryManager.getCharacterFilterPage(mapOf(url[1] to url[2]), url[3].toInt())!!::class.java,
+                queryManager.getCharacterFilterPage(mapOf(url[1] to url[2]), url[3].toInt())::class.java,
                 CharacterFilter::class.java
             )
         } catch (e: ConnectionException) {
@@ -78,7 +78,7 @@ class QueryManagerTest : TestCase() {
     fun testGetLocationPage() {
         try {
             Assert.assertSame(
-                queryManager.getLocationPage(url[0].toInt())!!::class.java,
+                queryManager.getLocationPage(url[0].toInt())::class.java,
                 Location::class.java
             )
         } catch (e: ConnectionException) {
@@ -90,7 +90,7 @@ class QueryManagerTest : TestCase() {
     fun testGetLocationFilterPage() {
         try {
             Assert.assertSame(
-                queryManager.getLocationFilterPage(mapOf(url[1] to url[2]), url[3].toInt())!!::class.java,
+                queryManager.getLocationFilterPage(mapOf(url[1] to url[2]), url[3].toInt())::class.java,
                 LocationFilter::class.java
             )
         } catch (e: ConnectionException) {
@@ -115,7 +115,7 @@ class QueryManagerTest : TestCase() {
     fun testGetEpisodePage() {
         try {
             Assert.assertSame(
-                queryManager.getEpisodePage(url[0].toInt())!!::class.java,
+                queryManager.getEpisodePage(url[0].toInt())::class.java,
                 Episode::class.java
             )
         } catch (e: ConnectionException) {
@@ -127,7 +127,7 @@ class QueryManagerTest : TestCase() {
     fun testGetEpisodeFilterPage() {
         try {
             Assert.assertSame(
-                queryManager.getEpisodeFilterPage(mapOf(url[1] to url[2]), url[3].toInt())!!::class.java,
+                queryManager.getEpisodeFilterPage(mapOf(url[1] to url[2]), url[3].toInt())::class.java,
                 EpisodeFilter::class.java
             )
         } catch (e: ConnectionException) {

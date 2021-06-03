@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class Episode(
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem8?>? = null,
+	val results: List<EpisodeDetail?>? = null,
 
 	@field:SerializedName("info")
 	val info: Info8? = null
