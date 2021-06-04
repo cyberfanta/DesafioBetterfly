@@ -19,11 +19,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DesafioBetterfly">
-        <activity android:name=".views.CharacterActivity"
+        <activity
+            android:name=".views.EpisodeActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-        </activity>
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".views.LocationActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".views.CharacterActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".views.MainActivity"
             android:configChanges="orientation|screenSize"

@@ -43,8 +43,6 @@ class QueryManager {
         if (!characterPageList.contains(page)) {
             characterPage = modelFromConnection.getObject(Character::class.java, url[0] + "?page=" + page)
 
-            Log.i(TAG, characterPage.toString())
-
             for (characterDetail in characterPage.results!!)
                 characterDetailList[characterDetail?.id!!] = characterDetail
 
@@ -53,7 +51,8 @@ class QueryManager {
             val list = mutableListOf<CharacterDetail>()
             try {
                 for (i in (1+((page-1)*20))..(20+((page-1)*20)))
-                    list.add(characterDetailList[i]!!)
+                    if (characterDetailList.containsKey(i))
+                        list.add(characterDetailList[i]!!)
             } catch (ignored : IndexOutOfBoundsException) {}
             characterPage = Character(list, null)
         }
@@ -112,7 +111,6 @@ class QueryManager {
         if (!locationPageList.contains(page)) {
             locationPage = modelFromConnection.getObject(Location::class.java, url[1] + "?page=" + page)
 
-            Log.i(TAG, locationPage.toString())
             for (locationDetail in locationPage.results!!)
                 locationDetailList[locationDetail?.id!!] = locationDetail
 
@@ -121,7 +119,8 @@ class QueryManager {
             val list = mutableListOf<LocationDetail>()
             try {
                 for (i in (1+((page-1)*20))..(20+((page-1)*20)))
-                    list.add(locationDetailList[i]!!)
+                    if (locationDetailList.containsKey(i))
+                        list.add(locationDetailList[i]!!)
             } catch (ignored : IndexOutOfBoundsException) {}
             locationPage = Location(list, null)
         }
@@ -170,7 +169,6 @@ class QueryManager {
         val episodePage : Episode
         if (!episodePageList.contains(page)) {
             episodePage = modelFromConnection.getObject(Episode::class.java, url[2] + "?page=" + page)
-            Log.i(TAG, episodePage.toString())
 
             for (episodeDetail in episodePage.results!!)
                 episodeDetailList[episodeDetail?.id!!] = episodeDetail
@@ -180,7 +178,8 @@ class QueryManager {
             val list = mutableListOf<EpisodeDetail>()
             try {
                 for (i in (1+((page-1)*20))..(20+((page-1)*20)))
-                    list.add(episodeDetailList[i]!!)
+                    if (episodeDetailList.containsKey(i))
+                        list.add(episodeDetailList[i]!!)
             } catch (ignored : IndexOutOfBoundsException) {}
             episodePage = Episode(list, null)
         }

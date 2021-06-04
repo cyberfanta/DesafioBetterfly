@@ -58,3 +58,5 @@ Junio 3,2021
 12:50pm Logré resolver el tema de las imágenes en los recyclersView. El problema era el nombre del widget del cardItem, le había puesto avatar cuando en toda la implementación la llamé image. Esto me ralentizó el desarrollo por varias horas.
 6pm Ya tenemos el mínimo producto viable. Ahora podriamos entregar, pero voy a aprovechar para entregar un poco más, con las ideas que tengo en mente.
 8:40pm Activé los 2 RecyclerViews, para visualizar las locaciones y los episodios. Ahora voy a activar los botones en la interfaz para que muestre los recyclers con una animación.
+10:30pm Las animaciones están listas. Ahora fluye entre los recyclersView para intercambiarlos según lo que escoja el usuario.
+11:10pm Ahora voy a activar la vista a detalle de las locaciones y episodios.

@@ -17,6 +17,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cyberfanta.desafiobetterfly.R
@@ -106,6 +107,13 @@ class MainActivity : AppCompatActivity() {
         //Initial loading for recyclers view
         if (!queriesManagerThread.isAlive)
             queriesManagerThread.start()
+
+        //Moving recycler views to its initial position
+        val locationRW : RecyclerView = findViewById(R.id.locationsRV)
+        val episodeRW : RecyclerView = findViewById(R.id.episodesRV)
+        setAnimation(locationRW, "translationX", 300, false, 0f, -1f * deviceWidth)
+        setAnimation(episodeRW, "translationX", 300, false, 0f, 1f * deviceWidth)
+
     }
 
     /**
@@ -373,10 +381,10 @@ class MainActivity : AppCompatActivity() {
                         loadCharacterDetail()
                     }
                     message.obj.equals(AppState.Location_Detail_Loaded) -> {
-//                        loadLocationDetail()
+                        loadLocationDetail()
                     }
                     message.obj.equals(AppState.Episode_Detail_Loaded) -> {
-//                        loadEpisodeDetail()
+                        loadEpisodeDetail()
                     }
                     message.obj.equals(AppState.Character_Avatar_Loaded) -> {
                         currentBitmapData.poll()?.let { loadCharacterImage(it) }
@@ -650,7 +658,27 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * Recycler view filler for location details
+     */
+    fun loadLocationDetail() {
+        val intent = Intent(this, CharacterActivity::class.java)
+        intent.putExtra("deviceWidth", deviceWidth.toString())
+        intent.putExtra("deviceHeight", deviceHeight.toString())
+        intent.putExtra("currentIdSearch", currentIdSearch.toString())
+        startActivity(intent)
+    }
 
+    /**
+     * Recycler view filler for episode details
+     */
+    fun loadEpisodeDetail() {
+        val intent = Intent(this, CharacterActivity::class.java)
+        intent.putExtra("deviceWidth", deviceWidth.toString())
+        intent.putExtra("deviceHeight", deviceHeight.toString())
+        intent.putExtra("currentIdSearch", currentIdSearch.toString())
+        startActivity(intent)
+    }
 
     // Author Menu
     /**
@@ -713,9 +741,24 @@ class MainActivity : AppCompatActivity() {
         val characterIVBN : ImageView = findViewById(R.id.characterButtonBN)
         val locationIVBN : ImageView = findViewById(R.id.locationButtonBN)
         val episodeIVBN : ImageView = findViewById(R.id.episodeButtonBN)
+        val characterRW : RecyclerView = findViewById(R.id.charactersRV)
+        val locationRW : RecyclerView = findViewById(R.id.locationsRV)
+        val episodeRW : RecyclerView = findViewById(R.id.episodesRV)
 
         when(view.id) {
             R.id.characterButton -> {
+                //Recycler View Update
+                if (locationIVColor.isVisible) {
+                    setAnimation(locationRW, "translationX", 300, false, 0f, -1f * deviceWidth)
+                    setAnimation(characterRW, "translationX", 300, false, 1f * deviceWidth, 0f)
+                    setAnimation(episodeRW, "translationX", 300, false, 2f * deviceWidth, 1f * deviceWidth)
+                } else {
+                    setAnimation(episodeRW, "translationX", 300, false, 0f, 1f * deviceWidth)
+                    setAnimation(characterRW, "translationX", 300, false, -1f * deviceWidth, 0f)
+                    setAnimation(locationRW, "translationX", 300, false, -2f * deviceWidth, -1f * deviceWidth)
+                }
+
+                //Buttom Color Update
                 locationIVColor.visibility = View.INVISIBLE
                 episodeIVColor.visibility = View.INVISIBLE
                 locationIVBN.visibility = View.VISIBLE
@@ -725,6 +768,18 @@ class MainActivity : AppCompatActivity() {
                 characterIVBN.visibility = View.INVISIBLE
             }
             R.id.locationButton -> {
+                //Recycler View Update
+                if (characterIVColor.isVisible) {
+                    setAnimation(characterRW, "translationX", 300, false, 0f, 1f * deviceWidth)
+                    setAnimation(locationRW, "translationX", 300, false, -1f * deviceWidth, 0f)
+                    setAnimation(episodeRW, "translationX", 300, false, 1f * deviceWidth, 2f * deviceWidth)
+                } else {
+                    setAnimation(episodeRW, "translationX", 600, false, 0f, 2f * deviceWidth)
+                    setAnimation(locationRW, "translationX", 600, false, -2f * deviceWidth, 0f)
+                    setAnimation(characterRW, "translationX", 600, false, -1f * deviceWidth, 1f * deviceWidth)
+                }
+
+                //Buttom Color
                 characterIVColor.visibility = View.INVISIBLE
                 episodeIVColor.visibility = View.INVISIBLE
                 characterIVBN.visibility = View.VISIBLE
@@ -734,6 +789,18 @@ class MainActivity : AppCompatActivity() {
                 locationIVBN.visibility = View.INVISIBLE
             }
             R.id.episodeButton -> {
+                //Recycler View Update
+                if (characterIVColor.isVisible) {
+                    setAnimation(characterRW, "translationX", 300, false, 0f, -1f * deviceWidth)
+                    setAnimation(episodeRW, "translationX", 300, false, 1f * deviceWidth, 0f)
+                    setAnimation(locationRW, "translationX", 300, false, -1f * deviceWidth, -2f * deviceWidth)
+                } else {
+                    setAnimation(locationRW, "translationX", 600, false, 0f, -2f * deviceWidth)
+                    setAnimation(episodeRW, "translationX", 600, false, 2f * deviceWidth, 0f)
+                    setAnimation(characterRW, "translationX", 600, false, 1f * deviceWidth, -1f * deviceWidth)
+                }
+
+                //Buttom Color Update
                 characterIVColor.visibility = View.INVISIBLE
                 locationIVColor.visibility = View.INVISIBLE
                 characterIVBN.visibility = View.VISIBLE

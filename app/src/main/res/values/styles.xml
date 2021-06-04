@@ -29,6 +29,7 @@
     <style name="characterCardViewNumber" parent="characterCardView">
         <item name="android:background">@drawable/card_view_number_background</item>
     </style>
+
     <style name="characterDetailLabel">
         <item name="android:background">@drawable/detail_label_background</item>
         <item name="android:paddingTop">3dp</item>
@@ -80,13 +81,14 @@
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+
     <!-- Location Styles-->
     <style name="locationLabel">
         <item name="android:background">@drawable/location_label_background</item>
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingBottom">3dp</item>
-        <item name="android:paddingStart">12dp</item>
-        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingStart">3dp</item>
+        <item name="android:paddingEnd">3dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -98,13 +100,14 @@
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+
     <!-- Episode Styles-->
     <style name="episodeLabel">
         <item name="android:background">@drawable/episode_label_background</item>
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingBottom">3dp</item>
-        <item name="android:paddingStart">12dp</item>
-        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingStart">3dp</item>
+        <item name="android:paddingEnd">3dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -117,15 +120,10 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-
     <!-- Toolbar -->
     <style name="ToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <!-- Makes the toolbar text whatever color you want for both light/dark-->
         <item name="titleTextColor">@color/soft_black_37</item>
-<!--        <item name="android:shadowColor">@color/cream_dark_2</item>-->
-<!--        <item name="android:shadowDx">0</item>-->
-<!--        <item name="android:shadowDy">0</item>-->
-<!--        <item name="android:shadowRadius">3</item>-->
         <item name="android:background">?attr/colorPrimary</item>
     </style>
     <style name="ToolbarStyle.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
@@ -136,6 +134,7 @@
         <!-- For the hamburger menu, back button, etc -->
         <item name="tint">@color/black</item>
     </style>
+
     <!--Menu-->
     <style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@color/soft_black_37</item>

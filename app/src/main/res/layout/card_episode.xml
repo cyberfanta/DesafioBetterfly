@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
@@ -10,25 +10,50 @@
     app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center">
+
+        <View
+            android:id="@+id/view"
+            style="@style/locationLabel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/episodeId"
+            app:layout_constraintEnd_toEndOf="@+id/episodeId"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/episodeId" />
+
+        <ImageView
+            android:id="@+id/episodeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/contentDescription"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/view"
+            app:srcCompat="@drawable/ic_episode_color" />
 
         <TextView
             android:id="@+id/episodeId"
-            style="@style/locationLabel"
-            android:layout_width="55dp"
+            style="@style/episodeLabel"
+            android:layout_width="35dp"
             android:layout_height="0dp"
+            android:background="@color/transparent"
             android:text="@string/contentDescriptionShort"
             app:layout_constraintBottom_toBottomOf="@id/episodeName"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/episodeImage"
             app:layout_constraintTop_toTopOf="@id/episodeName" />
 
         <TextView
             android:id="@+id/episodeName"
-            style="@style/locationData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/episodeData"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
             android:text="@string/contentDescription"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
