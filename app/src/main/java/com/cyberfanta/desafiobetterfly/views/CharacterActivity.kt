@@ -182,7 +182,7 @@ class CharacterActivity : AppCompatActivity() {
         textView = findViewById(R.id.characterEpisodeLabel)
         textView.text = getString(R.string.episodesLabel)
 
-        val imageView: ImageView = findViewById(R.id.locationImageView)
+        val imageView: ImageView = findViewById(R.id.characterImageView)
         try {
             imageView.setImageBitmap(query.id?.let { queryManager.getCharacterAvatar(it).bitmap })
         } catch (e: Exception) {
