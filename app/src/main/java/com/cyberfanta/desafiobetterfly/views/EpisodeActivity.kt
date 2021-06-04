@@ -10,9 +10,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cyberfanta.desafiobetterfly.R
-import com.cyberfanta.desafiobetterfly.models.character.CharacterDetail
 import com.cyberfanta.desafiobetterfly.models.episode.EpisodeDetail
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 
@@ -131,5 +131,33 @@ class EpisodeActivity : AppCompatActivity() {
         } catch (e: Exception) {
             return
         }
+
+        var textView: TextView = findViewById(R.id.episodeIdData)
+        textView.text = query.id.toString()
+        textView = findViewById(R.id.episodeIdLabel)
+        textView.text = getString(R.string.idLabel)
+
+        textView = findViewById(R.id.episodeNameData)
+        textView.text = query.name
+        textView = findViewById(R.id.episodeNameLabel)
+        textView.text = getString(R.string.nameLabel)
+
+        textView = findViewById(R.id.episodeAirDateData)
+        textView.text = query.airDate
+        textView = findViewById(R.id.episodeAirDateLabel)
+        textView.text = getString(R.string.airDateLabel)
+
+        textView = findViewById(R.id.episodeEpisodeData)
+        textView.text = query.episode
+        textView = findViewById(R.id.episodeEpisodeLabel)
+        textView.text = getString(R.string.episodeLabel)
+
+        textView = findViewById(R.id.episodeCharactersData)
+        var text = ""
+        for (data in query.characters!!)
+            text += data?.split("https://rickandmortyapi.com/api/character/")?.get(1) + ", "
+        textView.text = text.substring(0, text.length-2)
+        textView = findViewById(R.id.episodeCharactersLabel)
+        textView.text = getString(R.string.charactersLabel)
     }
 }

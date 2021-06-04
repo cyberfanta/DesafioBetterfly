@@ -60,3 +60,4 @@ Junio 3,2021
 8:40pm Activé los 2 RecyclerViews, para visualizar las locaciones y los episodios. Ahora voy a activar los botones en la interfaz para que muestre los recyclers con una animación.
 10:30pm Las animaciones están listas. Ahora fluye entre los recyclersView para intercambiarlos según lo que escoja el usuario.
 11:10pm Ahora voy a activar la vista a detalle de las locaciones y episodios.
+12:30am Finalizado el producto en su versión 1.1. Está bastante mejorado, sin embargo quedan pendiente: En todas las vistas de detalle, se debe implementar un thread que haga un query para cambiar los número de personaje o de episodio a los nombres de los personaje o episodios, ya que por razones de tiempo lo voy a dejar así pero es más facil para el usuario entender el nombre de un personaje que su número asignado por la plataforma.

@@ -22,6 +22,14 @@
     <string name="genderLabel">GENDER:</string>
     <string name="originLabel">ORIGIN:</string>
     <string name="locationLabel">LOCATION:</string>
-    <string name="episodeLabel">EPISODES:</string>
+    <string name="episodesLabel">EPISODES:</string>
 
+    <!--    Location Detail-->
+    <string name="dimensionLabel">DIMENSION:</string>
+    <string name="residentsLabel">RESIDENTS:</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">AIR DATE:</string>
+    <string name="episodeLabel">EPISODE:</string>
+    <string name="charactersLabel">CHARACTERS:</string>
 </resources>

@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cyberfanta.desafiobetterfly.R
 import com.cyberfanta.desafiobetterfly.models.character.CharacterDetail
@@ -131,5 +132,33 @@ class LocationActivity : AppCompatActivity() {
         } catch (e: Exception) {
             return
         }
+
+        var textView: TextView = findViewById(R.id.locationIdData)
+        textView.text = query.id.toString()
+        textView = findViewById(R.id.locationIdLabel)
+        textView.text = getString(R.string.idLabel)
+
+        textView = findViewById(R.id.locationNameData)
+        textView.text = query.name
+        textView = findViewById(R.id.locationNameLabel)
+        textView.text = getString(R.string.nameLabel)
+
+        textView = findViewById(R.id.locationTypeData)
+        textView.text = query.type
+        textView = findViewById(R.id.locationTypeLabel)
+        textView.text = getString(R.string.typeLabel)
+
+        textView = findViewById(R.id.locationDimensionData)
+        textView.text = query.dimension
+        textView = findViewById(R.id.locationDimensionLabel)
+        textView.text = getString(R.string.dimensionLabel)
+
+        textView = findViewById(R.id.locationCharactersData)
+        var text = ""
+        for (data in query.residents!!)
+            text += data?.split("https://rickandmortyapi.com/api/character/")?.get(1) + ", "
+        textView.text = text.substring(0, text.length-2)
+        textView = findViewById(R.id.locationCharactersLabel)
+        textView.text = getString(R.string.residentsLabel)
     }
 }

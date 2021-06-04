@@ -662,7 +662,7 @@ class MainActivity : AppCompatActivity() {
      * Recycler view filler for location details
      */
     fun loadLocationDetail() {
-        val intent = Intent(this, CharacterActivity::class.java)
+        val intent = Intent(this, LocationActivity::class.java)
         intent.putExtra("deviceWidth", deviceWidth.toString())
         intent.putExtra("deviceHeight", deviceHeight.toString())
         intent.putExtra("currentIdSearch", currentIdSearch.toString())
@@ -673,7 +673,7 @@ class MainActivity : AppCompatActivity() {
      * Recycler view filler for episode details
      */
     fun loadEpisodeDetail() {
-        val intent = Intent(this, CharacterActivity::class.java)
+        val intent = Intent(this, EpisodeActivity::class.java)
         intent.putExtra("deviceWidth", deviceWidth.toString())
         intent.putExtra("deviceHeight", deviceHeight.toString())
         intent.putExtra("currentIdSearch", currentIdSearch.toString())
