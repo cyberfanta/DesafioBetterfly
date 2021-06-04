@@ -7,12 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cyberfanta.desafiobetterfly.R
-import com.cyberfanta.desafiobetterfly.models.character.CharacterDetail
-import com.cyberfanta.desafiobetterfly.models.character.Location2
-import com.cyberfanta.desafiobetterfly.models.character.Origin2
-import java.util.ArrayList
 import com.cyberfanta.desafiobetterfly.views.cards.CardAdapterCharacters.CardViewHolder
-import com.google.gson.annotations.SerializedName
+import java.util.*
 
 class CardAdapterCharacters (private val cardItemCharacters: ArrayList<CardItemCharacters>) : RecyclerView.Adapter<CardViewHolder>() {
     //Internal Variables
@@ -39,9 +35,9 @@ class CardAdapterCharacters (private val cardItemCharacters: ArrayList<CardItemC
 
     //Internal class to describe the object items to be put into a card item
     class CardViewHolder(itemView: View, itemClickListener: OnItemClickListener?) : RecyclerView.ViewHolder(itemView) {
-        var image: ImageView? = itemView.findViewById(R.id.image)
-        var name: TextView = itemView.findViewById(R.id.name)
-        var id: TextView = itemView.findViewById(R.id.id)
+        var image: ImageView? = itemView.findViewById(R.id.characterImage)
+        var name: TextView = itemView.findViewById(R.id.characterName)
+        var id: TextView = itemView.findViewById(R.id.characterId)
 
         init {
             itemView.setOnClickListener {

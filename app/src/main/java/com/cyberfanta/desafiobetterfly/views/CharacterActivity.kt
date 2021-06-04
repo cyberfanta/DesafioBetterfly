@@ -134,47 +134,47 @@ class CharacterActivity : AppCompatActivity() {
         }
         Log.i(TAG, query.toString())
 
-        var textView: TextView = findViewById(R.id.characterId)
+        var textView: TextView = findViewById(R.id.characterIdData)
         textView.text = query.id.toString()
         textView = findViewById(R.id.characterIdLabel)
         textView.text = getString(R.string.idLabel)
 
-        textView = findViewById(R.id.characterName)
+        textView = findViewById(R.id.characterNameData)
         textView.text = query.name
         textView = findViewById(R.id.characterNameLabel)
         textView.text = getString(R.string.nameLabel)
 
-        textView = findViewById(R.id.characterStatus)
+        textView = findViewById(R.id.characterStatusData)
         textView.text = query.status
         textView = findViewById(R.id.characterStatusLabel)
         textView.text = getString(R.string.statusLabel)
 
-        textView = findViewById(R.id.characterSpecies)
+        textView = findViewById(R.id.characterSpeciesData)
         textView.text = query.species
         textView = findViewById(R.id.characterSpeciesLabel)
         textView.text = getString(R.string.specieLabel)
 
-        textView = findViewById(R.id.characterType)
+        textView = findViewById(R.id.characterTypeData)
         textView.text = query.type
         textView = findViewById(R.id.characterTypeLabel)
         textView.text = getString(R.string.typeLabel)
 
-        textView = findViewById(R.id.characterGender)
+        textView = findViewById(R.id.characterGenderData)
         textView.text = query.gender
         textView = findViewById(R.id.characterGenderLabel)
         textView.text = getString(R.string.genderLabel)
 
-        textView = findViewById(R.id.characterOrigin)
+        textView = findViewById(R.id.characterOriginData)
         textView.text = query.origin2?.name
         textView = findViewById(R.id.characterOriginLabel)
         textView.text = getString(R.string.originLabel)
 
-        textView = findViewById(R.id.characterLocation)
+        textView = findViewById(R.id.characterLocationData)
         textView.text = query.location2?.name
         textView = findViewById(R.id.characterLocationLabel)
         textView.text = getString(R.string.locationLabel)
 
-        textView = findViewById(R.id.characterEpisode)
+        textView = findViewById(R.id.characterEpisodeData)
         var text = ""
         for (episode in query.episode!!)
             text += episode?.split("https://rickandmortyapi.com/api/episode/")?.get(1) + ", "

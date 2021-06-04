@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
@@ -24,9 +23,10 @@ import com.cyberfanta.desafiobetterfly.R
 import com.cyberfanta.desafiobetterfly.enumerator.AppState
 import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.models.character.Character
+import com.cyberfanta.desafiobetterfly.models.episode.Episode
+import com.cyberfanta.desafiobetterfly.models.location.Location
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
-import com.cyberfanta.desafiobetterfly.views.cards.CardAdapterCharacters
-import com.cyberfanta.desafiobetterfly.views.cards.CardItemCharacters
+import com.cyberfanta.desafiobetterfly.views.cards.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import java.util.*
 import kotlin.system.exitProcess
@@ -45,20 +45,25 @@ class MainActivity : AppCompatActivity() {
 
     //Async Task Variables
     private lateinit var queryManager: QueryManager
-    private var queriesManagerThread0 = Thread(InitializingQueryManager())
-    private var queriesManagerThread1 = Thread(AsyncQueryManager())
-    private var queriesManagerThread2 = Thread(AsyncQueryManager())
-    private var queriesManagerThread3 = Thread(AsyncQueryManager())
-    private var queriesManagerThread4 = Thread(AsyncBitmapQueryManager())
-    private var queriesManagerThread5 = Thread(AsyncBitmapQueryManager())
-    private var queriesManagerThread6 = Thread(AsyncBitmapQueryManager())
-    private var queriesManagerThread7 = Thread(AsyncBitmapQueryManager())
+    private var queriesManagerThread = Thread(InitializingQueryManager())
+    private var queryDetailedThread = Thread(AsyncDetailedQueryManager())
+    private var characterPageThread1 = Thread(AsyncCharacterPage())
+    private var characterPageThread2 = Thread(AsyncCharacterPage())
+    private var characterPageThread3 = Thread(AsyncCharacterPage())
+    private var locationPageThread1 = Thread(AsyncLocationPage())
+    private var locationPageThread2 = Thread(AsyncLocationPage())
+    private var locationPageThread3 = Thread(AsyncLocationPage())
+    private var episodePageThread1 = Thread(AsyncEpisodePage())
+    private var episodePageThread2 = Thread(AsyncEpisodePage())
+    private var episodePageThread3 = Thread(AsyncEpisodePage())
+    private var avatarThread1 = Thread(AsyncBitmapQueryManager())
+    private var avatarThread2 = Thread(AsyncBitmapQueryManager())
+    private var avatarThread3 = Thread(AsyncBitmapQueryManager())
+    private var avatarThread4 = Thread(AsyncBitmapQueryManager())
     private var characterPagesLoaded = 1
     private var locationPagesLoaded = 1
     private var episodePagesLoaded = 1
-    //currentTypeSearch:
-    // 1 = character , 2 = location , 3 = episode,
-    // 4 = characterDetail, 5 = locationDetail, 6 = episodeDetail
+    //currentTypeSearch: 4 = characterDetail, 5 = locationDetail, 6 = episodeDetail
     private var currentTypeSearch = 1
     private var currentIdSearch = 0
     private var currentBitmapSearch: Queue<Int?> = LinkedList()
@@ -68,6 +73,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapterCharacters: CardAdapterCharacters
     private var cardListCharacters: ArrayList<CardItemCharacters>
             = ArrayList<CardItemCharacters>(20)
+    private lateinit var adapterLocations: CardAdapterLocations
+    private var cardListLocations: ArrayList<CardItemLocations>
+            = ArrayList<CardItemLocations>(20)
+    private lateinit var adapterEpisodes: CardAdapterEpisodes
+    private var cardListEpisodes: ArrayList<CardItemEpisodes>
+            = ArrayList<CardItemEpisodes>(20)
 
 
     /**
@@ -93,8 +104,8 @@ class MainActivity : AppCompatActivity() {
         initializeAllRecyclersView()
 
         //Initial loading for recyclers view
-        if (!queriesManagerThread0.isAlive)
-            queriesManagerThread0.start()
+        if (!queriesManagerThread.isAlive)
+            queriesManagerThread.start()
     }
 
     /**
@@ -128,26 +139,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Action to make when this app start
-     */
-    override fun onStart() {
-        super.onStart()
-    }
-
-    /**
      * The finishing action of this app
      */
     override fun onDestroy() {
-        if (queriesManagerThread1.isAlive)
-            queriesManagerThread1.interrupt()
-        if (queriesManagerThread2.isAlive)
-            queriesManagerThread2.interrupt()
-        if (queriesManagerThread3.isAlive)
-            queriesManagerThread3.interrupt()
-        if (queriesManagerThread4.isAlive)
-            queriesManagerThread4.interrupt()
-        if (queriesManagerThread5.isAlive)
-            queriesManagerThread5.interrupt()
+        if (characterPageThread1.isAlive)
+            characterPageThread1.interrupt()
+        if (characterPageThread2.isAlive)
+            characterPageThread2.interrupt()
+        if (characterPageThread3.isAlive)
+            characterPageThread3.interrupt()
+        if (avatarThread1.isAlive)
+            avatarThread1.interrupt()
+        if (avatarThread2.isAlive)
+            avatarThread2.interrupt()
 
         super.onDestroy()
 
@@ -223,26 +227,65 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Asynchronous Load data for QueryManager Class
+     * Asynchronous Load Character Page for QueryManager Class
      */
-    private inner class AsyncQueryManager : Runnable {
+    private inner class AsyncCharacterPage : Runnable {
+        override fun run() {
+            val message = handler.obtainMessage()
+
+            try {
+                queryManager.getCharacterPage(characterPagesLoaded)
+                message.obj = AppState.Character_Page_Loaded
+            } catch (e: ConnectionException) {
+                message.obj = AppState.Load_Failed
+            }
+            handler.sendMessageAtFrontOfQueue(message)
+        }
+    }
+
+    /**
+     * Asynchronous Load Location Page for QueryManager Class
+     */
+    private inner class AsyncLocationPage : Runnable {
+        override fun run() {
+            val message = handler.obtainMessage()
+
+            try {
+                queryManager.getLocationPage(locationPagesLoaded)
+                message.obj = AppState.Location_Page_Loaded
+            } catch (e: ConnectionException) {
+                message.obj = AppState.Load_Failed
+            }
+            handler.sendMessageAtFrontOfQueue(message)
+        }
+    }
+
+    /**
+     * Asynchronous Load Episode Page for QueryManager Class
+     */
+    private inner class AsyncEpisodePage : Runnable {
+        override fun run() {
+            val message = handler.obtainMessage()
+
+            try {
+                queryManager.getEpisodePage(episodePagesLoaded)
+                message.obj = AppState.Episode_Page_Loaded
+            } catch (e: ConnectionException) {
+                message.obj = AppState.Load_Failed
+            }
+            handler.sendMessageAtFrontOfQueue(message)
+        }
+    }
+
+    /**
+     * Asynchronous Load Episode Page for QueryManager Class
+     */
+    private inner class AsyncDetailedQueryManager : Runnable {
         override fun run() {
             val message = handler.obtainMessage()
 
             try {
                 when (currentTypeSearch) {
-                    1 -> {
-                        queryManager.getCharacterPage(characterPagesLoaded)
-                        message.obj = AppState.Character_Page_Loaded
-                    }
-                    2 -> {
-                        queryManager.getLocationPage(locationPagesLoaded)
-                        message.obj = AppState.Location_Page_Loaded
-                    }
-                    3 -> {
-                        queryManager.getEpisodePage(episodePagesLoaded)
-                        message.obj = AppState.Episode_Page_Loaded
-                    }
                     4 -> {
                         queryManager.getCharacterDetail(currentIdSearch)
                         queryManager.getCharacterAvatar(currentIdSearch)
@@ -269,40 +312,13 @@ class MainActivity : AppCompatActivity() {
      */
     private inner class AsyncBitmapQueryManager : Runnable {
         override fun run() {
-
-//            currentBitmapSearch.add(bitmap?.id!!)
-//            currentBitmapData.poll()?.let { loadCharacterImage(it) }
-//            val bitmapSearch = currentBitmapSearch
-//            : Queue<Int?> = LinkedList()
-
             try {
                 do{
                     val message = handler.obtainMessage()
-//                    currentBitmapData.add(
-//                        currentBitmapSearch.poll().let { it?.let { it1 ->
-//                            queryManager.getCharacterAvatar(
-//                                it1
-//                            )
-//                        } }
-//                    )
-
                     currentBitmapData.add(queryManager.getCharacterAvatar(currentBitmapSearch.poll()!!))
-
                     message.obj = AppState.Character_Avatar_Loaded
                     handler.sendMessageAtFrontOfQueue(message)
                 } while (currentBitmapSearch.size > 0)
-//                for (bitmap in bitmapSearch) {
-//                    val message = handler.obtainMessage()
-//                    currentBitmapData.add(
-//                        bitmapSearch.poll().let { it?.let { it1 ->
-//                            queryManager.getCharacterAvatar(
-//                                it1
-//                            )
-//                        } }
-//                    )
-//                    message.obj = AppState.Character_Avatar_Loaded
-//                    handler.sendMessageAtFrontOfQueue(message)
-//                }
             } catch (e: ConnectionException) {
                 val message = handler.obtainMessage()
                 message.obj = AppState.Load_Failed
@@ -322,36 +338,34 @@ class MainActivity : AppCompatActivity() {
                     message.obj.equals(AppState.Character_Page_Loaded) -> {
                         try {
                             val page = queryManager.getCharacterPage(characterPagesLoaded)
-                            Log.i(TAG, page.toString())
                             loadCharacterPage(page)
                             characterPagesLoaded++
 
                             for (bitmap in page.results!!)
                                 currentBitmapSearch.add(bitmap?.id!!)
-
-                            queryFromApi2()
+                            queryAvatar()
 
                         } catch (e: Exception) {
                             //todo: Feedback to the user
                         }
-//                        currentBitmapSearch.add(page?.results?.get(0)?.id!!)
-//
-//                        //Load an image
-//                        if (!queriesManagerThread4.isAlive)
-//                            queriesManagerThread4.start()
-//
-//                        currentBitmapSearch.add(page.results.get(1)?.id!!)
-//
-//                        //Load an image
-//                        if (!queriesManagerThread5.isAlive)
-//                            queriesManagerThread5.start()
-
                     }
                     message.obj.equals(AppState.Location_Page_Loaded) -> {
+                        try {
+                            val page = queryManager.getLocationPage(locationPagesLoaded)
+                            loadLocationPage(page)
+                            locationPagesLoaded++
+                        } catch (e: Exception) {
+                            //todo: Feedback to the user
+                        }
                     }
                     message.obj.equals(AppState.Episode_Page_Loaded) -> {
-//                        loadJobData()
-
+                        try {
+                            val page = queryManager.getEpisodePage(episodePagesLoaded)
+                            loadEpisodePage(page)
+                            episodePagesLoaded++
+                        } catch (e: Exception) {
+                            //todo: Feedback to the user
+                        }
 //                        val imageView = findViewById<ImageView>(R.id.loading)
 //                        imageView.visibility = View.GONE
                     }
@@ -359,26 +373,13 @@ class MainActivity : AppCompatActivity() {
                         loadCharacterDetail()
                     }
                     message.obj.equals(AppState.Location_Detail_Loaded) -> {
+//                        loadLocationDetail()
                     }
                     message.obj.equals(AppState.Episode_Detail_Loaded) -> {
+//                        loadEpisodeDetail()
                     }
                     message.obj.equals(AppState.Character_Avatar_Loaded) -> {
                         currentBitmapData.poll()?.let { loadCharacterImage(it) }
-
-//                        if (deleteMe == 0) {
-//                            val tv: TextView = findViewById(R.id.textView)
-//                            val iv: ImageView = findViewById(R.id.imageView)
-//                            val data = currentBitmapData.poll()
-//                            tv.text = data?.id.toString()
-//                            iv.setImageBitmap(data?.bitmap)
-//                            deleteMe++
-//                        } else {
-//                            val tv: TextView = findViewById(R.id.textView2)
-//                            val iv: ImageView = findViewById(R.id.imageView2)
-//                            val data = currentBitmapData.poll()
-//                            tv.text = data?.id.toString()
-//                            iv.setImageBitmap(data?.bitmap)
-//                        }
                     }
                 }
             }
@@ -391,12 +392,12 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initializeAllRecyclersView() {
         //CharactersRV
-        var recycler: RecyclerView = findViewById(R.id.charactersRV)
-        recycler.setHasFixedSize(true)
+        val recycler1: RecyclerView = findViewById(R.id.charactersRV)
+        recycler1.setHasFixedSize(true)
         val layoutManagerCharactersRV: RecyclerView.LayoutManager = GridLayoutManager(this, 3)
         adapterCharacters = CardAdapterCharacters(cardListCharacters)
-        recycler.layoutManager = layoutManagerCharactersRV
-        recycler.adapter = adapterCharacters
+        recycler1.layoutManager = layoutManagerCharactersRV
+        recycler1.adapter = adapterCharacters
 
         adapterCharacters.setOnItemClickListener(object:
             CardAdapterCharacters.OnItemClickListener {
@@ -405,11 +406,8 @@ class MainActivity : AppCompatActivity() {
 //                imageView.visibility = View.VISIBLE
 
                 currentIdSearch = position + 1
-//                currentIdSearch = cardListCharacters[position].id?.toInt()!!
                 currentTypeSearch = 4
-                Log.i(TAG, "currentIdSearch: $currentIdSearch")
-                Log.i(TAG, "currentTypeSearch: $currentTypeSearch")
-                queryFromApi()
+                queryDetailed()
             }
         })
 
@@ -419,55 +417,175 @@ class MainActivity : AppCompatActivity() {
 //                val imageView = findViewById<ImageView>(R.id.loading)
 //                imageView.visibility = View.VISIBLE
 
-                currentTypeSearch = 1
-                queryFromApi()
+                queryCharacterPage()
             }
         })
 
-        recycler.addOnScrollListener(object:
+        recycler1.addOnScrollListener(object:
             RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    currentTypeSearch = 1
-                    queryFromApi()
+                    queryCharacterPage()
+                }
+            }
+        })
+
+        //LocationRV
+        val recycler2: RecyclerView = findViewById(R.id.locationsRV)
+        recycler2.setHasFixedSize(true)
+        val layoutManagerLocationRV: RecyclerView.LayoutManager = GridLayoutManager(this, 2)
+        adapterLocations = CardAdapterLocations(cardListLocations)
+        recycler2.layoutManager = layoutManagerLocationRV
+        recycler2.adapter = adapterLocations
+
+        adapterLocations.setOnItemClickListener(object:
+            CardAdapterLocations.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+//                val imageView = findViewById<ImageView>(R.id.loading)
+//                imageView.visibility = View.VISIBLE
+
+                currentIdSearch = position + 1
+                currentTypeSearch = 5
+                queryDetailed()
+            }
+        })
+
+        adapterLocations.setOnBottomReachedListener(object:
+            CardAdapterLocations.OnBottomReachedListener {
+            override fun onBottomReached(position: Int) {
+//                val imageView = findViewById<ImageView>(R.id.loading)
+//                imageView.visibility = View.VISIBLE
+
+                queryLocationPage()
+            }
+        })
+
+        recycler2.addOnScrollListener(object:
+            RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    queryLocationPage()
+                }
+            }
+        })
+
+        //EpisodeRV
+        val recycler3: RecyclerView = findViewById(R.id.episodesRV)
+        recycler3.setHasFixedSize(true)
+        val layoutManagerEpisodeRV: RecyclerView.LayoutManager = GridLayoutManager(this, 2)
+        adapterEpisodes = CardAdapterEpisodes(cardListEpisodes)
+        recycler3.layoutManager = layoutManagerEpisodeRV
+        recycler3.adapter = adapterEpisodes
+
+        adapterEpisodes.setOnItemClickListener(object:
+            CardAdapterEpisodes.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+//                val imageView = findViewById<ImageView>(R.id.loading)
+//                imageView.visibility = View.VISIBLE
+
+                currentIdSearch = position + 1
+                currentTypeSearch = 6
+                queryDetailed()
+            }
+        })
+
+        adapterEpisodes.setOnBottomReachedListener(object:
+            CardAdapterEpisodes.OnBottomReachedListener {
+            override fun onBottomReached(position: Int) {
+//                val imageView = findViewById<ImageView>(R.id.loading)
+//                imageView.visibility = View.VISIBLE
+
+                queryEpisodePage()
+            }
+        })
+
+        recycler3.addOnScrollListener(object:
+            RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    queryEpisodePage()
                 }
             }
         })
     }
 
     /**
-     * Running the async task to get data
+     * Running the async task to get a character page
      */
-    fun queryFromApi() {
-        if (!queriesManagerThread1.isAlive) {
-            queriesManagerThread1 = Thread(AsyncQueryManager())
-            queriesManagerThread1.start()
-        } else if (!queriesManagerThread2.isAlive) {
-            queriesManagerThread2 = Thread(AsyncQueryManager())
-            queriesManagerThread2.start()
-        } else if (!queriesManagerThread3.isAlive) {
-            queriesManagerThread3 = Thread(AsyncQueryManager())
-            queriesManagerThread3.start()
+    fun queryCharacterPage() {
+        if (!characterPageThread1.isAlive) {
+            characterPageThread1 = Thread(AsyncCharacterPage())
+            characterPageThread1.start()
+        } else if (!characterPageThread2.isAlive) {
+            characterPageThread2 = Thread(AsyncCharacterPage())
+            characterPageThread2.start()
+        } else if (!characterPageThread3.isAlive) {
+            characterPageThread3 = Thread(AsyncCharacterPage())
+            characterPageThread3.start()
+        }
+    }
+
+    /**
+     * Running the async task to get a location page
+     */
+    fun queryLocationPage() {
+        if (!locationPageThread1.isAlive) {
+            locationPageThread1 = Thread(AsyncLocationPage())
+            locationPageThread1.start()
+        } else if (!locationPageThread2.isAlive) {
+            locationPageThread2 = Thread(AsyncLocationPage())
+            locationPageThread2.start()
+        } else if (!locationPageThread3.isAlive) {
+            locationPageThread3 = Thread(AsyncLocationPage())
+            locationPageThread3.start()
+        }
+    }
+
+    /**
+     * Running the async task to get a episode page
+     */
+    fun queryEpisodePage() {
+        if (!episodePageThread1.isAlive) {
+            episodePageThread1 = Thread(AsyncEpisodePage())
+            episodePageThread1.start()
+        } else if (!episodePageThread2.isAlive) {
+            episodePageThread2 = Thread(AsyncEpisodePage())
+            episodePageThread2.start()
+        } else if (!episodePageThread3.isAlive) {
+            episodePageThread3 = Thread(AsyncEpisodePage())
+            episodePageThread3.start()
+        }
+    }
+
+    /**
+     * Running the async task to get a episode page
+     */
+    fun queryDetailed() {
+        if (!queryDetailedThread.isAlive) {
+            queryDetailedThread = Thread(AsyncDetailedQueryManager())
+            queryDetailedThread.start()
         }
     }
 
     /**
      * Running the async task to get images
      */
-    fun queryFromApi2() {
-        if (!queriesManagerThread4.isAlive) {
-            queriesManagerThread4 = Thread(AsyncBitmapQueryManager())
-            queriesManagerThread4.start()
-        } else if (!queriesManagerThread5.isAlive) {
-            queriesManagerThread5 = Thread(AsyncBitmapQueryManager())
-            queriesManagerThread5.start()
-        } else if (!queriesManagerThread6.isAlive) {
-            queriesManagerThread6 = Thread(AsyncBitmapQueryManager())
-            queriesManagerThread6.start()
-        } else if (!queriesManagerThread7.isAlive) {
-            queriesManagerThread7 = Thread(AsyncBitmapQueryManager())
-            queriesManagerThread7.start()
+    fun queryAvatar() {
+        if (!avatarThread1.isAlive) {
+            avatarThread1 = Thread(AsyncBitmapQueryManager())
+            avatarThread1.start()
+        } else if (!avatarThread2.isAlive) {
+            avatarThread2 = Thread(AsyncBitmapQueryManager())
+            avatarThread2.start()
+        } else if (!avatarThread3.isAlive) {
+            avatarThread3 = Thread(AsyncBitmapQueryManager())
+            avatarThread3.start()
+        } else if (!avatarThread4.isAlive) {
+            avatarThread4 = Thread(AsyncBitmapQueryManager())
+            avatarThread4.start()
         }
     }
 
@@ -483,6 +601,34 @@ class MainActivity : AppCompatActivity() {
         }
 
         adapterCharacters.notifyItemRangeInserted(size, 20)
+    }
+
+    /**
+     * Recycler view filler for characters
+     */
+    fun loadLocationPage(page: Location) {
+        val size: Int = cardListLocations.size
+
+        for (locationDetail in page.results!!) {
+            val cardLocation = locationDetail?.let { CardItemLocations(it) }
+            cardListLocations.add(cardLocation!!)
+        }
+
+        adapterLocations.notifyItemRangeInserted(size, 20)
+    }
+
+    /**
+     * Recycler view filler for characters
+     */
+    fun loadEpisodePage(page: Episode) {
+        val size: Int = cardListEpisodes.size
+
+        for (episodeDetail in page.results!!) {
+            val cardEpisode = episodeDetail?.let { CardItemEpisodes(it) }
+            cardListEpisodes.add(cardEpisode!!)
+        }
+
+        adapterEpisodes.notifyItemRangeInserted(size, 20)
     }
 
     /**

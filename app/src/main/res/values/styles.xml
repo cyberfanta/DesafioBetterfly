@@ -80,6 +80,44 @@
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+    <!-- Location Styles-->
+    <style name="locationLabel">
+        <item name="android:background">@drawable/location_label_background</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="locationData">
+        <item name="android:background">@drawable/location_data_background</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <!-- Episode Styles-->
+    <style name="episodeLabel">
+        <item name="android:background">@drawable/episode_label_background</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="episodeData">
+        <item name="android:background">@drawable/episode_data_background</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+
     <!-- Toolbar -->
     <style name="ToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <!-- Makes the toolbar text whatever color you want for both light/dark-->

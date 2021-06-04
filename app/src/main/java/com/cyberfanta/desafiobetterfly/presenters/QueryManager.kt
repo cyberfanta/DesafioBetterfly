@@ -46,8 +46,7 @@ class QueryManager {
             Log.i(TAG, characterPage.toString())
 
             for (characterDetail in characterPage.results!!)
-//                if (!characterDetailList.containsKey(characterDetail?.id))
-                    characterDetailList[characterDetail?.id!!] = characterDetail
+                characterDetailList[characterDetail?.id!!] = characterDetail
 
             characterPageList.add(page)
         } else {
@@ -113,9 +112,9 @@ class QueryManager {
         if (!locationPageList.contains(page)) {
             locationPage = modelFromConnection.getObject(Location::class.java, url[1] + "?page=" + page)
 
+            Log.i(TAG, locationPage.toString())
             for (locationDetail in locationPage.results!!)
-                if (!locationDetailList.containsKey(locationDetail?.id))
-                    locationDetailList[locationDetail?.id!!] = locationDetail
+                locationDetailList[locationDetail?.id!!] = locationDetail
 
             locationPageList.add(page)
         } else {
@@ -142,8 +141,7 @@ class QueryManager {
             locationPage = modelFromConnection.getObject(LocationFilter::class.java, url[1] + filter)
 
             for (locationDetail in locationPage.results!!)
-                if (!locationDetailList.containsKey(locationDetail?.id))
-                    locationDetailList[locationDetail?.id!!] = locationDetail
+                locationDetailList[locationDetail?.id!!] = locationDetail
 
             locationFilterPageList[filter] = locationPage
         } else {
@@ -172,10 +170,10 @@ class QueryManager {
         val episodePage : Episode
         if (!episodePageList.contains(page)) {
             episodePage = modelFromConnection.getObject(Episode::class.java, url[2] + "?page=" + page)
+            Log.i(TAG, episodePage.toString())
 
             for (episodeDetail in episodePage.results!!)
-                if (!episodeDetailList.containsKey(episodeDetail?.id))
-                    episodeDetailList[episodeDetail?.id!!] = episodeDetail
+                episodeDetailList[episodeDetail?.id!!] = episodeDetail
 
             episodePageList.add(page)
         } else {
@@ -202,8 +200,7 @@ class QueryManager {
             episodePage = modelFromConnection.getObject(EpisodeFilter::class.java, url[2] + filter)
 
             for (episodeDetail in episodePage.results!!)
-                if (!episodeDetailList.containsKey(episodeDetail?.id))
-                    episodeDetailList[episodeDetail?.id!!] = episodeDetail
+                episodeDetailList[episodeDetail?.id!!] = episodeDetail
 
             episodeFilterPageList[filter] = episodePage
         } else {
