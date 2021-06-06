@@ -72,3 +72,11 @@ Otras ideas a implementar:
 
 Junio 5,2021
 11:50pm Implementación de enlaces en las vistas de detalles.
+2:50am Implementados los enlaces en las vistas a detalle. Se acomodaron algunos bugs.
+
+Otras ideas a implementar:
+-Multilenguaje.
+-Mostrar el status de la app por medio de retroalimentación al usuario.
+-Agregar una flecha de indicación de carga de datos.
+-Actualizar la documentación, el diagrama de clases y agregarlo al readme.md.
+-Correjir posibles bugs.

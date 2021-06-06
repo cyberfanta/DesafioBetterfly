@@ -24,7 +24,6 @@ import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.models.character.CharacterDetail
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 
-
 class CharacterActivity : AppCompatActivity() {
     @Suppress("PrivatePropertyName", "unused")
     private val TAG = this::class.java.simpleName
@@ -39,7 +38,8 @@ class CharacterActivity : AppCompatActivity() {
 
     //Async Task Variables
     private val queryManager = QueryManager()
-    private var queryDetailedThread = Thread(AsyncDetailedQueryManager())
+    private var queryDetailedThreadCharacter = Thread(AsyncDetailedQueryManager())
+    private var avatarThreadCharacter = Thread(AsyncBitmapQueryManager())
     private val detailList = LinkedHashMap<Int, String>(0)
     private lateinit var query: CharacterDetail
 
@@ -198,16 +198,14 @@ class CharacterActivity : AppCompatActivity() {
         textView = findViewById(R.id.characterEpisodeLabel)
         textView.text = getString(R.string.episodesLabel)
 
-        val imageView: ImageView = findViewById(R.id.characterImageView)
-        try {
-            imageView.setImageBitmap(query.id?.let { queryManager.getCharacterAvatar(it).bitmap })
-        } catch (e: Exception) {
-            return
+        if (!queryDetailedThreadCharacter.isAlive) {
+            queryDetailedThreadCharacter = Thread(AsyncDetailedQueryManager())
+            queryDetailedThreadCharacter.start()
         }
 
-        if (!queryDetailedThread.isAlive) {
-            queryDetailedThread = Thread(AsyncDetailedQueryManager())
-            queryDetailedThread.start()
+        if (!avatarThreadCharacter.isAlive) {
+            avatarThreadCharacter = Thread(AsyncBitmapQueryManager())
+            avatarThreadCharacter.start()
         }
     }
 
@@ -216,15 +214,29 @@ class CharacterActivity : AppCompatActivity() {
      */
     private inner class AsyncDetailedQueryManager : Runnable {
         override fun run() {
-            val message = handler.obtainMessage()
             try {
+                val message1 = handler.obtainMessage()
+                if (query.origin2?.url != "") {
+                    val number: Int = query.origin2?.url?.split("https://rickandmortyapi.com/api/location/")?.get(1)?.toInt()!!
+                    queryManager.getLocationDetail(number).name!!
+                }
+                if (query.location2?.url != "") {
+                    val number: Int = query.location2?.url?.split("https://rickandmortyapi.com/api/location/")?.get(1)?.toInt()!!
+                    queryManager.getLocationDetail(number).name!!
+                }
+                message1.obj = AppState.Location_Detail_Loaded
+                handler.sendMessageAtFrontOfQueue(message1)
+
+                val message2 = handler.obtainMessage()
                 for (detail in detailList)
                     detailList[detail.key] = queryManager.getEpisodeDetail(detail.key).name!!
-                message.obj = AppState.Episode_Detail_Loaded
+                message2.obj = AppState.Episode_Detail_Loaded
+                handler.sendMessageAtFrontOfQueue(message2)
             } catch (e: ConnectionException) {
+                val message = handler.obtainMessage()
                 message.obj = AppState.Load_Failed
+                handler.sendMessageAtFrontOfQueue(message)
             }
-            handler.sendMessageAtFrontOfQueue(message)
         }
     }
 
@@ -241,6 +253,8 @@ class CharacterActivity : AppCompatActivity() {
                         var textView : TextView = findViewById(R.id.characterEpisodeData)
                         textView.visibility = View.INVISIBLE
                         val linearLayout: LinearLayout = findViewById(R.id.characterEpisodeDataList)
+                        linearLayout.removeAllViewsInLayout()
+                        System.gc()
 
                         for (episode in query.episode!!) {
                             textView = TextView (this@CharacterActivity, null, R.style.characterDetailBottomList)
@@ -252,9 +266,6 @@ class CharacterActivity : AppCompatActivity() {
                                 LinearLayout.LayoutParams.WRAP_CONTENT
                             )
                             textView.setTextColor(resources.getColor(R.color.soft_black_37))
-//                            textView.paint.strokeWidth = 5F
-//                            textView.paint.style = Paint.Style.FILL_AND_STROKE
-//                            textView.paint.color = resources.getColor(R.color.teal_200)
                             textView.setOnClickListener {
                                 val intent = Intent(this@CharacterActivity, EpisodeActivity::class.java)
                                 intent.putExtra("deviceWidth", deviceWidth.toString())
@@ -269,8 +280,63 @@ class CharacterActivity : AppCompatActivity() {
                         params.bottomToBottom = linearLayout.id
                         textView.requestLayout()
                     }
+                    message.obj.equals(AppState.Location_Detail_Loaded) -> {
+                        if (query.origin2?.url != "") {
+                            val textView: TextView = findViewById(R.id.characterOriginData)
+                            val number: Int = query.origin2?.url?.split("https://rickandmortyapi.com/api/location/")?.get(1)?.toInt()!!
+                            val text = number.toString() + ": " + queryManager.getLocationDetail(number).name!!
+                            textView.text = text
+                            textView.setOnClickListener {
+                                val intent =
+                                    Intent(this@CharacterActivity, LocationActivity::class.java)
+                                intent.putExtra("deviceWidth", deviceWidth.toString())
+                                intent.putExtra("deviceHeight", deviceHeight.toString())
+                                intent.putExtra("currentIdSearch", number.toString())
+                                startActivity(intent)
+                            }
+                        }
+                        if (query.location2?.url != "") {
+                            val textView: TextView = findViewById(R.id.characterLocationData)
+                            val number2: Int = query.location2?.url?.split("https://rickandmortyapi.com/api/location/")?.get(1)?.toInt()!!
+                            val text = number2.toString() + ": " + queryManager.getLocationDetail(number2).name!!
+                            textView.text = text
+                            textView.setOnClickListener {
+                                val intent =
+                                    Intent(this@CharacterActivity, LocationActivity::class.java)
+                                intent.putExtra("deviceWidth", deviceWidth.toString())
+                                intent.putExtra("deviceHeight", deviceHeight.toString())
+                                intent.putExtra("currentIdSearch", number2.toString())
+                                startActivity(intent)
+                            }
+                        }
+                    }
+                    message.obj.equals(AppState.Character_Avatar_Loaded) -> {
+                        val imageView: ImageView = findViewById(R.id.characterImageView)
+                        try {
+                            imageView.setImageBitmap(query.id?.let { queryManager.getCharacterAvatar(it).bitmap })
+                        } catch (e: Exception) {
+                            return
+                        }
+                    }
                 }
             }
         }
     }
+
+    /**
+     * Asynchronous Load bitmaps for QueryManager Class
+     */
+    private inner class AsyncBitmapQueryManager : Runnable {
+        override fun run() {
+            val message = handler.obtainMessage()
+            try {
+                queryManager.getCharacterAvatar(currentIdSearch)
+                message.obj = AppState.Character_Avatar_Loaded
+            } catch (e: ConnectionException) {
+                message.obj = AppState.Load_Failed
+            }
+            handler.sendMessageAtFrontOfQueue(message)
+        }
+    }
+
 }

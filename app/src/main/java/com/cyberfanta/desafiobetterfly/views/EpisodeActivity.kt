@@ -4,16 +4,24 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cyberfanta.desafiobetterfly.R
+import com.cyberfanta.desafiobetterfly.enumerator.AppState
+import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.models.episode.EpisodeDetail
+import com.cyberfanta.desafiobetterfly.models.location.LocationDetail
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 
 class EpisodeActivity : AppCompatActivity() {
@@ -27,6 +35,12 @@ class EpisodeActivity : AppCompatActivity() {
 
     //Current object to deploy
     private var currentIdSearch: Int = 0
+
+    //Async Task Variables
+    private val queryManager = QueryManager()
+    private var queryDetailedThread = Thread(AsyncDetailedQueryManager())
+    private val detailList = LinkedHashMap<Int, String>(0)
+    private lateinit var query: EpisodeDetail
 
     /**
      * The initial point of this view
@@ -125,7 +139,6 @@ class EpisodeActivity : AppCompatActivity() {
      */
     private fun loadObject() {
         val queryManager = QueryManager()
-        val query: EpisodeDetail
         try {
             query = queryManager.getEpisodeDetail(currentIdSearch)
         } catch (e: Exception) {
@@ -154,10 +167,83 @@ class EpisodeActivity : AppCompatActivity() {
 
         textView = findViewById(R.id.episodeCharactersData)
         var text = ""
-        for (data in query.characters!!)
-            text += data?.split("https://rickandmortyapi.com/api/character/")?.get(1) + ", "
+        for (data in query.characters!!){
+            val split = data?.split("https://rickandmortyapi.com/api/character/")
+            text += split?.get(1) + "\n"
+            detailList[split?.get(1)?.toInt()!!] = ""
+        }
         textView.text = text.substring(0, text.length-2)
         textView = findViewById(R.id.episodeCharactersLabel)
         textView.text = getString(R.string.charactersLabel)
+
+        if (!queryDetailedThread.isAlive) {
+            queryDetailedThread = Thread(AsyncDetailedQueryManager())
+            queryDetailedThread.start()
+        }
+    }
+
+    /**
+     * Asynchronous Load Detailed Item for QueryManager Class
+     */
+    private inner class AsyncDetailedQueryManager : Runnable {
+        override fun run() {
+            try {
+                for (detail in detailList) {
+                    val message = handler.obtainMessage()
+                    detailList[detail.key] = queryManager.getCharacterDetail(detail.key).name!!
+                    message.obj = AppState.Character_Detail_Loaded
+                    handler.sendMessageAtFrontOfQueue(message)
+                }
+            } catch (e: ConnectionException) {
+                val message = handler.obtainMessage()
+                message.obj = AppState.Load_Failed
+                handler.sendMessageAtFrontOfQueue(message)
+            }
+        }
+    }
+
+    /**
+     * Handle the actions when asynchronous task are ready to update the ui
+     */
+    @Suppress("DEPRECATION")
+    @SuppressLint("HandlerLeak")
+    private val handler: Handler = object : Handler() {
+        override fun handleMessage(message: Message) {
+            if (message.obj != null) {
+                when {
+                    message.obj.equals(AppState.Character_Detail_Loaded) -> {
+                        var textView : TextView = findViewById(R.id.episodeCharactersData)
+                        textView.visibility = View.INVISIBLE
+                        val linearLayout: LinearLayout = findViewById(R.id.episodeCharactersDataList)
+                        linearLayout.removeAllViewsInLayout()
+                        System.gc()
+
+                        for (episode in query.characters!!) {
+                            textView = TextView (this@EpisodeActivity, null, R.style.characterDetailBottomList)
+                            val split = episode?.split("https://rickandmortyapi.com/api/character/")?.get(1)
+                            val text: String = split!! + ": " + detailList[split.toInt()]
+                            textView.text = text
+                            textView.layoutParams = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                            textView.setTextColor(resources.getColor(R.color.soft_black_37))
+                            textView.setOnClickListener {
+                                val intent = Intent(this@EpisodeActivity, CharacterActivity::class.java)
+                                intent.putExtra("deviceWidth", deviceWidth.toString())
+                                intent.putExtra("deviceHeight", deviceHeight.toString())
+                                intent.putExtra("currentIdSearch", split)
+                                startActivity(intent)
+                            }
+                            linearLayout.addView(textView)
+                        }
+                        textView = findViewById(R.id.episodeCharactersLabel)
+                        val params = textView.layoutParams as ConstraintLayout.LayoutParams
+                        params.bottomToBottom = linearLayout.id
+                        textView.requestLayout()
+                    }
+                }
+            }
+        }
     }
 }

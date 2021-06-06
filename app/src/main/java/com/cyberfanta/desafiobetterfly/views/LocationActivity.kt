@@ -4,16 +4,22 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cyberfanta.desafiobetterfly.R
-import com.cyberfanta.desafiobetterfly.models.character.CharacterDetail
+import com.cyberfanta.desafiobetterfly.enumerator.AppState
+import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.models.location.LocationDetail
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 
@@ -28,6 +34,12 @@ class LocationActivity : AppCompatActivity() {
 
     //Current object to deploy
     private var currentIdSearch: Int = 0
+
+    //Async Task Variables
+    private val queryManager = QueryManager()
+    private var queryDetailedThread = Thread(AsyncDetailedQueryManager())
+    private val detailList = LinkedHashMap<Int, String>(0)
+    private lateinit var query: LocationDetail
 
     /**
      * The initial point of this view
@@ -126,7 +138,6 @@ class LocationActivity : AppCompatActivity() {
      */
     private fun loadObject() {
         val queryManager = QueryManager()
-        val query: LocationDetail
         try {
             query = queryManager.getLocationDetail(currentIdSearch)
         } catch (e: Exception) {
@@ -155,10 +166,83 @@ class LocationActivity : AppCompatActivity() {
 
         textView = findViewById(R.id.locationCharactersData)
         var text = ""
-        for (data in query.residents!!)
-            text += data?.split("https://rickandmortyapi.com/api/character/")?.get(1) + ", "
-        textView.text = text.substring(0, text.length-2)
+        for (data in query.residents!!){
+            val split = data?.split("https://rickandmortyapi.com/api/character/")
+            text += split?.get(1) + "\n"
+            detailList[split?.get(1)?.toInt()!!] = ""
+        }
+        textView.text = text.substring(0, text.length-1)
         textView = findViewById(R.id.locationCharactersLabel)
         textView.text = getString(R.string.residentsLabel)
+
+        if (!queryDetailedThread.isAlive) {
+            queryDetailedThread = Thread(AsyncDetailedQueryManager())
+            queryDetailedThread.start()
+        }
+    }
+
+    /**
+     * Asynchronous Load Detailed Item for QueryManager Class
+     */
+    private inner class AsyncDetailedQueryManager : Runnable {
+        override fun run() {
+            try {
+                for (detail in detailList) {
+                    val message = handler.obtainMessage()
+                    detailList[detail.key] = queryManager.getCharacterDetail(detail.key).name!!
+                    message.obj = AppState.Character_Detail_Loaded
+                    handler.sendMessageAtFrontOfQueue(message)
+                }
+            } catch (e: ConnectionException) {
+                val message = handler.obtainMessage()
+                message.obj = AppState.Load_Failed
+                handler.sendMessageAtFrontOfQueue(message)
+            }
+        }
+    }
+
+    /**
+     * Handle the actions when asynchronous task are ready to update the ui
+     */
+    @Suppress("DEPRECATION")
+    @SuppressLint("HandlerLeak")
+    private val handler: Handler = object : Handler() {
+        override fun handleMessage(message: Message) {
+            if (message.obj != null) {
+                when {
+                    message.obj.equals(AppState.Character_Detail_Loaded) -> {
+                        var textView : TextView = findViewById(R.id.locationCharactersData)
+                        textView.visibility = View.INVISIBLE
+                        val linearLayout: LinearLayout = findViewById(R.id.locationCharactersDataList)
+                        linearLayout.removeAllViewsInLayout()
+                        System.gc()
+
+                        for (episode in query.residents!!) {
+                            textView = TextView (this@LocationActivity, null, R.style.characterDetailBottomList)
+                            val split = episode?.split("https://rickandmortyapi.com/api/character/")?.get(1)
+                            val text: String = split!! + ": " + detailList[split.toInt()]
+                            textView.text = text
+                            textView.layoutParams = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                            textView.setTextColor(resources.getColor(R.color.soft_black_37))
+                            textView.setOnClickListener {
+                                val intent = Intent(this@LocationActivity, CharacterActivity::class.java)
+                                intent.putExtra("deviceWidth", deviceWidth.toString())
+                                intent.putExtra("deviceHeight", deviceHeight.toString())
+                                intent.putExtra("currentIdSearch", split)
+                                startActivity(intent)
+                            }
+                            linearLayout.addView(textView)
+                        }
+                        textView = findViewById(R.id.locationCharactersLabel)
+                        val params = textView.layoutParams as ConstraintLayout.LayoutParams
+                        params.bottomToBottom = linearLayout.id
+                        textView.requestLayout()
+                    }
+                }
+            }
+        }
     }
 }
