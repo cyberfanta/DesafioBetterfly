@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Character Styles-->
+    <!-- Character Cards-->
     <style name="characterCardText">
         <item name="android:textColor">@color/black</item>
         <item name="android:shadowColor">@color/cream_dark_2</item>
@@ -30,6 +30,7 @@
         <item name="android:background">@drawable/card_view_number_background</item>
     </style>
 
+    <!-- Character Styles-->
     <style name="characterDetailLabel">
         <item name="android:background">@drawable/detail_label_background</item>
         <item name="android:paddingTop">3dp</item>
@@ -38,6 +39,7 @@
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
     <style name="characterDetailLabelTop">
         <item name="android:background">@drawable/detail_label_background_top</item>
@@ -47,6 +49,7 @@
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
     <style name="characterDetailLabelBottom">
         <item name="android:background">@drawable/detail_label_background_botton</item>
@@ -54,32 +57,37 @@
         <item name="android:paddingBottom">3dp</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
-        <item name="android:gravity">center_vertical</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
     <style name="characterDetail">
-        <item name="android:background">@drawable/detail_background</item>
+        <item name="android:background">@drawable/detail_data_background</item>
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingBottom">3dp</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
     <style name="characterDetailTop">
-        <item name="android:background">@drawable/detail_background_top</item>
+        <item name="android:background">@drawable/detail_data_background_top</item>
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingBottom">3dp</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
-    <style name="characterDetailBottom">
-        <item name="android:background">@drawable/detail_background_botton</item>
+    <style name="characterDetailBottom" parent="characterDetailBottomList">
+        <item name="android:background">@drawable/detail_data_background_botton</item>
+    </style>
+    <style name="characterDetailBottomList">
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingBottom">3dp</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
 
     <!-- Location Styles-->
@@ -91,6 +99,7 @@
         <item name="android:paddingEnd">3dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
     <style name="locationData">
         <item name="android:background">@drawable/location_data_background</item>
@@ -99,6 +108,7 @@
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
 
     <!-- Episode Styles-->
@@ -110,6 +120,7 @@
         <item name="android:paddingEnd">3dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
     <style name="episodeData">
         <item name="android:background">@drawable/episode_data_background</item>
@@ -118,6 +129,7 @@
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/soft_black_37</item>
     </style>
 
     <!-- Toolbar -->

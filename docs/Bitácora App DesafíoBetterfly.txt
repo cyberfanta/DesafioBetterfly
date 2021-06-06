@@ -67,4 +67,8 @@ Otras ideas a implementar:
 -En las ventanas de detalles, al tocar el nombre de un personaje o episodio, este te direccione a otra vista a detalle.
 -Mostrar el status de la app por medio de retroalimentación al usuario.
 -Agregar una flecha de indicación de carga de datos.
+-Actualizar la documentación, el diagrama de clases y agregarlo al readme.md.
 -Correjir posibles bugs.
+
+Junio 5,2021
+11:50pm Implementación de enlaces en las vistas de detalles.

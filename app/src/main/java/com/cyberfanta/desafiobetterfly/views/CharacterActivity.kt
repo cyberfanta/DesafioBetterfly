@@ -4,18 +4,26 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cyberfanta.desafiobetterfly.R
+import com.cyberfanta.desafiobetterfly.enumerator.AppState
+import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.models.character.CharacterDetail
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
+
 
 class CharacterActivity : AppCompatActivity() {
     @Suppress("PrivatePropertyName", "unused")
@@ -28,6 +36,12 @@ class CharacterActivity : AppCompatActivity() {
 
     //Current object to deploy
     private var currentIdSearch: Int = 0
+
+    //Async Task Variables
+    private val queryManager = QueryManager()
+    private var queryDetailedThread = Thread(AsyncDetailedQueryManager())
+    private val detailList = LinkedHashMap<Int, String>(0)
+    private lateinit var query: CharacterDetail
 
     /**
      * The initial point of this view
@@ -126,7 +140,6 @@ class CharacterActivity : AppCompatActivity() {
      */
     private fun loadObject() {
         val queryManager = QueryManager()
-        val query: CharacterDetail
         try {
             query = queryManager.getCharacterDetail(currentIdSearch)
         } catch (e: Exception) {
@@ -175,9 +188,12 @@ class CharacterActivity : AppCompatActivity() {
 
         textView = findViewById(R.id.characterEpisodeData)
         var text = ""
-        for (episode in query.episode!!)
-            text += episode?.split("https://rickandmortyapi.com/api/episode/")?.get(1) + ", "
-        text = text.substring(0, text.length - 2)
+        for (episode in query.episode!!) {
+            val split = episode?.split("https://rickandmortyapi.com/api/episode/")
+            text += split?.get(1) + "\n"
+            detailList[split?.get(1)?.toInt()!!] = ""
+        }
+        text = text.substring(0, text.length - 1)
         textView.text = text
         textView = findViewById(R.id.characterEpisodeLabel)
         textView.text = getString(R.string.episodesLabel)
@@ -187,6 +203,74 @@ class CharacterActivity : AppCompatActivity() {
             imageView.setImageBitmap(query.id?.let { queryManager.getCharacterAvatar(it).bitmap })
         } catch (e: Exception) {
             return
+        }
+
+        if (!queryDetailedThread.isAlive) {
+            queryDetailedThread = Thread(AsyncDetailedQueryManager())
+            queryDetailedThread.start()
+        }
+    }
+
+    /**
+     * Asynchronous Load Detailed Item for QueryManager Class
+     */
+    private inner class AsyncDetailedQueryManager : Runnable {
+        override fun run() {
+            val message = handler.obtainMessage()
+            try {
+                for (detail in detailList)
+                    detailList[detail.key] = queryManager.getEpisodeDetail(detail.key).name!!
+                message.obj = AppState.Episode_Detail_Loaded
+            } catch (e: ConnectionException) {
+                message.obj = AppState.Load_Failed
+            }
+            handler.sendMessageAtFrontOfQueue(message)
+        }
+    }
+
+    /**
+     * Handle the actions when asynchronous task are ready to update the ui
+     */
+    @Suppress("DEPRECATION")
+    @SuppressLint("HandlerLeak")
+    private val handler: Handler = object : Handler() {
+        override fun handleMessage(message: Message) {
+            if (message.obj != null) {
+                when {
+                    message.obj.equals(AppState.Episode_Detail_Loaded) -> {
+                        var textView : TextView = findViewById(R.id.characterEpisodeData)
+                        textView.visibility = View.INVISIBLE
+                        val linearLayout: LinearLayout = findViewById(R.id.characterEpisodeDataList)
+
+                        for (episode in query.episode!!) {
+                            textView = TextView (this@CharacterActivity, null, R.style.characterDetailBottomList)
+                            val split = episode?.split("https://rickandmortyapi.com/api/episode/")?.get(1)
+                            val text: String = split!! + ": " + detailList[split.toInt()]
+                            textView.text = text
+                            textView.layoutParams = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                            textView.setTextColor(resources.getColor(R.color.soft_black_37))
+//                            textView.paint.strokeWidth = 5F
+//                            textView.paint.style = Paint.Style.FILL_AND_STROKE
+//                            textView.paint.color = resources.getColor(R.color.teal_200)
+                            textView.setOnClickListener {
+                                val intent = Intent(this@CharacterActivity, EpisodeActivity::class.java)
+                                intent.putExtra("deviceWidth", deviceWidth.toString())
+                                intent.putExtra("deviceHeight", deviceHeight.toString())
+                                intent.putExtra("currentIdSearch", split)
+                                startActivity(intent)
+                            }
+                            linearLayout.addView(textView)
+                        }
+                        textView = findViewById(R.id.characterEpisodeLabel)
+                        val params = textView.layoutParams as ConstraintLayout.LayoutParams
+                        params.bottomToBottom = linearLayout.id
+                        textView.requestLayout()
+                    }
+                }
+            }
         }
     }
 }

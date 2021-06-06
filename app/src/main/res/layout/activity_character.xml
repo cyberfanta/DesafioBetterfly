@@ -76,17 +76,6 @@
                 app:layout_constraintTop_toBottomOf="@id/characterIdLabel" />
 
             <TextView
-                android:id="@+id/characterStatusLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterNameLabel" />
-
-            <TextView
                 android:id="@+id/characterNameData"
                 style="@style/characterDetail"
                 android:layout_width="0dp"
@@ -96,6 +85,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guideline3"
                 app:layout_constraintTop_toTopOf="@id/characterNameLabel" />
+
+            <TextView
+                android:id="@+id/characterStatusLabel"
+                style="@style/characterDetailLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/contentDescriptionShort"
+                app:layout_constraintEnd_toEndOf="@id/guideline3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/characterNameLabel" />
 
             <TextView
                 android:id="@+id/characterStatusData"
@@ -230,7 +230,21 @@
                 app:layout_constraintBottom_toBottomOf="@id/characterEpisodeData"
                 app:layout_constraintEnd_toEndOf="@id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterLocationLabel" />
+                app:layout_constraintTop_toBottomOf="@id/characterLocationLabel"
+                />
+
+            <LinearLayout
+                android:id="@+id/characterEpisodeDataList"
+                style="@style/characterDetailBottom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline3"
+                app:layout_constraintTop_toBottomOf="@id/characterLocationData"
+                android:orientation="vertical">
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/characterEpisodeData"
@@ -241,16 +255,25 @@
                 android:text="@string/contentDescription"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/characterLocationLabel" />
+                app:layout_constraintTop_toBottomOf="@id/characterLocationData" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/characterEpisodeLabel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/author"
+        style="@style/authorBackground"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/soft_black_37"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
@@ -259,90 +282,89 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/authorCardBackground"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/button_normal"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
+                android:id="@+id/imageView"
+                style="@style/authorImageView"
                 android:contentDescription="@string/contentDescription"
-                app:srcCompat="@drawable/cara_marca_personal" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/authorTextView1"
+                    style="@style/authorTextView1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:shadowColor="@color/black"
-                    android:shadowRadius="3"
                     android:text="@string/author_name_1"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/authorTextView2"
+                    style="@style/authorTextView1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:shadowColor="@color/black"
-                    android:shadowRadius="3"
                     android:text="@string/author_name_2"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/authorTextView1" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/authorTextView3"
+                    style="@style/authorTextView2"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:shadowColor="@color/black"
-                    android:shadowRadius="3"
                     android:text="@string/author_profession"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/authorTextView2" />
 
                 <TextView
+                    android:id="@+id/authorTextView4"
+                    style="@style/authorTextView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:shadowColor="@color/black"
-                    android:shadowRadius="3"
                     android:text="@string/author_email"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/authorTextView3" />
 
                 <TextView
+                    android:id="@+id/authorTextView5"
+                    style="@style/authorTextView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:shadowColor="@color/black"
-                    android:shadowRadius="3"
                     android:text="@string/author_phone"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/authorTextView4" />
 
-            </LinearLayout>
-        </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

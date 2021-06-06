@@ -286,7 +286,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Asynchronous Load Episode Page for QueryManager Class
+     * Asynchronous Load Detailed Item for QueryManager Class
      */
     private inner class AsyncDetailedQueryManager : Runnable {
         override fun run() {
@@ -323,7 +323,8 @@ class MainActivity : AppCompatActivity() {
             try {
                 do{
                     val message = handler.obtainMessage()
-                    currentBitmapData.add(queryManager.getCharacterAvatar(currentBitmapSearch.poll()!!))
+                    if (currentBitmapSearch.size >  0)
+                        currentBitmapData.add(queryManager.getCharacterAvatar(currentBitmapSearch.poll()!!))
                     message.obj = AppState.Character_Avatar_Loaded
                     handler.sendMessageAtFrontOfQueue(message)
                 } while (currentBitmapSearch.size > 0)

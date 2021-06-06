@@ -5,6 +5,6 @@
         />
     <stroke
         android:width="@dimen/detail_background_stroke_width"
-        android:color="@color/black"
+        android:color="@color/soft_black_37"
         />
 </shape>
