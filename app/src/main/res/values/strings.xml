@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Rick and Morty Viewer</string>
+    <string name="app_name">R and M Viewer</string>
     <string name="contentDescription">contentDescription</string>
     <string name="contentDescriptionShort">CDS</string>
 
