@@ -9,6 +9,18 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
+                android:id="@+id/item_policy"
+                android:icon="@drawable/ic_privacy_icon"
+                android:orderInCategory="100"
+                android:title="@string/item_policy"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/item_rate"
+                android:icon="@drawable/ic_rate_review_icon"
+                android:orderInCategory="100"
+                android:title="@string/item_rate"
+                app:showAsAction="ifRoom|withText" />
+            <item
                 android:id="@+id/item_about"
                 android:icon="@drawable/ic_about_icon"
                 android:orderInCategory="100"

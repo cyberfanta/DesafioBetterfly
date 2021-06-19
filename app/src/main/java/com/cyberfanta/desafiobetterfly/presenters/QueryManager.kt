@@ -1,12 +1,16 @@
 package com.cyberfanta.desafiobetterfly.presenters
 
-import android.util.Log
 import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
-import com.cyberfanta.desafiobetterfly.models.character.*
-import com.cyberfanta.desafiobetterfly.models.episode.*
-import com.cyberfanta.desafiobetterfly.models.location.*
+import com.cyberfanta.desafiobetterfly.models.character.Character
+import com.cyberfanta.desafiobetterfly.models.character.CharacterDetail
+import com.cyberfanta.desafiobetterfly.models.character.CharacterFilter
+import com.cyberfanta.desafiobetterfly.models.episode.Episode
+import com.cyberfanta.desafiobetterfly.models.episode.EpisodeDetail
+import com.cyberfanta.desafiobetterfly.models.episode.EpisodeFilter
+import com.cyberfanta.desafiobetterfly.models.location.Location
+import com.cyberfanta.desafiobetterfly.models.location.LocationDetail
+import com.cyberfanta.desafiobetterfly.models.location.LocationFilter
 import com.cyberfanta.desafiobetterfly.views.BitmapMessage
-import java.lang.IndexOutOfBoundsException
 import java.util.*
 import kotlin.collections.LinkedHashMap
 

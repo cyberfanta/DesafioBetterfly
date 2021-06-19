@@ -1,17 +1,32 @@
 <resources>
-    <string name="app_name">Betterfly Challenge</string>
+    <string name="app_name">Rick and Morty Viewer</string>
     <string name="contentDescription">contentDescription</string>
     <string name="contentDescriptionShort">CDS</string>
 
-    <!--    Menú-->
+    <!--    Menu-->
+    <string name="item_policy">Privacy Policy</string>
+    <string name="item_policy_page" translatable="false">https://docs.google.com/document/d/1jO9nnmsjG2ZO0Si1rEBTAP2kmTin5h-qIb4nhuAN5H0/edit?usp=sharing</string>
+    <string name="item_rate">Rate this app</string>
     <string name="item_about">About</string>
+    <string name="item_rate_success">Thanks for your review</string>
+    <string name="item_rate_fail">Error rating this app</string>
 
-    <!--    Author-->
-    <string name="author_name_1" translatable="false">Julio César Alberto</string>
-    <string name="author_name_2" translatable="false">León Anhuamán</string>
-    <string name="author_profession" translatable="false">Android Developer - UI/UX Designer</string>
-    <string name="author_email" translatable="false">julioleon2004@gmail.com</string>
-    <string name="author_phone" translatable="false">+58 (424) 225.92.20</string>
+    <!--    Ads View-->
+    <string name="ads_banner" translatable="false">ca-app-pub-2321980263900338/6473499035</string>
+    <string name="ads_interstitial" translatable="false">ca-app-pub-2321980263900338/6349375955</string>
+
+    <!--    Author Menu-->
+    <string name="authorName1" translatable="false">Julio César Alberto</string>
+    <string name="authorName2" translatable="false">León Anhuamán</string>
+    <string name="authorProfession" translatable="false">Android Developer - UI/UX Designer</string>
+    <string name="authorEmail" translatable="false">julioleon2004@gmail.com</string>
+    <string name="authorEmailBody">Write your comment here</string>
+    <string name="authorEmailSubject">User Comment</string>
+    <string name="authorEmailChooser">Send email to this author using:</string>
+    <string name="authorPhone" translatable="false">+58 (424) 225.92.20</string>
+    <string name="poweredBy">Supported by:</string>
+    <string name="poweredByName" translatable="false">rickandmortyapi.com</string>
+    <string name="poweredByUrl" translatable="false">https://rickandmortyapi.com</string>
 
     <!--    Character Detail-->
     <string name="idLabel">ID:</string>
@@ -32,4 +47,10 @@
     <string name="airDateLabel">AIR DATE:</string>
     <string name="episodeLabel">EPISODE:</string>
     <string name="charactersLabel">CHARACTERS:</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">Exception during loading</string>
+    <string name="characterPageFail">Character Page Can\'t be loaded</string>
+    <string name="locationPageFail">Location Page Can\'t be loaded</string>
+    <string name="episodePageFail">Episode Page Can\'t be loaded</string>
 </resources>

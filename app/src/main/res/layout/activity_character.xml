@@ -19,6 +19,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background" />
 
+    <FrameLayout
+        android:id="@+id/adViewCharacter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/characterImageView"
         android:layout_width="200dp"
@@ -36,7 +44,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layerType="software"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adViewCharacter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/characterImageView">
@@ -282,6 +290,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/loadingCha"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/contentDescription"
+        app:layout_constraintBottom_toBottomOf="@id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_loading_circles" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/author"
         style="@style/authorBackground"
@@ -290,21 +310,25 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adViewCharacter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/authorId"
             style="@style/authorCardBackground"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".3">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -331,7 +355,7 @@
                     style="@style/authorTextView1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/author_name_1"
+                    android:text="@string/authorName1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -341,7 +365,7 @@
                     style="@style/authorTextView1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/author_name_2"
+                    android:text="@string/authorName2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/authorTextView1" />
@@ -351,7 +375,7 @@
                     style="@style/authorTextView2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/author_profession"
+                    android:text="@string/authorProfession"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/authorTextView2" />
@@ -361,7 +385,7 @@
                     style="@style/authorTextView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/author_email"
+                    android:text="@string/authorEmail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/authorTextView3" />
@@ -371,12 +395,50 @@
                     style="@style/authorTextView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/author_phone"
+                    android:text="@string/authorPhone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/authorTextView4" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/poweredId"
+            style="@style/authorCardBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/authorId"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/authorTextView6"
+                style="@style/authorTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/poweredBy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/authorTextView7"
+                style="@style/authorTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/poweredByName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/authorTextView6" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

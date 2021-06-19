@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Insets
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,7 @@ import android.os.Message
 import android.util.DisplayMetrics
 import android.view.*
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -26,18 +28,18 @@ import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
 import com.cyberfanta.desafiobetterfly.models.character.Character
 import com.cyberfanta.desafiobetterfly.models.episode.Episode
 import com.cyberfanta.desafiobetterfly.models.location.Location
+import com.cyberfanta.desafiobetterfly.presenters.AdsManager
+import com.cyberfanta.desafiobetterfly.presenters.FirebaseManager
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
+import com.cyberfanta.desafiobetterfly.presenters.RateAppManager
 import com.cyberfanta.desafiobetterfly.views.cards.*
-import com.google.firebase.analytics.FirebaseAnalytics
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
     @Suppress("PrivatePropertyName", "unused")
     private val TAG = this::class.java.simpleName
-
-    //Firebase Variables
-    private var mFirebaseAnalytics: FirebaseAnalytics? = null
 
     //UI Variables
     private var authorOpened: Boolean = false
@@ -69,6 +71,7 @@ class MainActivity : AppCompatActivity() {
     private var currentIdSearch = 0
     private var currentBitmapSearch: Queue<Int?> = LinkedList()
     private var currentBitmapData: Queue<BitmapMessage?> = LinkedList()
+    private val loadingItem = arrayOf(false, false, false, false, false, false, false)
 
     //Recyclers View Variables
     private lateinit var adapterCharacters: CardAdapterCharacters
@@ -81,6 +84,8 @@ class MainActivity : AppCompatActivity() {
     private var cardListEpisodes: ArrayList<CardItemEpisodes>
             = ArrayList<CardItemEpisodes>(20)
 
+    //Ad View Variable
+    private lateinit var adView : FrameLayout
 
     /**
      * The initial point of this app
@@ -89,8 +94,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        //Obtain the FirebaseAnalytics instance
+        FirebaseManager(this)
+        FirebaseManager.logEvent("$TAG: Opened", "App_Opened")
+
+        //Obtain rate my app instance
+        RateAppManager(this)
 
         //Calculate Current Device Size
         calculateDeviceDimensions()
@@ -114,6 +123,17 @@ class MainActivity : AppCompatActivity() {
         setAnimation(locationRW, "translationX", 300, false, 0f, -1f * deviceWidth)
         setAnimation(episodeRW, "translationX", 300, false, 0f, 1f * deviceWidth)
 
+        //Starting all loading circle animations
+        val charactersRVLoading : ImageView = findViewById(R.id.charactersRVLoading)
+        setAnimation(charactersRVLoading, "rotation", 1000, true, 360f, 0f)
+        val locationsRVLoading : ImageView = findViewById(R.id.locationsRVLoading)
+        setAnimation(locationsRVLoading, "rotation", 1000, true, 360f, 0f)
+        val episodesRVLoading : ImageView = findViewById(R.id.episodesRVLoading)
+        setAnimation(episodesRVLoading, "rotation", 1000, true, 360f, 0f)
+
+        //Loading ads manager
+        adView = findViewById(R.id.adView)
+        AdsManager.loadBannerAds(applicationContext, deviceWidth.toFloat())
     }
 
     /**
@@ -144,6 +164,51 @@ class MainActivity : AppCompatActivity() {
         button3.setOnClickListener {
             footerAction(button3)
         }
+
+        //Binding for authorMenu Button Send Email
+        val constraintLayout1 : ConstraintLayout = findViewById(R.id.authorId)
+        constraintLayout1.setOnClickListener {
+            FirebaseManager.logEvent("Sending email: Author", "Send_Email")
+            @Suppress("SpellCheckingInspection")
+            @SuppressLint("SimpleDateFormat")
+            val dateHour = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+            sendAuthorEmail(
+                "masterjulioleon@gmail.com",
+                getString(R.string.app_name) + " --- " + getString(R.string.authorEmailSubject) + " --- " + dateHour,
+                getString(R.string.authorEmailBody) + "",
+                getString(R.string.authorEmailChooser) + ""
+            )
+        }
+
+        //Binding for authorMenu Button Open Api Url
+        val constraintLayout2 : ConstraintLayout = findViewById(R.id.poweredId)
+        constraintLayout2.setOnClickListener {
+            FirebaseManager.logEvent("Open website: API - " + getString(R.string.poweredByUrl), "Open_Api")
+            openURL(getString(R.string.poweredByUrl))
+        }
+    }
+
+    /**
+     * Send Email to author via intent
+     */
+    @Suppress("SameParameterValue")
+    private fun sendAuthorEmail(email: String, subject: String, body: String, chooserMessage: String){
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.data = Uri.parse("mailto:")
+        intent.type = "plain/text"
+        intent.putExtra(Intent.EXTRA_TEXT, body)
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        startActivity(Intent.createChooser(intent, chooserMessage))
+    }
+
+    /**
+     * Open URL on intent
+     */
+    private fun openURL(url: String) {
+        val uri = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
     }
 
     /**
@@ -175,9 +240,12 @@ class MainActivity : AppCompatActivity() {
         if (authorOpened) {
             authorSelected(constraintLayout)
             authorOpened = false
+
+            FirebaseManager.logEvent("Device Button: Back", "Device_Button")
             return
         }
 
+        FirebaseManager.logEvent("$TAG: Closed", "App_Closed")
         super.onBackPressed()
     }
 
@@ -195,12 +263,34 @@ class MainActivity : AppCompatActivity() {
      * Handle the setting menu of the application
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.item_about) {
-            val constraintLayout = findViewById<ConstraintLayout>(R.id.author)
-            constraintLayout.visibility = View.VISIBLE
-            setAnimation(constraintLayout, "translationX", 300, false, deviceWidth.toFloat(), 0f)
-            authorOpened = true
-            return true
+        when (item.itemId) {
+            R.id.item_policy -> {
+                FirebaseManager.logEvent("Menu: Policy", "Open_Menu")
+                val uri = Uri.parse(getString(R.string.item_policy_page))
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                startActivity(intent)
+                return true
+            }
+            R.id.item_rate -> {
+                FirebaseManager.logEvent("Menu: Rate App", "Open_Menu")
+                RateAppManager.requestReview(applicationContext)
+                return true
+            }
+            R.id.item_about -> {
+                FirebaseManager.logEvent("Menu: Author", "Open_Menu")
+                val constraintLayout = findViewById<ConstraintLayout>(R.id.author)
+                constraintLayout.visibility = View.VISIBLE
+                setAnimation(
+                    constraintLayout,
+                    "translationX",
+                    300,
+                    false,
+                    deviceWidth.toFloat(),
+                    0f
+                )
+                authorOpened = true
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -323,8 +413,11 @@ class MainActivity : AppCompatActivity() {
             try {
                 do{
                     val message = handler.obtainMessage()
-                    if (currentBitmapSearch.size >  0)
-                        currentBitmapData.add(queryManager.getCharacterAvatar(currentBitmapSearch.poll()!!))
+                    if (currentBitmapSearch.size >  0) {
+                        val currentSearch = currentBitmapSearch.poll()!!
+                        FirebaseManager.logEvent("Search Avatar: $currentSearch - " + queryManager.getCharacterDetail(currentSearch).name, "Get_Avatar")
+                        currentBitmapData.add(queryManager.getCharacterAvatar(currentSearch))
+                    }
                     message.obj = AppState.Character_Avatar_Loaded
                     handler.sendMessageAtFrontOfQueue(message)
                 } while (currentBitmapSearch.size > 0)
@@ -354,9 +447,18 @@ class MainActivity : AppCompatActivity() {
                                 currentBitmapSearch.add(bitmap?.id!!)
                             queryAvatar()
 
+                        } catch (e: ConnectionException) {
+                            //todo: Feedback to the user
+//                            Toast.makeText(applicationContext, R.string.characterPageFail, Toast.LENGTH_SHORT).show()
                         } catch (e: Exception) {
                             //todo: Feedback to the user
+//                            Toast.makeText(applicationContext, R.string.loadingFail, Toast.LENGTH_SHORT).show()
                         }
+                        if (loadingItem[0] && !loadingItem[3]) {
+                            val imageView = findViewById<ImageView>(R.id.charactersRVLoading)
+                            imageView.visibility = View.INVISIBLE
+                        }
+                        loadingItem[0] = false
                     }
                     message.obj.equals(AppState.Location_Page_Loaded) -> {
                         try {
@@ -365,7 +467,13 @@ class MainActivity : AppCompatActivity() {
                             locationPagesLoaded++
                         } catch (e: Exception) {
                             //todo: Feedback to the user
+//                            Toast.makeText(applicationContext, R.string.locationPageFail, Toast.LENGTH_SHORT).show()
                         }
+                        if (loadingItem[1] && !loadingItem[4]) {
+                            val imageView = findViewById<ImageView>(R.id.locationsRVLoading)
+                            imageView.visibility = View.INVISIBLE
+                        }
+                        loadingItem[1] = false
                     }
                     message.obj.equals(AppState.Episode_Page_Loaded) -> {
                         try {
@@ -374,17 +482,39 @@ class MainActivity : AppCompatActivity() {
                             episodePagesLoaded++
                         } catch (e: Exception) {
                             //todo: Feedback to the user
+//                            Toast.makeText(applicationContext, R.string.episodePageFail, Toast.LENGTH_SHORT).show()
                         }
-//                        val imageView = findViewById<ImageView>(R.id.loading)
-//                        imageView.visibility = View.GONE
+                        if (loadingItem[2] && !loadingItem[5]) {
+                            val imageView = findViewById<ImageView>(R.id.episodesRVLoading)
+                            imageView.visibility = View.INVISIBLE
+                        }
+                        loadingItem[2] = false
                     }
                     message.obj.equals(AppState.Character_Detail_Loaded) -> {
+                        if (loadingItem[3] && !loadingItem[0]) {
+                            val imageView = findViewById<ImageView>(R.id.charactersRVLoading)
+                            imageView.visibility = View.INVISIBLE
+                        }
+                        loadingItem[3] = false
+
                         loadCharacterDetail()
                     }
                     message.obj.equals(AppState.Location_Detail_Loaded) -> {
+                        if (loadingItem[4] && !loadingItem[1]) {
+                            val imageView = findViewById<ImageView>(R.id.locationsRVLoading)
+                            imageView.visibility = View.INVISIBLE
+                        }
+                        loadingItem[4] = false
+
                         loadLocationDetail()
                     }
                     message.obj.equals(AppState.Episode_Detail_Loaded) -> {
+                        if (loadingItem[5] && !loadingItem[2]) {
+                            val imageView = findViewById<ImageView>(R.id.episodesRVLoading)
+                            imageView.visibility = View.INVISIBLE
+                        }
+                        loadingItem[5] = false
+
                         loadEpisodeDetail()
                     }
                     message.obj.equals(AppState.Character_Avatar_Loaded) -> {
@@ -411,8 +541,12 @@ class MainActivity : AppCompatActivity() {
         adapterCharacters.setOnItemClickListener(object:
             CardAdapterCharacters.OnItemClickListener {
             override fun onItemClick(position: Int) {
-//                val imageView = findViewById<ImageView>(R.id.loading)
-//                imageView.visibility = View.VISIBLE
+                FirebaseManager.logEvent("Character Detail: " + (position+1) + " - " + queryManager.getCharacterDetail(position+1).name, "Get_Character_Detail")
+
+                //Activating Loading Arrow
+                val imageView = findViewById<ImageView>(R.id.charactersRVLoading)
+                imageView.visibility = View.VISIBLE
+                loadingItem[3] = true
 
                 currentIdSearch = position + 1
                 currentTypeSearch = 4
@@ -423,9 +557,12 @@ class MainActivity : AppCompatActivity() {
         adapterCharacters.setOnBottomReachedListener(object:
             CardAdapterCharacters.OnBottomReachedListener {
             override fun onBottomReached(position: Int) {
-//                val imageView = findViewById<ImageView>(R.id.loading)
-//                imageView.visibility = View.VISIBLE
+                //Activating Loading Arrow
+                val imageView = findViewById<ImageView>(R.id.charactersRVLoading)
+                imageView.visibility = View.VISIBLE
+                loadingItem[0] = true
 
+                FirebaseManager.logEvent("Character Page: $characterPagesLoaded", "Get_Character_Page")
                 queryCharacterPage()
             }
         })
@@ -435,6 +572,12 @@ class MainActivity : AppCompatActivity() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
+                    //Activating Loading Arrow
+                    val imageView = findViewById<ImageView>(R.id.charactersRVLoading)
+                    imageView.visibility = View.VISIBLE
+                    loadingItem[0] = true
+
+                    FirebaseManager.logEvent("Character Page: $characterPagesLoaded", "Get_Character_Page")
                     queryCharacterPage()
                 }
             }
@@ -451,8 +594,12 @@ class MainActivity : AppCompatActivity() {
         adapterLocations.setOnItemClickListener(object:
             CardAdapterLocations.OnItemClickListener {
             override fun onItemClick(position: Int) {
-//                val imageView = findViewById<ImageView>(R.id.loading)
-//                imageView.visibility = View.VISIBLE
+                FirebaseManager.logEvent("Location Detail: " + (position+1) + " - " + queryManager.getLocationDetail(position+1).name, "Get_Location_Detail")
+
+                //Activating Loading Arrow
+                val imageView = findViewById<ImageView>(R.id.locationsRVLoading)
+                imageView.visibility = View.VISIBLE
+                loadingItem[4] = true
 
                 currentIdSearch = position + 1
                 currentTypeSearch = 5
@@ -463,9 +610,12 @@ class MainActivity : AppCompatActivity() {
         adapterLocations.setOnBottomReachedListener(object:
             CardAdapterLocations.OnBottomReachedListener {
             override fun onBottomReached(position: Int) {
-//                val imageView = findViewById<ImageView>(R.id.loading)
-//                imageView.visibility = View.VISIBLE
+                //Activating Loading Arrow
+                val imageView = findViewById<ImageView>(R.id.locationsRVLoading)
+                imageView.visibility = View.VISIBLE
+                loadingItem[1] = true
 
+                FirebaseManager.logEvent("Location Page: $locationPagesLoaded", "Get_Location_Page")
                 queryLocationPage()
             }
         })
@@ -475,6 +625,12 @@ class MainActivity : AppCompatActivity() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
+                    //Activating Loading Arrow
+                    val imageView = findViewById<ImageView>(R.id.locationsRVLoading)
+                    imageView.visibility = View.VISIBLE
+                    loadingItem[1] = true
+
+                    FirebaseManager.logEvent("Location Page: $locationPagesLoaded", "Get_Location_Page")
                     queryLocationPage()
                 }
             }
@@ -491,8 +647,12 @@ class MainActivity : AppCompatActivity() {
         adapterEpisodes.setOnItemClickListener(object:
             CardAdapterEpisodes.OnItemClickListener {
             override fun onItemClick(position: Int) {
-//                val imageView = findViewById<ImageView>(R.id.loading)
-//                imageView.visibility = View.VISIBLE
+                FirebaseManager.logEvent("Episode Detail: " + (position+1) + " - " + queryManager.getEpisodeDetail(position+1).name, "Get_Episode_Detail")
+
+                //Activating Loading Arrow
+                val imageView = findViewById<ImageView>(R.id.episodesRVLoading)
+                imageView.visibility = View.VISIBLE
+                loadingItem[5] = true
 
                 currentIdSearch = position + 1
                 currentTypeSearch = 6
@@ -503,9 +663,12 @@ class MainActivity : AppCompatActivity() {
         adapterEpisodes.setOnBottomReachedListener(object:
             CardAdapterEpisodes.OnBottomReachedListener {
             override fun onBottomReached(position: Int) {
-//                val imageView = findViewById<ImageView>(R.id.loading)
-//                imageView.visibility = View.VISIBLE
+                //Activating Loading Arrow
+                val imageView = findViewById<ImageView>(R.id.episodesRVLoading)
+                imageView.visibility = View.VISIBLE
+                loadingItem[2] = true
 
+                FirebaseManager.logEvent("Episode Page: $episodePagesLoaded", "Get_Episode_Page")
                 queryEpisodePage()
             }
         })
@@ -515,6 +678,12 @@ class MainActivity : AppCompatActivity() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
+                    //Activating Loading Arrow
+                    val imageView = findViewById<ImageView>(R.id.episodesRVLoading)
+                    imageView.visibility = View.VISIBLE
+                    loadingItem[2] = true
+
+                    FirebaseManager.logEvent("Episode Page: $episodePagesLoaded", "Get_Episode_Page")
                     queryEpisodePage()
                 }
             }
@@ -681,7 +850,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // Author Menu
+    //Author Menu
     /**
      * Show the developer info
      */
@@ -731,7 +900,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Footer Menu
+    //Footer Menu
     /**
      * Footer function to deal with the behavior
      */
@@ -753,7 +922,7 @@ class MainActivity : AppCompatActivity() {
                     setAnimation(locationRW, "translationX", 300, false, 0f, -1f * deviceWidth)
                     setAnimation(characterRW, "translationX", 300, false, 1f * deviceWidth, 0f)
                     setAnimation(episodeRW, "translationX", 300, false, 2f * deviceWidth, 1f * deviceWidth)
-                } else {
+                } else if (episodeIVColor.isVisible) {
                     setAnimation(episodeRW, "translationX", 300, false, 0f, 1f * deviceWidth)
                     setAnimation(characterRW, "translationX", 300, false, -1f * deviceWidth, 0f)
                     setAnimation(locationRW, "translationX", 300, false, -2f * deviceWidth, -1f * deviceWidth)
@@ -767,6 +936,9 @@ class MainActivity : AppCompatActivity() {
 
                 characterIVColor.visibility = View.VISIBLE
                 characterIVBN.visibility = View.INVISIBLE
+
+                //Firebase Data Collection
+                FirebaseManager.logEvent("Footer Button: Character", "Footer_Button")
             }
             R.id.locationButton -> {
                 //Recycler View Update
@@ -774,7 +946,7 @@ class MainActivity : AppCompatActivity() {
                     setAnimation(characterRW, "translationX", 300, false, 0f, 1f * deviceWidth)
                     setAnimation(locationRW, "translationX", 300, false, -1f * deviceWidth, 0f)
                     setAnimation(episodeRW, "translationX", 300, false, 1f * deviceWidth, 2f * deviceWidth)
-                } else {
+                } else if (episodeIVColor.isVisible) {
                     setAnimation(episodeRW, "translationX", 600, false, 0f, 2f * deviceWidth)
                     setAnimation(locationRW, "translationX", 600, false, -2f * deviceWidth, 0f)
                     setAnimation(characterRW, "translationX", 600, false, -1f * deviceWidth, 1f * deviceWidth)
@@ -788,6 +960,9 @@ class MainActivity : AppCompatActivity() {
 
                 locationIVColor.visibility = View.VISIBLE
                 locationIVBN.visibility = View.INVISIBLE
+
+                //Firebase Data Collection
+                FirebaseManager.logEvent("Footer Button: Location", "Footer_Button")
             }
             R.id.episodeButton -> {
                 //Recycler View Update
@@ -795,7 +970,7 @@ class MainActivity : AppCompatActivity() {
                     setAnimation(characterRW, "translationX", 300, false, 0f, -1f * deviceWidth)
                     setAnimation(episodeRW, "translationX", 300, false, 1f * deviceWidth, 0f)
                     setAnimation(locationRW, "translationX", 300, false, -1f * deviceWidth, -2f * deviceWidth)
-                } else {
+                } else if (locationIVColor.isVisible) {
                     setAnimation(locationRW, "translationX", 600, false, 0f, -2f * deviceWidth)
                     setAnimation(episodeRW, "translationX", 600, false, 2f * deviceWidth, 0f)
                     setAnimation(characterRW, "translationX", 600, false, 1f * deviceWidth, -1f * deviceWidth)
@@ -809,7 +984,18 @@ class MainActivity : AppCompatActivity() {
 
                 episodeIVColor.visibility = View.VISIBLE
                 episodeIVBN.visibility = View.INVISIBLE
+
+                //Firebase Data Collection
+                FirebaseManager.logEvent("Footer Button: Episode", "Footer_Button")
             }
         }
+    }
+
+    /**
+     * Actions made when app start
+     */
+    override fun onStart() {
+        AdsManager.attachBannerAd(adView)
+        super.onStart()
     }
 }
