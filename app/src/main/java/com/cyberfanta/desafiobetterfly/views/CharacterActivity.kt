@@ -1,6 +1,6 @@
 package com.cyberfanta.desafiobetterfly.views
 
-import android.animation.Animator
+import  android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -334,23 +334,25 @@ class CharacterActivity : AppCompatActivity() {
                 val message1 = handler.obtainMessage()
                 if (query.origin2?.url != "") {
                     val number: Int = query.origin2?.url?.split("https://rickandmortyapi.com/api/location/")?.get(1)?.toInt()!!
-                    queryManager.getLocationDetail(number).name!!
-                    FirebaseManager.logEvent("Location Detail: $number - " + queryManager.getLocationDetail(number).name, "Get_Location_Detail")
+                    val name: String = queryManager.getLocationDetail(number).name!!
+                    FirebaseManager.logEvent("Location Detail: $number - $name", "Get_Location_Detail")
                 }
                 if (query.location2?.url != "") {
                     val number: Int = query.location2?.url?.split("https://rickandmortyapi.com/api/location/")?.get(1)?.toInt()!!
-                    queryManager.getLocationDetail(number).name!!
-                    FirebaseManager.logEvent("Location Detail: $number - " + queryManager.getLocationDetail(number).name, "Get_Location_Detail")
+                    val name: String = queryManager.getLocationDetail(number).name!!
+                    FirebaseManager.logEvent("Location Detail: $number - $name", "Get_Location_Detail")
                 }
                 message1.obj = AppState.Location_Detail_Loaded
                 handler.sendMessageAtFrontOfQueue(message1)
 
                 for (detail in detailList) {
                     val message2 = handler.obtainMessage()
-                    detailList[detail.key] = queryManager.getEpisodeDetail(detail.key).name!!
+                    val number: Int = detail.key
+                    val name: String = queryManager.getEpisodeDetail(number).name!!
+                    detailList[number] = name
                     message2.obj = AppState.Episode_Detail_Loaded
-                    message2.arg1 = detail.key
-                    FirebaseManager.logEvent("Episode Detail: " + detail.key + " - " + queryManager.getEpisodeDetail(detail.key).name, "Get_Episode_Detail")
+                    message2.arg1 = number
+                    FirebaseManager.logEvent("Episode Detail: $number - $name", "Get_Episode_Detail")
                     handler.sendMessageAtFrontOfQueue(message2)
                 }
 

@@ -308,9 +308,11 @@ class LocationActivity : AppCompatActivity() {
             try {
                 for (detail in detailList) {
                     val message = handler.obtainMessage()
-                    detailList[detail.key] = queryManager.getCharacterDetail(detail.key).name!!
-                    message.obj = detail.key
-                    FirebaseManager.logEvent("Character Detail: " + detail.key + " - " + queryManager.getCharacterDetail(detail.key).name, "Get_Character_Detail")
+                    val number = detail.key
+                    val name = queryManager.getCharacterDetail(number).name!!
+                    detailList[number] = name
+                    message.obj = number
+                    FirebaseManager.logEvent("Character Detail: $number - $name", "Get_Character_Detail")
                     handler.sendMessageAtFrontOfQueue(message)
                 }
 
