@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">आर एंड एम व्यूअर</string>
+
+    <!--    Menu-->
+    <string name="item_policy">गोपनीयता नीति</string>
+    <string name="item_rate">इस ऐप्लिकेशन को रेट करें</string>
+    <string name="item_about">तकरीबन</string>
+    <string name="item_rate_success">आपकी समीक्षा के लिए धन्यवाद</string>
+    <string name="item_rate_fail">इस ऐप को रेटिंग देने में त्रुटि</string>
+
+    <!--    Ads View-->
+
+    <!--    Author Menu-->
+    <string name="authorEmailBody">अपनी टिप्पणी यहाँ लिखें</string>
+    <string name="authorEmailSubject">उपयोगकर्ता टिप्पणी</string>
+    <string name="authorEmailChooser">इस लेखक को ईमेल भेजें:</string>
+    <string name="poweredBy">द्वारा समर्थित:</string>
+
+    <!--    Character Detail-->
+    <string name="idLabel">आईडी:</string>
+    <string name="nameLabel">नाम:</string>
+    <string name="statusLabel">स्थिति:</string>
+    <string name="specieLabel">विशिष्ट:</string>
+    <string name="typeLabel">प्रकार:</string>
+    <string name="genderLabel">लिंग:</string>
+    <string name="originLabel">मूल:</string>
+    <string name="locationLabel">स्थान:</string>
+    <string name="episodesLabel">एपिसोड:</string>
+
+    <!--    Location Detail-->
+    <string name="dimensionLabel">आयाम:</string>
+    <string name="residentsLabel">रहने वाले:</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">प्रसार होने की तिथि:</string>
+    <string name="episodeLabel">एपिसोड:</string>
+    <string name="charactersLabel">पात्र:</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">लोडिंग के दौरान अपवादException</string>
+    <string name="characterPageFail">चरित्र पृष्ठ लोड नहीं किया जा सकता</string>
+    <string name="locationPageFail">स्थान पृष्ठ लोड नहीं किया जा सकता</string>
+    <string name="episodePageFail">एपिसोड पेज लोड नहीं किया जा सकता</string>
+</resources>

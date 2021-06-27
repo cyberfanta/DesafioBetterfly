@@ -46,165 +46,157 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layerType="software"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintBottom_toTopOf="@id/adViewLocation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationImageView">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="411dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.35" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/locationIdLabel"
-                style="@style/characterDetailLabelTop"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/locationIdLabel"
+                    style="@style/characterDetailLabelTop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/locationIdData"
-                style="@style/characterDetailTop"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toTopOf="@id/locationIdLabel" />
+                <TextView
+                    android:id="@+id/locationIdData"
+                    style="@style/characterDetailTop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/locationNameLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintBottom_toBottomOf="@+id/locationNameData"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locationIdLabel" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/locationNameData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/locationIdData" />
+                <TextView
+                    android:id="@+id/locationNameLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/locationTypeLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locationNameLabel" />
+                <TextView
+                    android:id="@+id/locationNameData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
 
-            <TextView
-                android:id="@+id/locationTypeData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toTopOf="@id/locationTypeLabel" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/locationDimensionLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintBottom_toBottomOf="@+id/locationDimensionData"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locationTypeLabel" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/locationDimensionData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/locationTypeData" />
+                <TextView
+                    android:id="@+id/locationTypeLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/locationCharactersLabel"
-                style="@style/characterDetailLabelBottom"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/detail_label_background_bottom"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintBottom_toBottomOf="@id/locationCharactersData"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locationDimensionLabel" />
+                <TextView
+                    android:id="@+id/locationTypeData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
+            </TableRow>
 
-            <LinearLayout
-                android:id="@+id/locationCharactersDataList"
-                style="@style/characterDetailBottom"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/detail_data_background_bottom"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/locationDimensionLabel">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/locationDimensionLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/locationCharactersData"
-                style="@style/characterDetailBottom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/detail_data_background_bottom"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/locationDimensionLabel" />
+                <TextView
+                    android:id="@+id/locationDimensionData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
 
-            <View
-                android:id="@+id/view5"
-                android:layout_width="0dp"
-                android:layout_height="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locationCharactersLabel" />
+            </TableRow>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/locationCharactersLabel"
+                    style="@style/characterDetailLabelBottom"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size">
+
+                    <LinearLayout
+                        android:id="@+id/locationCharactersDataList"
+                        style="@style/characterDetailBottom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/locationCharactersData"
+                        style="@style/characterDetailBottom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contentDescription"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp" />
+            </TableRow>
+        </TableLayout>
     </ScrollView>
 
     <ImageView

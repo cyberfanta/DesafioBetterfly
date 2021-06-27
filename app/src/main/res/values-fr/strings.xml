@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Visionneuse R et M</string>
+
+    <!--    Menu-->
+    <string name="item_policy">Politique de confidentialité</string>
+    <string name="item_rate">Évaluer l\'application</string>
+    <string name="item_about">À propos</string>
+    <string name="item_rate_success">Merci pour votre avis</string>
+    <string name="item_rate_fail">Erreur lors de l\'évaluation de cette application</string>
+
+    <!--    Ads View-->
+
+    <!--    Author Menu-->
+    <string name="authorEmailBody">Écrivez votre commentaire ici</string>
+    <string name="authorEmailSubject">Commentaire de l\'utilisateur</string>
+    <string name="authorEmailChooser">Envoyez un e-mail à cet auteur en utilisant:</string>
+    <string name="poweredBy">Supporté par:</string>
+
+    <!--    Character Detail-->
+    <string name="idLabel">IDENTIFIANT:</string>
+    <string name="nameLabel">NOM:</string>
+    <string name="statusLabel">STATUT:</string>
+    <string name="specieLabel">ESPÈCES:</string>
+    <string name="typeLabel">TAPER:</string>
+    <string name="genderLabel">GENRE:</string>
+    <string name="originLabel">ORIGINE:</string>
+    <string name="locationLabel">EMPLACEMENT:</string>
+    <string name="episodesLabel">ÉPISODES:</string>
+
+    <!--    Location Detail-->
+    <string name="dimensionLabel">DIMENSION:</string>
+    <string name="residentsLabel">RÉSIDENTS:</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">DATE D\'AIR:</string>
+    <string name="episodeLabel">ÉPISODE:</string>
+    <string name="charactersLabel">PERSONNAGES:</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">Exception lors du chargement</string>
+    <string name="characterPageFail">La page de personnage ne peut pas être chargée</string>
+    <string name="locationPageFail">La page de localisation ne peut pas être chargée</string>
+    <string name="episodePageFail">La page de l\'épisode ne peut pas être chargée</string>
+</resources>

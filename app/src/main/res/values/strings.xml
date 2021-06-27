@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">R and M Viewer</string>
-    <string name="contentDescription">contentDescription</string>
-    <string name="contentDescriptionShort">CDS</string>
+    <string name="contentDescription" translatable="false">contentDescription</string>
+    <string name="contentDescriptionShort" translatable="false">CDS</string>
+    <string name="contentDescriptionLong" translatable="false">contentDescriptioncontentDescriptioncontentDescriptioncontentDescriptioncontentDescriptioncontentDescription</string>
 
     <!--    Menu-->
     <string name="item_policy">Privacy Policy</string>

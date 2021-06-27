@@ -28,7 +28,6 @@ import com.cyberfanta.desafiobetterfly.presenters.AdsManager
 import com.cyberfanta.desafiobetterfly.presenters.FirebaseManager
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 import com.cyberfanta.desafiobetterfly.presenters.RateAppManager
-import com.google.android.gms.ads.AdView
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.LinkedHashMap
@@ -334,7 +333,7 @@ class EpisodeActivity : AppCompatActivity() {
         override fun handleMessage(message: Message) {
             if (message.obj != null) {
                 var textView : TextView = findViewById(R.id.episodeCharactersData)
-                textView.visibility = View.INVISIBLE
+                textView.visibility = View.GONE
 
                 val obj = message.obj as Int
                 textView = TextView (this@EpisodeActivity, null, R.style.characterDetailBottomList)
@@ -362,11 +361,6 @@ class EpisodeActivity : AppCompatActivity() {
 
                 for (textViews in sortedMap)
                     linearLayout.addView(textViews.value)
-
-                textView = findViewById(R.id.episodeCharactersLabel)
-                val params = textView.layoutParams as ConstraintLayout.LayoutParams
-                params.bottomToBottom = linearLayout.id
-                textView.requestLayout()
 
                 System.gc()
             }

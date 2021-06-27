@@ -1,6 +1,6 @@
 package com.cyberfanta.desafiobetterfly.views
 
-import  android.animation.Animator
+import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -28,7 +28,6 @@ import com.cyberfanta.desafiobetterfly.presenters.AdsManager
 import com.cyberfanta.desafiobetterfly.presenters.FirebaseManager
 import com.cyberfanta.desafiobetterfly.presenters.QueryManager
 import com.cyberfanta.desafiobetterfly.presenters.RateAppManager
-import com.google.android.gms.ads.AdView
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.LinkedHashMap
@@ -355,10 +354,6 @@ class CharacterActivity : AppCompatActivity() {
                     FirebaseManager.logEvent("Episode Detail: $number - $name", "Get_Episode_Detail")
                     handler.sendMessageAtFrontOfQueue(message2)
                 }
-
-                //Deactivating Loading Arrow
-                val imageView = findViewById<ImageView>(R.id.loadingCha)
-                imageView.visibility = View.INVISIBLE
             } catch (e: ConnectionException) {
                 val message = handler.obtainMessage()
                 message.obj = AppState.Load_Failed
@@ -378,7 +373,7 @@ class CharacterActivity : AppCompatActivity() {
                 when {
                     message.obj.equals(AppState.Episode_Detail_Loaded) -> {
                         var textView: TextView = findViewById(R.id.characterEpisodeData)
-                        textView.visibility = View.INVISIBLE
+                        textView.visibility = View.GONE
 
                         val obj = message.arg1
                         textView = TextView(this@CharacterActivity, null, R.style.characterDetailBottomList)
@@ -405,11 +400,6 @@ class CharacterActivity : AppCompatActivity() {
 
                         for (textViews in sortedMap)
                             linearLayout.addView(textViews.value)
-
-                        textView = findViewById(R.id.characterEpisodeLabel)
-                        val params = textView.layoutParams as ConstraintLayout.LayoutParams
-                        params.bottomToBottom = linearLayout.id
-                        textView.requestLayout()
 
                         System.gc()
                     }
@@ -477,6 +467,10 @@ class CharacterActivity : AppCompatActivity() {
                 FirebaseManager.logEvent("Search Avatar: $currentIdSearch - " + queryManager.getCharacterDetail(currentIdSearch).name, "Get_Avatar")
                 queryManager.getCharacterAvatar(currentIdSearch)
                 message.obj = AppState.Character_Avatar_Loaded
+
+                //Deactivating Loading Arrow
+                val imageView = findViewById<ImageView>(R.id.loadingCha)
+                imageView.visibility = View.INVISIBLE
             } catch (e: ConnectionException) {
                 message.obj = AppState.Load_Failed
             }

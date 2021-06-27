@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">R和M查看器</string>
+
+    <!--    Menu-->
+    <string name="item_policy">隐私政策</string>
+    <string name="item_rate">为这个应用软件评分</string>
+    <string name="item_about">关于</string>
+    <string name="item_rate_success">感谢您的评价</string>
+    <string name="item_rate_fail">对此应用评分时出错</string>
+
+    <!--    Ads View-->
+
+    <!--    Author Menu-->
+    <string name="authorEmailBody">在这里写下您的评论</string>
+    <string name="authorEmailSubject">用户评论</string>
+    <string name="authorEmailChooser">使用以下方式向该作者发送电子邮件：</string>
+    <string name="poweredBy">支持者：</string>
+
+    <!--    Character Detail-->
+    <string name="idLabel">ID：</string>
+    <string name="nameLabel">名称：</string>
+    <string name="statusLabel">地位：</string>
+    <string name="specieLabel">物种：</string>
+    <string name="typeLabel">类型：</string>
+    <string name="genderLabel">性别：</string>
+    <string name="originLabel">起源：</string>
+    <string name="locationLabel">地点：</string>
+    <string name="episodesLabel">情节：</string>
+
+    <!--    Location Detail-->
+    <string name="dimensionLabel">尺寸：</string>
+    <string name="residentsLabel">居民：</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">播出日期：</string>
+    <string name="episodeLabel">插曲：</string>
+    <string name="charactersLabel">人物：</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">加载时异常</string>
+    <string name="characterPageFail">无法加载字符页</string>
+    <string name="locationPageFail">无法加载位置页面</string>
+    <string name="episodePageFail">剧集页面无法加载</string>
+</resources>

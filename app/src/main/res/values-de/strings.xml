@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">R- und M-Viewer</string>
+
+    <!--    Menu-->
+    <string name="item_policy">Datenschutz-Bestimmungen</string>
+    <string name="item_rate">Bewerte diese App</string>
+    <string name="item_about">Über</string>
+    <string name="item_rate_success">Danke für deine Bewertung</string>
+    <string name="item_rate_fail">Fehler bei der Bewertung dieser App</string>
+
+    <!--    Ads View-->
+
+    <!--    Author Menu-->
+    <string name="authorEmailBody">Schreiben Sie hier Ihren Kommentar</string>
+    <string name="authorEmailSubject">Benutzerkommentar</string>
+    <string name="authorEmailChooser">Senden Sie eine E-Mail an diesen Autor mit:</string>
+    <string name="poweredBy">Unterstützt durch:</string>
+
+    <!--    Character Detail-->
+    <string name="idLabel">ICH WÜRDE:</string>
+    <string name="nameLabel">NAME:</string>
+    <string name="statusLabel">STATUS:</string>
+    <string name="specieLabel">SPEZIE:</string>
+    <string name="typeLabel">ART:</string>
+    <string name="genderLabel">GESCHLECHT:</string>
+    <string name="originLabel">URSPRUNG:</string>
+    <string name="locationLabel">LAGE:</string>
+    <string name="episodesLabel">EPISODEN:</string>
+
+    <!--    Location Detail-->
+    <string name="dimensionLabel">ABMESSUNGEN:</string>
+    <string name="residentsLabel">EINWOHNER:</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">LUFTDATUM:</string>
+    <string name="episodeLabel">FOLGE:</string>
+    <string name="charactersLabel">ZEICHEN:</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">Ausnahme beim Laden</string>
+    <string name="characterPageFail">Charakterseite kann nicht geladen werden</string>
+    <string name="locationPageFail">Standortseite kann nicht geladen werden</string>
+    <string name="episodePageFail">Episodenseite kann nicht geladen werden</string>
+</resources>

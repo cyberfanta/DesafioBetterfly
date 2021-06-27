@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Visor R i M.</string>
+
+    <!--    Menu-->
+    <string name="item_policy">Política de privacitat</string>
+    <string name="item_rate">Valora aquesta app</string>
+    <string name="item_about">Sobre</string>
+    <string name="item_rate_success">Gràcies per la vostra ressenya</string>
+    <string name="item_rate_fail">Error en classificar aquesta aplicació</string>
+
+    <!--    Ads View-->
+
+    <!--    Author Menu-->
+    <string name="authorEmailBody">Escriviu el vostre comentari aquí</string>
+    <string name="authorEmailSubject">Comentari de l\'usuari</string>
+    <string name="authorEmailChooser">Envieu un correu electrònic a aquest autor mitjançant:</string>
+    <string name="poweredBy">Recolzat per:</string>
+
+    <!--    Character Detail-->
+    <string name="idLabel">Identificació:</string>
+    <string name="nameLabel">NOM:</string>
+    <string name="statusLabel">ESTAT:</string>
+    <string name="specieLabel">ESPÈCIE:</string>
+    <string name="typeLabel">TIPUS:</string>
+    <string name="genderLabel">GÈNERE:</string>
+    <string name="originLabel">ORIGEN:</string>
+    <string name="locationLabel">UBICACIÓ:</string>
+    <string name="episodesLabel">EPISODIS:</string>
+
+    <!--    Location Detail-->
+    <string name="dimensionLabel">DIMENSIÓ:</string>
+    <string name="residentsLabel">RESIDENTS:</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">DATA DE L\'AIRE:</string>
+    <string name="episodeLabel">EPISODI:</string>
+    <string name="charactersLabel">PERSONATGES:</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">Excepció durant la càrrega</string>
+    <string name="characterPageFail">La pàgina de caràcters no es pot carregar</string>
+    <string name="locationPageFail">La pàgina d\'ubicació no es pot carregar</string>
+    <string name="episodePageFail">La pàgina de l\'episodi no es pot carregar</string>
+</resources>

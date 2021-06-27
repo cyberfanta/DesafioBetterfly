@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RおよびMビューア</string>
+
+    <!--    Menu-->
+    <string name="item_policy">個人情報保護方針</string>
+    <string name="item_rate">このアプリを評価する</string>
+    <string name="item_about">約</string>
+    <string name="item_rate_success">レビューありがとうございます</string>
+    <string name="item_rate_fail">このアプリの評価エラー</string>
+
+    <!--    Ads View-->
+
+    <!--    Author Menu-->
+    <string name="authorEmailBody">ここにコメントを書いてください</string>
+    <string name="authorEmailSubject">ユーザーコメント</string>
+    <string name="authorEmailChooser">以下を使用して、この作成者に電子メールを送信します。</string>
+    <string name="poweredBy">による支援：</string>
+
+    <!--    Character Detail-->
+    <string name="idLabel">ID：</string>
+    <string name="nameLabel">名前：</string>
+    <string name="statusLabel">状態：</string>
+    <string name="specieLabel">種：</string>
+    <string name="typeLabel">タイプ：</string>
+    <string name="genderLabel">性別：</string>
+    <string name="originLabel">原点：</string>
+    <string name="locationLabel">ロケーション：</string>
+    <string name="episodesLabel">エピソード：</string>
+
+    <!--    Location Detail-->
+    <string name="dimensionLabel">寸法：</string>
+    <string name="residentsLabel">住民：</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">放送日：</string>
+    <string name="episodeLabel">エピソード：</string>
+    <string name="charactersLabel">キャラクター：</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">ロード中の例外</string>
+    <string name="characterPageFail">キャラクターページを読み込めません</string>
+    <string name="locationPageFail">ロケーションページを読み込めません</string>
+    <string name="episodePageFail">エピソードページを読み込めません</string>
+</resources>
