@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">R 및 M 뷰어</string>
+
+    <!--    Menu-->
+    <string name="item_policy">개인 정보 정책</string>
+    <string name="item_rate">이 앱을 평가 해주세요</string>
+    <string name="item_about">약</string>
+    <string name="item_rate_success">검토해 주셔서 감사합니다</string>
+    <string name="item_rate_fail">이 앱을 평가하는 중에 오류가 발생했습니다.</string>
+
+    <!--    Ads View-->
+
+    <!--    Author Menu-->
+    <string name="authorEmailBody">여기에 의견을 작성하세요</string>
+    <string name="authorEmailSubject">사용자 코멘트</string>
+    <string name="authorEmailChooser">다음을 사용하여이 작성자에게 이메일을 보냅니다.</string>
+    <string name="poweredBy">지원 :</string>
+
+    <!--    Character Detail-->
+    <string name="idLabel">신분증:</string>
+    <string name="nameLabel">이름:</string>
+    <string name="statusLabel">상태:</string>
+    <string name="specieLabel">정금:</string>
+    <string name="typeLabel">유형:</string>
+    <string name="genderLabel">성별:</string>
+    <string name="originLabel">유래:</string>
+    <string name="locationLabel">위치:</string>
+    <string name="episodesLabel">에피소드 :</string>
+
+    <!--    Location Detail-->
+    <string name="dimensionLabel">치수:</string>
+    <string name="residentsLabel">거주자 :</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">방송일 :</string>
+    <string name="episodeLabel">삽화:</string>
+    <string name="charactersLabel">캐릭터 :</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">로드 중 예외</string>
+    <string name="characterPageFail">캐릭터 페이지를로드 할 수 없습니다.</string>
+    <string name="locationPageFail">위치 페이지를로드 할 수 없습니다.</string>
+    <string name="episodePageFail">에피소드 페이지를로드 할 수 없습니다.</string>
+</resources>

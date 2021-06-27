@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Программа просмотра R и M</string>
+
+    <!--    Menu-->
+    <string name="item_policy">Политика конфиденциальности</string>
+    <string name="item_rate">Оцени это приложение</string>
+    <string name="item_about">О</string>
+    <string name="item_rate_success">Спасибо за ваш обзор</string>
+    <string name="item_rate_fail">Ошибка при оценке этого приложения</string>
+
+    <!--    Ads View-->
+
+    <!--    Author Menu-->
+    <string name="authorEmailBody">Напишите здесь свой комментарий</string>
+    <string name="authorEmailSubject">Комментарий пользователя</string>
+    <string name="authorEmailChooser">Отправьте электронное письмо этому автору, используя:</string>
+    <string name="poweredBy">Поддерживается:</string>
+
+    <!--    Character Detail-->
+    <string name="idLabel">Я БЫ:</string>
+    <string name="nameLabel">НАЗВАНИЕ:</string>
+    <string name="statusLabel">СТАТУС:</string>
+    <string name="specieLabel">СПЕЦИФИКАЦИЯ:</string>
+    <string name="typeLabel">ТИП:</string>
+    <string name="genderLabel">ПОЛ:</string>
+    <string name="originLabel">ИСТОЧНИК:</string>
+    <string name="locationLabel">МЕСТО РАСПОЛОЖЕНИЯ:</string>
+    <string name="episodesLabel">ЭПИЗОДЫ:</string>
+
+    <!--    Location Detail-->
+    <string name="dimensionLabel">ИЗМЕРЕНИЕ:</string>
+    <string name="residentsLabel">РЕЗИДЕНТЫ:</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">ДАТА ВЫХОДА В ЭФИР:</string>
+    <string name="episodeLabel">ЭПИЗОД:</string>
+    <string name="charactersLabel">СИМВОЛЫ:</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">Исключение при загрузке</string>
+    <string name="characterPageFail">Страница персонажа не может быть загружена</string>
+    <string name="locationPageFail">Страница местоположения не может быть загружена</string>
+    <string name="episodePageFail">Страница эпизода не может быть загружена</string>
+</resources>

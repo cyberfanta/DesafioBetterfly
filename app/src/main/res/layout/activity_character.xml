@@ -44,250 +44,243 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layerType="software"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintBottom_toTopOf="@id/adViewCharacter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/characterImageView">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="411dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.35" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/characterIdLabel"
-                style="@style/characterDetailLabelTop"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/characterIdLabel"
+                    style="@style/characterDetailLabelTop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/characterIdData"
-                style="@style/characterDetailTop"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toTopOf="@id/characterIdLabel" />
+                <TextView
+                    android:id="@+id/characterIdData"
+                    style="@style/characterDetailTop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
 
-            <TextView
-                android:id="@+id/characterNameLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterIdLabel" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/characterNameData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toTopOf="@id/characterNameLabel" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/characterStatusLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterNameLabel" />
+                <TextView
+                    android:id="@+id/characterNameLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/characterStatusData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toTopOf="@id/characterStatusLabel" />
+                <TextView
+                    android:id="@+id/characterNameData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
 
-            <TextView
-                android:id="@+id/characterSpeciesLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterStatusLabel" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/characterSpeciesData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toTopOf="@id/characterSpeciesLabel" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/characterTypeLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterSpeciesLabel" />
+                <TextView
+                    android:id="@+id/characterStatusLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/characterTypeData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toTopOf="@id/characterTypeLabel" />
+                <TextView
+                    android:id="@+id/characterStatusData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
 
-            <TextView
-                android:id="@+id/characterGenderLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterTypeLabel" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/characterGenderData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toTopOf="@id/characterGenderLabel" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/characterOriginLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintBottom_toBottomOf="@+id/characterOriginData"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterGenderLabel" />
+                <TextView
+                    android:id="@+id/characterSpeciesLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/characterOriginData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/characterGenderData" />
+                <TextView
+                    android:id="@+id/characterSpeciesData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/characterLocationLabel"
-                style="@style/characterDetailLabel"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintBottom_toBottomOf="@+id/characterLocationData"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterOriginLabel" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/characterLocationData"
-                style="@style/characterDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/characterOriginData" />
+                <TextView
+                    android:id="@+id/characterTypeLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/characterEpisodeLabel"
-                style="@style/characterDetailLabelBottom"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/contentDescriptionShort"
-                app:layout_constraintBottom_toBottomOf="@id/characterEpisodeData"
-                app:layout_constraintEnd_toEndOf="@id/guideline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterLocationLabel" />
+                <TextView
+                    android:id="@+id/characterTypeData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
+            </TableRow>
 
-            <LinearLayout
-                android:id="@+id/characterEpisodeDataList"
-                style="@style/characterDetailBottom"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/characterLocationData">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/characterGenderLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
 
-            <TextView
-                android:id="@+id/characterEpisodeData"
-                style="@style/characterDetailBottom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/contentDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/characterLocationData" />
+                <TextView
+                    android:id="@+id/characterGenderData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
+            </TableRow>
 
-            <View
-                android:id="@+id/view3"
-                android:layout_width="0dp"
-                android:layout_height="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/characterEpisodeLabel" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/characterOriginLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
+
+                <TextView
+                    android:id="@+id/characterOriginData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/characterLocationLabel"
+                    style="@style/characterDetailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
+
+                <TextView
+                    android:id="@+id/characterLocationData"
+                    style="@style/characterDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size"
+                    android:text="@string/contentDescription" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/characterEpisodeLabel"
+                    style="@style/characterDetailLabelBottom"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_label_size"
+                    android:text="@string/contentDescriptionShort" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@dimen/table_content_size">
+
+                    <LinearLayout
+                        android:id="@+id/characterEpisodeDataList"
+                        style="@style/characterDetailBottom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/characterEpisodeData"
+                        style="@style/characterDetailBottom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contentDescription"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp" />
+            </TableRow>
+
+        </TableLayout>
     </ScrollView>
 
     <ImageView

@@ -301,7 +301,6 @@ class MainActivity : AppCompatActivity() {
      */
     private inner class InitializingQueryManager : Runnable {
         override fun run() {
-            val message = handler.obtainMessage()
             try {
                 queryManager.getCharacterPage(1)
                 val message1 = handler.obtainMessage()
@@ -318,6 +317,7 @@ class MainActivity : AppCompatActivity() {
                 message3.obj = AppState.Episode_Page_Loaded
                 handler.sendMessageAtFrontOfQueue(message3)
             } catch (e: ConnectionException) {
+                val message = handler.obtainMessage()
                 message.obj = AppState.Load_Failed
                 handler.sendMessageAtFrontOfQueue(message)
             }

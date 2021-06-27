@@ -13,8 +13,8 @@ android {
         applicationId "com.cyberfanta.desafiobetterfly"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 6
-        versionName "1.5.1"
+        versionCode 8
+        versionName "1.5.3"
 
         multiDexEnabled true
 
@@ -61,7 +61,7 @@ dependencies {
     //Firebase
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
     implementation 'com.google.firebase:firebase-perf-ktx:20.0.1'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.1.0'
     implementation 'com.google.firebase:firebase-ads:20.2.0'
 
     //Rate my app
@@ -69,6 +69,7 @@ dependencies {
 
     //Connection to API
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+
     //Create Object from JSON
     implementation 'com.google.code.gson:gson:2.8.7'
 

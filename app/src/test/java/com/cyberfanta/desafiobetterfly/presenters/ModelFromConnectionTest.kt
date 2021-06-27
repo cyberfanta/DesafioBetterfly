@@ -82,7 +82,7 @@ class ModelFromConnectionTest : TestCase() {
 
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(Character::class.java, url[4])::class.java,
+                modelFromConnection.getObject(Character::class.java, url[4])::class.java,
                 Character::class.java
             )
         } catch (e: ConnectionException) {
@@ -94,7 +94,7 @@ class ModelFromConnectionTest : TestCase() {
     fun testGetLocationOk() {
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(Location::class.java, url[5])::class.java,
+                modelFromConnection.getObject(Location::class.java, url[5])::class.java,
                 Location::class.java
             )
         } catch (e: ConnectionException) {
@@ -104,7 +104,7 @@ class ModelFromConnectionTest : TestCase() {
 
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(LocationDetail::class.java, url[6])::class.java,
+                modelFromConnection.getObject(LocationDetail::class.java, url[6])::class.java,
                 LocationDetail::class.java
             )
         } catch (e: ConnectionException) {
@@ -114,7 +114,7 @@ class ModelFromConnectionTest : TestCase() {
 
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(LocationFilter::class.java, url[7])::class.java,
+                modelFromConnection.getObject(LocationFilter::class.java, url[7])::class.java,
                 LocationFilter::class.java
             )
         } catch (e: ConnectionException) {
@@ -134,7 +134,7 @@ class ModelFromConnectionTest : TestCase() {
 
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(Location::class.java, url[9])::class.java,
+                modelFromConnection.getObject(Location::class.java, url[9])::class.java,
                 Location::class.java
             )
         } catch (e: ConnectionException) {
@@ -146,7 +146,7 @@ class ModelFromConnectionTest : TestCase() {
     fun testGetEpisodeOk() {
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(Episode::class.java, url[10])::class.java,
+                modelFromConnection.getObject(Episode::class.java, url[10])::class.java,
                 Episode::class.java
             )
         } catch (e: ConnectionException) {
@@ -156,7 +156,7 @@ class ModelFromConnectionTest : TestCase() {
 
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(EpisodeDetail::class.java, url[11])::class.java,
+                modelFromConnection.getObject(EpisodeDetail::class.java, url[11])::class.java,
                 EpisodeDetail::class.java
             )
         } catch (e: ConnectionException) {
@@ -166,7 +166,7 @@ class ModelFromConnectionTest : TestCase() {
 
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(EpisodeFilter::class.java, url[12])::class.java,
+                modelFromConnection.getObject(EpisodeFilter::class.java, url[12])::class.java,
                 EpisodeFilter::class.java
             )
         } catch (e: ConnectionException) {
@@ -186,7 +186,7 @@ class ModelFromConnectionTest : TestCase() {
 
         try {
             Assert.assertSame(
-                modelFromConnection!!.getObject(Episode::class.java, url[14])::class.java,
+                modelFromConnection.getObject(Episode::class.java, url[14])::class.java,
                 Episode::class.java
             )
         } catch (e: ConnectionException) {

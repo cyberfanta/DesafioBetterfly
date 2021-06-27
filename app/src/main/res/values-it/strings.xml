@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Visualizzatore R e M</string>
+
+    <!--    Menu-->
+    <string name="item_policy">politica sulla riservatezza</string>
+    <string name="item_rate">Valuta questa applicazione</string>
+    <string name="item_about">Di</string>
+    <string name="item_rate_success">Grazie per la tua recensione</string>
+    <string name="item_rate_fail">Errore nella valutazione di questa app</string>
+
+    <!--    Ads View-->
+
+    <!--    Author Menu-->
+    <string name="authorEmailBody">Scrivi qui il tuo commento</string>
+    <string name="authorEmailSubject">Commento dell\'utente</string>
+    <string name="authorEmailChooser">Invia email a questo autore utilizzando:</string>
+    <string name="poweredBy">Sostenuto da:</string>
+
+    <!--    Character Detail-->
+    <string name="idLabel">ID:</string>
+    <string name="nameLabel">NOME:</string>
+    <string name="statusLabel">STATO:</string>
+    <string name="specieLabel">SPECIE:</string>
+    <string name="typeLabel">GENERE:</string>
+    <string name="genderLabel">GENERE:</string>
+    <string name="originLabel">ORIGINE:</string>
+    <string name="locationLabel">POSIZIONE:</string>
+    <string name="episodesLabel">EPISODI:</string>
+
+    <!--    Location Detail-->
+    <string name="dimensionLabel">DIMENSIONE:</string>
+    <string name="residentsLabel">RESIDENTI:</string>
+
+    <!--    Episode Detail-->
+    <string name="airDateLabel">DATA AEREA:</string>
+    <string name="episodeLabel">EPISODIO:</string>
+    <string name="charactersLabel">PERSONAGGI:</string>
+
+    <!--    Feedback to User-->
+    <string name="loadingFail">Eccezione durante il caricamento</string>
+    <string name="characterPageFail">Impossibile caricare la pagina del personaggio</string>
+    <string name="locationPageFail">Impossibile caricare la pagina della posizione</string>
+    <string name="episodePageFail">Impossibile caricare la pagina dell\'episodio</string>
+</resources>

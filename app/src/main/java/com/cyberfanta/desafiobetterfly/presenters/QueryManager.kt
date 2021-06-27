@@ -65,6 +65,7 @@ class QueryManager {
     }
 
     @Synchronized
+    @Throws(ConnectionException::class)
     fun getCharacterAvatar(id: Int): BitmapMessage {
         if (!characterDetailList.containsKey(id))
             getCharacterDetail(id)

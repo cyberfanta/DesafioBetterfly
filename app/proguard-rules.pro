@@ -20,5 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep class com.cyberfanta.desafiobetterfly.models.* { *; }
+-keep class com.cyberfanta.desafiobetterfly.models.character.* { *; }
+-keep class com.cyberfanta.desafiobetterfly.models.location.* { *; }
+-keep class com.cyberfanta.desafiobetterfly.models.episode.* { *; }
 -dontwarn java.lang.instrument.ClassFileTransformer
 -dontwarn sun.misc.SignalHandler

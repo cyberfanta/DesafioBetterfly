@@ -1,15 +1,12 @@
 package com.cyberfanta.desafiobetterfly.presenters
 
 import com.cyberfanta.desafiobetterfly.exceptions.ConnectionException
-import java.io.IOException
-import java.util.concurrent.TimeUnit
-
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.util.*
+import java.util.concurrent.TimeUnit
 
 class ConnectionToApi {
     @Suppress("PrivatePropertyName", "unused")
@@ -42,21 +39,20 @@ class ConnectionToApi {
     @Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER")
     @Throws(ConnectionException::class)
     private fun loadJson(request: Request): String {
-        var answer = ""
         try {
             val response = client.newCall(request).execute()
 
-            answer = Objects.requireNonNull(response.body)!!.string()
-            Objects.requireNonNull(response.body)!!.close()
+            val answer = response.body?.string().toString()
+            response.body?.close()
 
             if (response.code != 200)
                 throw ConnectionException("ERROR_WITH_RESPONSE")
 
             response.close()
+            return answer
         } catch (e: Exception) {
             throw ConnectionException("CONNECTION_FAIL")
         }
-        return answer
     }
 
 }

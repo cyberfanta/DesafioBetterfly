@@ -11,30 +11,6 @@ data class LocationFilter(
 	val info: Info7? = null
 )
 
-data class ResultsItem7(
-
-	@field:SerializedName("created")
-	val created: String? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("residents")
-	val residents: List<String?>? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("type")
-	val type: String? = null,
-
-	@field:SerializedName("dimension")
-	val dimension: String? = null,
-
-	@field:SerializedName("url")
-	val url: String? = null
-)
-
 data class Info7(
 
 	@field:SerializedName("next")
