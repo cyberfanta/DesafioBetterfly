@@ -443,7 +443,11 @@ class CharacterActivity : AppCompatActivity() {
                         }
                     }
                     message.obj.equals(AppState.Character_Avatar_Loaded) -> {
-                        val imageView: ImageView = findViewById(R.id.characterImageView)
+                        //Deactivating Loading Arrow
+                        var imageView = findViewById<ImageView>(R.id.loadingCha)
+                        imageView.visibility = View.INVISIBLE
+
+                        imageView = findViewById(R.id.characterImageView)
 
                         try {
                             imageView.setImageBitmap(query.id?.let { queryManager.getCharacterAvatar(it).bitmap })
@@ -467,10 +471,6 @@ class CharacterActivity : AppCompatActivity() {
                 FirebaseManager.logEvent("Search Avatar: $currentIdSearch - " + queryManager.getCharacterDetail(currentIdSearch).name, "Get_Avatar")
                 queryManager.getCharacterAvatar(currentIdSearch)
                 message.obj = AppState.Character_Avatar_Loaded
-
-                //Deactivating Loading Arrow
-                val imageView = findViewById<ImageView>(R.id.loadingCha)
-                imageView.visibility = View.INVISIBLE
             } catch (e: ConnectionException) {
                 message.obj = AppState.Load_Failed
             }

@@ -312,10 +312,6 @@ class EpisodeActivity : AppCompatActivity() {
                     FirebaseManager.logEvent("Character Detail: $number - $name", "Get_Character_Detail")
                     handler.sendMessageAtFrontOfQueue(message)
                 }
-
-                //Deactivating Loading Arrow
-                val imageView = findViewById<ImageView>(R.id.loadingEpi)
-                imageView.visibility = View.INVISIBLE
             } catch (e: ConnectionException) {
                 val message = handler.obtainMessage()
                 message.obj = AppState.Load_Failed
@@ -363,6 +359,10 @@ class EpisodeActivity : AppCompatActivity() {
                     linearLayout.addView(textViews.value)
 
                 System.gc()
+
+                //Deactivating Loading Arrow
+                val imageView = findViewById<ImageView>(R.id.loadingEpi)
+                imageView.visibility = View.INVISIBLE
             }
         }
     }
