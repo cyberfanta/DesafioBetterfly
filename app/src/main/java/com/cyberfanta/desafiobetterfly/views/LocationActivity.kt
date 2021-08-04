@@ -162,9 +162,13 @@ class LocationActivity : AppCompatActivity() {
      * Get the device dimension
      */
     private fun getDeviceDimensions(){
-        deviceWidth = intent.getStringExtra("deviceWidth")!!.toInt()
-        deviceHeight = intent.getStringExtra("deviceHeight")!!.toInt()
+//        deviceWidth = intent.getStringExtra("deviceWidth")!!.toInt()
+//        deviceHeight = intent.getStringExtra("deviceHeight")!!.toInt()
         currentIdSearch = intent.getStringExtra("currentIdSearch")!!.toInt()
+
+        val dimen = DeviceUtils.calculateDeviceDimensions (this)
+        deviceWidth = dimen[0]
+        deviceHeight = dimen[1]
 
         Log.i(TAG, "currentIdSearch: $currentIdSearch")
     }
