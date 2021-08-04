@@ -25,3 +25,8 @@
 -keep class com.cyberfanta.desafiobetterfly.models.episode.* { *; }
 -dontwarn java.lang.instrument.ClassFileTransformer
 -dontwarn sun.misc.SignalHandler
+-dontwarn org.bouncycastle.jsse.*
+-dontwarn org.bouncycastle.jsse.provider.BouncyCastleJsseProvider
+-dontwarn org.conscrypt.*
+-dontwarn org.openjsse.javax.net.ssl.*
+-dontwarn org.openjsse.net.ssl.OpenJSSE
