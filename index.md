@@ -1,37 +1,49 @@
-## Welcome to GitHub Pages
+# DesafioBetterfly
+Android App for Betterfly Challenge.
+This is an app made to correspond with the 2 days challenge program from Betterfly.
 
-You can use the [editor on GitHub](https://github.com/cyberfanta/DesafioBetterfly/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## To Obtain 🚀
+Clone this repo to your computer using any Git manager.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Use the url -> https://github.com/cyberfanta/DesafioBetterfly.git or this -> git@github.com:cyberfanta/DesafioBetterfly.git (More secure)
 
-### Markdown
+### Requirements 📋
+Last version of [Android Studio](https://developer.android.com/studio)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+### Instalation 🔧
+```
+* Open your Android Studio
+* Go to File -> New -> Project from Version Control
+* Paste the URL.
+* Select a Directory.
+* Click on Clone button. Will take some minutes.
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### To Run It 📦
+```
+You have 2 options:
 
-### Jekyll Themes
+1. By Hardware
+* Connect your Android device to your computer using a USB cable.
+* If your first time follow the device user manual to install its drivers.
+* Once your Android Studio detect your device, just Run using the Green Triangle Button.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/cyberfanta/DesafioBetterfly/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+2. By Software
+* Go to Tool -> AVD Manager
+* Click on Create Virtual Device.
+* Create a Virtual Device according to your preferences.
+* Once finish it and your Android Studio detect your device, just Run using the Green Triangle Button.
+```
+---
+## Architecture 🚀
+This project was made using [Kotlin](https://developer.android.com/kotlin?hl=es-419&gclid=Cj0KCQjwktKFBhCkARIsAJeDT0hrjixFC0axADTFNpfkGERyGvlLu6grPKO6XBMN7R5YPUlLXTKQWz8aAtv4EALw_wcB&gclsrc=aw.ds)
 
-### Support or Contact
+With architecture MVP (Model View Presenter) to make sure that the app will make its best to show the content with no delay to the user.
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## License 📄
+This proyect is under license (Apache License) - please check the file [LICENSE.md](LICENSE.md) for details
+
+## Author ✒️
+* **Julio César León** - *Initial Work* - [Julio León](https://github.com/cyberfanta)
+
+Enjoy my app.
