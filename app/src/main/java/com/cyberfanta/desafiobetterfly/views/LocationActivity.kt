@@ -284,7 +284,10 @@ class LocationActivity : AppCompatActivity() {
             text += split?.get(1) + "\n"
             detailList[split?.get(1)?.toInt()!!] = ""
         }
-        textView.text = text.substring(0, text.length-1)
+        if (text.isNotEmpty())
+            textView.text = text.substring(0, text.length-1)
+        else
+            textView.text = text
         textView = findViewById(R.id.locationCharactersLabel)
         textView.text = getString(R.string.residentsLabel)
 

@@ -284,7 +284,10 @@ class EpisodeActivity : AppCompatActivity() {
             text += split?.get(1) + "\n"
             detailList[split?.get(1)?.toInt()!!] = ""
         }
-        textView.text = text.substring(0, text.length-2)
+        if (text.length > 1)
+            textView.text = text.substring(0, text.length-2)
+        else
+            textView.text = ""
         textView = findViewById(R.id.episodeCharactersLabel)
         textView.text = getString(R.string.charactersLabel)
 
