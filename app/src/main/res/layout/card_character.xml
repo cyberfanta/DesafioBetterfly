@@ -8,6 +8,7 @@
     android:layout_marginEnd="4dp"
     android:layout_marginBottom="8dp"
     android:clipChildren="true"
+    android:contentDescription="@string/content_description_RV_character"
     app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck"
             tools:srcCompat="@tools:sample/avatars" />
 
         <View

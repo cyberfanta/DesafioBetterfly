@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">R 및 M 뷰어</string>
+    <string name="app_name">Rick and Morty API 뷰어</string>
 
     <!--    Menu-->
     <string name="item_policy">개인 정보 정책</string>

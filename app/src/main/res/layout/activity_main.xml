@@ -11,21 +11,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/contentDescription"
-        android:scaleType="centerCrop"
+        android:contentDescription="@string/content_description_background"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background" />
+        app:srcCompat="@drawable/background"
+        tools:ignore="ImageContrastCheck" />
 
     <FrameLayout
         android:id="@+id/adView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description_ad"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/charactersRV"
@@ -35,6 +37,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="80dp"
+        android:contentDescription="@string/content_description_RV_character"
         app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +51,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="80dp"
+        android:contentDescription="@string/content_description_RV_location"
         app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +65,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="80dp"
+        android:contentDescription="@string/content_description_RV_episode"
         app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +80,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/contentDescription"
+        android:contentDescription="@string/content_description_loading_arrow"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/footerBackground"
         app:layout_constraintEnd_toEndOf="@+id/charactersRV"
@@ -88,7 +93,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/contentDescription"
+        android:contentDescription="@string/content_description_loading_arrow"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/footerBackground"
         app:layout_constraintEnd_toEndOf="@+id/locationsRV"
@@ -113,11 +118,12 @@
         android:layout_height="70dp"
         android:layout_marginTop="2dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/contentDescription"
+        android:contentDescription="@string/content_description_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/title" />
+        app:srcCompat="@drawable/title"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageView
         android:id="@+id/footerBackground"
@@ -125,12 +131,13 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:clickable="true"
-        android:contentDescription="@string/contentDescription"
+        android:contentDescription="@string/content_description_footer_menu"
         android:focusable="true"
         app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_footer_color_2" />
+        app:srcCompat="@drawable/ic_footer_color_2"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageView
         android:id="@+id/characterButtonColor"
@@ -168,6 +175,7 @@
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_marginBottom="10dp"
+        android:contentDescription="@string/content_description_footer_character"
         app:backgroundTint="@color/white_transparent"
         app:layout_constraintBottom_toBottomOf="@id/footerBackground"
         app:layout_constraintEnd_toEndOf="parent"
@@ -210,6 +218,7 @@
         android:layout_height="80dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="10dp"
+        android:contentDescription="@string/content_description_footer_location"
         app:backgroundTint="@color/white_transparent"
         app:layout_constraintBottom_toBottomOf="@id/footerBackground"
         app:layout_constraintEnd_toStartOf="@+id/characterButton" />
@@ -251,6 +260,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="10dp"
+        android:contentDescription="@string/content_description_footer_episode"
         app:backgroundTint="@color/white_transparent"
         app:layout_constraintBottom_toBottomOf="@id/footerBackground"
         app:layout_constraintStart_toEndOf="@+id/characterButton" />
@@ -286,10 +296,11 @@
             <ImageView
                 android:id="@+id/imageView"
                 style="@style/authorImageView"
-                android:contentDescription="@string/contentDescription"
+                android:contentDescription="@string/content_description_author_picture"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ImageContrastCheck" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
@@ -338,6 +349,7 @@
                     style="@style/authorTextView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description_author_email"
                     android:text="@string/authorEmail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -387,6 +399,7 @@
                 style="@style/authorTextView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_author_powered"
                 android:text="@string/poweredByName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

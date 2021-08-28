@@ -34,7 +34,7 @@ import kotlin.collections.LinkedHashMap
 
 class LocationActivity : AppCompatActivity() {
     @Suppress("PrivatePropertyName", "unused")
-    private val TAG = this::class.java.simpleName
+    private val TAG = (this::class.java.simpleName).toString()
 
     //UI Variables
     private var authorOpened: Boolean = false
@@ -75,7 +75,6 @@ class LocationActivity : AppCompatActivity() {
         bindingAllOnClickFunctions()
 
         //Load ads manager
-//        AdsManager.attachBannerAd (findViewById(R.id.adViewLocation))
         adView = findViewById(R.id.adViewLocation)
         AdsManager.attachBannerAd (adView)
 
@@ -162,13 +161,9 @@ class LocationActivity : AppCompatActivity() {
      * Get the device dimension
      */
     private fun getDeviceDimensions(){
-//        deviceWidth = intent.getStringExtra("deviceWidth")!!.toInt()
-//        deviceHeight = intent.getStringExtra("deviceHeight")!!.toInt()
-        currentIdSearch = intent.getStringExtra("currentIdSearch")!!.toInt()
-
-        val dimen = DeviceUtils.calculateDeviceDimensions (this)
-        deviceWidth = dimen[0]
-        deviceHeight = dimen[1]
+        currentIdSearch = intent.getIntExtra("currentIdSearch", 0)
+        deviceWidth = DeviceUtils.getDeviceWidth()
+        deviceHeight = DeviceUtils.getDeviceHeight()
 
         Log.i(TAG, "currentIdSearch: $currentIdSearch")
     }
@@ -197,7 +192,7 @@ class LocationActivity : AppCompatActivity() {
             }
             R.id.item_rate -> {
                 FirebaseManager.logEvent("Menu: Rate App", "Open_Menu")
-                RateAppManager.requestReview(applicationContext)
+                RateAppManager.requestReview(this)
                 return true
             }
             R.id.item_about -> {
@@ -314,7 +309,7 @@ class LocationActivity : AppCompatActivity() {
                     val number = detail.key
                     val name = queryManager.getCharacterDetail(number).name!!
                     detailList[number] = name
-                    message.obj = number
+                    message.arg1 = number
                     FirebaseManager.logEvent("Character Detail: $number - $name", "Get_Character_Detail")
                     handler.sendMessageAtFrontOfQueue(message)
                 }
@@ -333,11 +328,11 @@ class LocationActivity : AppCompatActivity() {
     @SuppressLint("HandlerLeak")
     private val handler: Handler = object : Handler() {
         override fun handleMessage(message: Message) {
-            if (message.obj != null) {
+            if (message.arg1 > -1) {
                 var textView : TextView = findViewById(R.id.locationCharactersData)
                 textView.visibility = View.GONE
 
-                val obj = message.obj as Int
+                val obj = message.arg1
                 textView = TextView (this@LocationActivity, null, R.style.characterDetailBottomList)
 
                 val text = obj.toString() + ": " + queryManager.getCharacterDetail(obj).name!!
@@ -351,9 +346,7 @@ class LocationActivity : AppCompatActivity() {
                     FirebaseManager.logEvent("Character Detail: $obj - " + queryManager.getCharacterDetail(obj).name, "Get_Character_Detail")
 
                     val intent = Intent(this@LocationActivity, CharacterActivity::class.java)
-                    intent.putExtra("deviceWidth", deviceWidth.toString())
-                    intent.putExtra("deviceHeight", deviceHeight.toString())
-                    intent.putExtra("currentIdSearch", obj.toString())
+                    intent.putExtra("currentIdSearch", obj)
                     startActivity(intent)
                 }
                 sortedMap[obj]=textView

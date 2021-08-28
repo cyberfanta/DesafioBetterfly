@@ -14,6 +14,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowMetrics
+import android.widget.Toast
 
 @Suppress("unused")
 class DeviceUtils {
@@ -83,21 +84,50 @@ class DeviceUtils {
          * @return A IntArray where position [0] is the width and [1] is the height
          */
         fun calculateDeviceDimensions(activity: Activity): IntArray {
-            val result = intArrayOf(0, 0)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val windowMetrics: WindowMetrics = activity.windowManager.currentWindowMetrics
                 val insets: Insets = windowMetrics.windowInsets
                     .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-                result[0] = windowMetrics.bounds.width() - insets.left - insets.right
-                result[1] = windowMetrics.bounds.height() - insets.top - insets.bottom
+                deviceSize[0] = windowMetrics.bounds.width() - insets.left - insets.right
+                deviceSize[1] = windowMetrics.bounds.height() - insets.top - insets.bottom
             } else {
                 val displayMetrics = DisplayMetrics()
                 @Suppress("DEPRECATION")
                 activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
-                result[0] = displayMetrics.widthPixels
-                result[1] = displayMetrics.heightPixels
+                deviceSize[0] = displayMetrics.widthPixels
+                deviceSize[1] = displayMetrics.heightPixels
             }
-            return result
+            return deviceSize
+        }
+
+        //Current Device Size
+        private var deviceSize = intArrayOf(0, 0)
+
+        /**
+         * Get curent Device Width
+         *
+         * @return An Int
+         */
+        fun getDeviceWidth(): Int {
+            return deviceSize[0]
+        }
+
+        /**
+         * Get curent Device Height
+         *
+         * @return An Int
+         */
+        fun getDeviceHeight(): Int {
+            return deviceSize[1]
+        }
+
+        /**
+         * Get curent Device Size
+         *
+         * @return A IntArray where position [0] is the width and [1] is the height
+         */
+        fun getDeviceDimensions(): IntArray {
+            return deviceSize
         }
 
         /**
@@ -148,6 +178,16 @@ class DeviceUtils {
         fun getRandomNumber(starting: Int, ending: Int): Int {
             val list = (starting..ending).filter { it % 2 == 0 }
             return list.random()
+        }
+
+        /**
+         * Show toast
+         *
+         * @param context Context for the toast
+         * @param message String for the toast
+         */
+        fun showToast(context: Context, message: String) {
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
 }

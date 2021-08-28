@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">R和M查看器</string>
+    <string name="app_name">瑞克和莫蒂 API 查看器</string>
 
     <!--    Menu-->
     <string name="item_policy">隐私政策</string>

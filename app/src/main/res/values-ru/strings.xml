@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Программа просмотра R и M</string>
+    <string name="app_name">Средство просмотра API Рика и Морти</string>
 
     <!--    Menu-->
     <string name="item_policy">Политика конфиденциальности</string>

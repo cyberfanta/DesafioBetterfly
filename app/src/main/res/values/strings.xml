@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">R and M Viewer</string>
+    <string name="app_name">Rick and Morty API Viewer</string>
     <string name="contentDescription" translatable="false">contentDescription</string>
     <string name="contentDescriptionShort" translatable="false">CDS</string>
     <string name="contentDescriptionLong" translatable="false">contentDescriptioncontentDescriptioncontentDescriptioncontentDescriptioncontentDescriptioncontentDescription</string>
+
+    <!--    Content Descriptions-->
+    <string name="content_description_footer_location" translatable="false">Show Location Cards</string>
+    <string name="content_description_footer_character" translatable="false">Show Character Cards</string>
+    <string name="content_description_footer_episode" translatable="false">Show Episode Cards</string>
+    <string name="content_description_RV_location" translatable="false">Location Cards</string>
+    <string name="content_description_RV_character" translatable="false">Character Cards</string>
+    <string name="content_description_RV_episode" translatable="false">Episode Cards</string>
+    <string name="content_description_footer_menu" translatable="false">Footer Menu</string>
+    <string name="content_description_background" translatable="false">Background</string>
+    <string name="content_description_ad" translatable="false">Ads</string>
+    <string name="content_description_title" translatable="false">Main Title</string>
+    <string name="content_description_menu" translatable="false">Options Menu</string>
+    <string name="content_description_menu_policy" translatable="false">Open Policy</string>
+    <string name="content_description_menu_rate" translatable="false">Open Rate My App</string>
+    <string name="content_description_menu_about" translatable="false">Open About This App</string>
+    <string name="content_description_author_email" translatable="false">Send Email To App Author</string>
+    <string name="content_description_author_powered" translatable="false">Open Website Of Data Provider</string>
+    <string name="content_description_author_picture" translatable="false">Author Picture</string>
+    <string name="content_description_loading_arrow" translatable="false">Loading Arrow</string>
+    <string name="content_description_character_picture" translatable="false">Character Picture</string>
+    <string name="content_description_location_picture" translatable="false">Location Picture</string>
+    <string name="content_description_episode_picture" translatable="false">Episode Picture</string>
 
     <!--    Menu-->
     <string name="item_policy">Privacy Policy</string>

@@ -7,6 +7,7 @@
     android:layout_marginEnd="4dp"
     android:layout_marginBottom="8dp"
     android:clipChildren="true"
+    android:contentDescription="@string/content_description_RV_episode"
     app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

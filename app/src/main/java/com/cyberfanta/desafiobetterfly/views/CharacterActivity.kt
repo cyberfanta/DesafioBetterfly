@@ -161,13 +161,10 @@ class CharacterActivity : AppCompatActivity() {
      * Get the device dimension
      */
     private fun getDeviceDimensions(){
-//        deviceWidth = intent.getStringExtra("deviceWidth")!!.toInt()
-//        deviceHeight = intent.getStringExtra("deviceHeight")!!.toInt()
-        currentIdSearch = intent.getStringExtra("currentIdSearch")!!.toInt()
-
-        val dimen = DeviceUtils.calculateDeviceDimensions (this)
-        deviceWidth = dimen[0]
-        deviceHeight = dimen[1]
+//        currentIdSearch = intent.getStringExtra("currentIdSearch")!!.toInt()
+        currentIdSearch = intent.getIntExtra("currentIdSearch", 0)
+        deviceWidth = DeviceUtils.getDeviceWidth()
+        deviceHeight = DeviceUtils.getDeviceHeight()
 
         Log.i(TAG, "currentIdSearch: $currentIdSearch")
     }
@@ -196,7 +193,7 @@ class CharacterActivity : AppCompatActivity() {
             }
             R.id.item_rate -> {
                 FirebaseManager.logEvent("Menu: Rate App", "Open_Menu")
-                RateAppManager.requestReview(applicationContext)
+                RateAppManager.requestReview(this)
                 return true
             }
             R.id.item_about -> {
@@ -339,11 +336,13 @@ class CharacterActivity : AppCompatActivity() {
                     val number: Int = query.origin2?.url?.split("https://rickandmortyapi.com/api/location/")?.get(1)?.toInt()!!
                     val name: String = queryManager.getLocationDetail(number).name!!
                     FirebaseManager.logEvent("Location Detail: $number - $name", "Get_Location_Detail")
+                    message1.arg1 = number
                 }
                 if (query.location2?.url != "") {
                     val number: Int = query.location2?.url?.split("https://rickandmortyapi.com/api/location/")?.get(1)?.toInt()!!
                     val name: String = queryManager.getLocationDetail(number).name!!
                     FirebaseManager.logEvent("Location Detail: $number - $name", "Get_Location_Detail")
+                    message1.arg2 = number
                 }
                 message1.obj = AppState.Location_Detail_Loaded
                 handler.sendMessageAtFrontOfQueue(message1)
@@ -392,9 +391,7 @@ class CharacterActivity : AppCompatActivity() {
                             FirebaseManager.logEvent("Episode Detail: $obj - " + queryManager.getEpisodeDetail(obj).name, "Get_Episode_Detail")
 
                             val intent = Intent(this@CharacterActivity, EpisodeActivity::class.java)
-                            intent.putExtra("deviceWidth", deviceWidth.toString())
-                            intent.putExtra("deviceHeight", deviceHeight.toString())
-                            intent.putExtra("currentIdSearch", obj.toString())
+                            intent.putExtra("currentIdSearch", obj)
                             startActivity(intent)
                         }
                         sortedMap[obj] = textView
@@ -410,28 +407,20 @@ class CharacterActivity : AppCompatActivity() {
                     message.obj.equals(AppState.Location_Detail_Loaded) -> {
                         if (query.origin2?.url != "") {
                             val textView: TextView = findViewById(R.id.characterOriginData)
-                            val number: Int =
-                                query.origin2?.url?.split("https://rickandmortyapi.com/api/location/")
-                                    ?.get(1)?.toInt()!!
-                            val text =
-                                number.toString() + ": " + queryManager.getLocationDetail(number).name!!
+                            val number = message.arg1
+                            val text = "$number: " + queryManager.getLocationDetail(number).name!!
                             textView.text = text
                             textView.setOnClickListener {
                                 FirebaseManager.logEvent("Location Detail: $number - " + queryManager.getLocationDetail(number).name, "Get_Location_Detail")
 
-                                val intent =
-                                    Intent(this@CharacterActivity, LocationActivity::class.java)
-                                intent.putExtra("deviceWidth", deviceWidth.toString())
-                                intent.putExtra("deviceHeight", deviceHeight.toString())
-                                intent.putExtra("currentIdSearch", number.toString())
+                                val intent = Intent(this@CharacterActivity, LocationActivity::class.java)
+                                intent.putExtra("currentIdSearch", number)
                                 startActivity(intent)
                             }
                         }
                         if (query.location2?.url != "") {
                             val textView: TextView = findViewById(R.id.characterLocationData)
-                            val number2: Int =
-                                query.location2?.url?.split("https://rickandmortyapi.com/api/location/")
-                                    ?.get(1)?.toInt()!!
+                            val number2 = message.arg2
                             val text = "$number2: " + queryManager.getLocationDetail(number2).name!!
                             textView.text = text
                             textView.setOnClickListener {
@@ -439,9 +428,7 @@ class CharacterActivity : AppCompatActivity() {
 
                                 val intent =
                                     Intent(this@CharacterActivity, LocationActivity::class.java)
-                                intent.putExtra("deviceWidth", deviceWidth.toString())
-                                intent.putExtra("deviceHeight", deviceHeight.toString())
-                                intent.putExtra("currentIdSearch", number2.toString())
+                                intent.putExtra("currentIdSearch", number2)
                                 startActivity(intent)
                             }
                         }

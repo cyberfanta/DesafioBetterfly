@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Visor R y M</string>
+    <string name="app_name">Visor API de Rick y Morty</string>
 
     <!--    Menu-->
     <string name="item_policy">Política de privacidad</string>

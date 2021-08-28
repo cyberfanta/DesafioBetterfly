@@ -10,7 +10,7 @@ Use the url -> https://github.com/cyberfanta/DesafioBetterfly.git or this -> git
 ### Requirements 📋
 Last version of [Android Studio](https://developer.android.com/studio)
 
-### Instalation 🔧
+### Installation 🔧
 ```
 * Open your Android Studio
 * Go to File -> New -> Project from Version Control

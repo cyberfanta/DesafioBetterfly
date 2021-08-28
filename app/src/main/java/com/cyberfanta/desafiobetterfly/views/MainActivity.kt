@@ -6,14 +6,13 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Insets
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.util.DisplayMetrics
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -273,7 +272,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.item_rate -> {
                 FirebaseManager.logEvent("Menu: Rate App", "Open_Menu")
-                RateAppManager.requestReview(applicationContext)
+                RateAppManager.requestReview(this)
                 return true
             }
             R.id.item_about -> {
@@ -822,9 +821,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun loadCharacterDetail() {
         val intent = Intent(this, CharacterActivity::class.java)
-        intent.putExtra("deviceWidth", deviceWidth.toString())
-        intent.putExtra("deviceHeight", deviceHeight.toString())
-        intent.putExtra("currentIdSearch", currentIdSearch.toString())
+        intent.putExtra("currentIdSearch", currentIdSearch)
         startActivity(intent)
     }
 
@@ -833,9 +830,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun loadLocationDetail() {
         val intent = Intent(this, LocationActivity::class.java)
-        intent.putExtra("deviceWidth", deviceWidth.toString())
-        intent.putExtra("deviceHeight", deviceHeight.toString())
-        intent.putExtra("currentIdSearch", currentIdSearch.toString())
+        intent.putExtra("currentIdSearch", currentIdSearch)
         startActivity(intent)
     }
 
@@ -844,9 +839,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun loadEpisodeDetail() {
         val intent = Intent(this, EpisodeActivity::class.java)
-        intent.putExtra("deviceWidth", deviceWidth.toString())
-        intent.putExtra("deviceHeight", deviceHeight.toString())
-        intent.putExtra("currentIdSearch", currentIdSearch.toString())
+        intent.putExtra("currentIdSearch", currentIdSearch)
         startActivity(intent)
     }
 
@@ -885,19 +878,9 @@ class MainActivity : AppCompatActivity() {
      * Calculate the device dimension
      */
     private fun calculateDeviceDimensions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val windowMetrics: WindowMetrics = windowManager.currentWindowMetrics
-            val insets: Insets = windowMetrics.windowInsets
-                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            deviceWidth = windowMetrics.bounds.width() - insets.left - insets.right
-            deviceHeight = windowMetrics.bounds.height() - insets.top - insets.bottom
-        } else {
-            val displayMetrics = DisplayMetrics()
-            @Suppress("DEPRECATION")
-            windowManager.defaultDisplay.getMetrics(displayMetrics)
-            deviceWidth = displayMetrics.widthPixels
-            deviceHeight = displayMetrics.heightPixels
-        }
+        val deviceSize = DeviceUtils.calculateDeviceDimensions(this)
+        deviceWidth = deviceSize[0]
+        deviceHeight = deviceSize[1]
     }
 
     //Footer Menu
@@ -928,7 +911,7 @@ class MainActivity : AppCompatActivity() {
                     setAnimation(locationRW, "translationX", 300, false, -2f * deviceWidth, -1f * deviceWidth)
                 }
 
-                //Buttom Color Update
+                //Button Color Update
                 locationIVColor.visibility = View.INVISIBLE
                 episodeIVColor.visibility = View.INVISIBLE
                 locationIVBN.visibility = View.VISIBLE
@@ -952,7 +935,7 @@ class MainActivity : AppCompatActivity() {
                     setAnimation(characterRW, "translationX", 600, false, -1f * deviceWidth, 1f * deviceWidth)
                 }
 
-                //Buttom Color
+                //Button Color
                 characterIVColor.visibility = View.INVISIBLE
                 episodeIVColor.visibility = View.INVISIBLE
                 characterIVBN.visibility = View.VISIBLE
@@ -976,7 +959,7 @@ class MainActivity : AppCompatActivity() {
                     setAnimation(characterRW, "translationX", 600, false, 1f * deviceWidth, -1f * deviceWidth)
                 }
 
-                //Buttom Color Update
+                //Button Color Update
                 characterIVColor.visibility = View.INVISIBLE
                 locationIVColor.visibility = View.INVISIBLE
                 characterIVBN.visibility = View.VISIBLE

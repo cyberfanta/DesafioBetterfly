@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:contentDescription="@string/content_description_menu"
         android:icon="@drawable/hamburger_list_menu"
         android:orderInCategory="101"
         android:title="@string/app_name"
@@ -10,18 +11,21 @@
         <menu>
             <item
                 android:id="@+id/item_policy"
+                android:contentDescription="@string/content_description_menu_policy"
                 android:icon="@drawable/ic_privacy_icon"
                 android:orderInCategory="100"
                 android:title="@string/item_policy"
                 app:showAsAction="ifRoom|withText" />
             <item
                 android:id="@+id/item_rate"
+                android:contentDescription="@string/content_description_menu_rate"
                 android:icon="@drawable/ic_rate_review_icon"
                 android:orderInCategory="100"
                 android:title="@string/item_rate"
                 app:showAsAction="ifRoom|withText" />
             <item
                 android:id="@+id/item_about"
+                android:contentDescription="@string/content_description_menu_about"
                 android:icon="@drawable/ic_about_icon"
                 android:orderInCategory="100"
                 android:title="@string/item_about"

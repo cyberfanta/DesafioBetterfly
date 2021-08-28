@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">आर एंड एम व्यूअर</string>
+    <string name="app_name">रिक और मोर्टी एपीआई व्यूअर</string>
 
     <!--    Menu-->
     <string name="item_policy">गोपनीयता नीति</string>
