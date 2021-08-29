@@ -7,14 +7,6 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('C:\\Users\\Adrii\\AndroidStudioProjects\\DesafioBetterfly-key\\DesafioBetterfly.jks')
-            storePassword 'sm#Nu5DEdCupU$h7t6Tu'
-            keyAlias 'key0'
-            keyPassword 'sm#Nu5DEdCupU$h7t6Tu'
-        }
-    }
     compileSdkVersion 31
 
     defaultConfig {
@@ -31,7 +23,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        signingConfig signingConfigs.release
     }
 
     testOptions {
@@ -43,7 +34,6 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             shrinkResources true
-            debuggable true
         }
     }
 
