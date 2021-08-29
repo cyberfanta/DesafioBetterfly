@@ -35,6 +35,7 @@ class RateAppManager (activity: Activity) {
                             FirebaseManager.logEvent("Menu: Rate App - Success", "Rate_Menu")
                             Toast.makeText(activity, R.string.item_rate_success, Toast.LENGTH_SHORT).show()
                             Log.i(TAG, "Rate App Result: " + task.result.toString())
+                            //todo: Verify if user already made a review
                         }
 //                        ?.addOnCompleteListener {  }
                 } else {

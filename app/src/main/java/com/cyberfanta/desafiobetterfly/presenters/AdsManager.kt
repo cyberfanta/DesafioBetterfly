@@ -53,6 +53,7 @@ class AdsManager {
         fun showInterstitialAd (activity: Activity) {
             interstitialAd?.show(activity)
         }
+        //todo: add logic on menu bar for open an interstitial Ad
 
         /**
          * Manage the loading of Banner Ads

@@ -28,6 +28,8 @@
     <string name="content_description_location_picture" translatable="false">Location Picture</string>
     <string name="content_description_episode_picture" translatable="false">Episode Picture</string>
 
+<!--    todo: add multilingual support to content descriptions-->
+
     <!--    Menu-->
     <string name="item_policy">Privacy Policy</string>
     <string name="item_policy_page" translatable="false">https://docs.google.com/document/d/1jO9nnmsjG2ZO0Si1rEBTAP2kmTin5h-qIb4nhuAN5H0/edit?usp=sharing</string>

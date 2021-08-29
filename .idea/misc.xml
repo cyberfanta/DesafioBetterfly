@@ -3,9 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/drawable/detail_data_background.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/drawable/detail_data_background_transparent.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/drawable/detail_data_background_with_corners.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/drawable/detail_label_background_bottom.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/drawable/ic_episode_b_w.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/drawable/ic_episode_color.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/drawable/ic_location_b_w.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/drawable/ic_location_color.xml" value="0.33" />
         <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/layout/activity_character.xml" value="0.41041666666666665" />
-        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/layout/activity_episode.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/layout/activity_location.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/layout/activity_episode.xml" value="0.5" />
+        <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/layout/activity_location.xml" value="0.5" />
         <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/layout/card_character.xml" value="0.75" />
         <entry key="..\:/Users/Adrii/AndroidStudioProjects/DesafioBetterfly/app/src/main/res/layout/card_episode.xml" value="0.20520833333333333" />

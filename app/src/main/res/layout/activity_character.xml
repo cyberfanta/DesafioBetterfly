@@ -29,15 +29,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <View
+        android:id="@+id/characterImageView3"
+        android:layout_width="216dp"
+        android:layout_height="216dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/detail_data_background_with_corners"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/characterImageView2"
+        android:layout_width="202dp"
+        android:layout_height="202dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/detail_data_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/characterImageView3" />
+
     <ImageView
         android:id="@+id/characterImageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="1dp"
         android:contentDescription="@string/content_description_character_picture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/characterImageView2"
         tools:ignore="ImageContrastCheck"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -52,7 +72,7 @@
         app:layout_constraintBottom_toTopOf="@id/adViewCharacter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/characterImageView">
+        app:layout_constraintTop_toBottomOf="@id/characterImageView3">
 
         <TableLayout
             android:layout_width="match_parent"
