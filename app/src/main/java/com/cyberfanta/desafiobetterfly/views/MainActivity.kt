@@ -234,6 +234,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Process the behavior of the app when user press back button
      */
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val constraintLayout : ConstraintLayout = findViewById(R.id.author)
         if (authorOpened) {

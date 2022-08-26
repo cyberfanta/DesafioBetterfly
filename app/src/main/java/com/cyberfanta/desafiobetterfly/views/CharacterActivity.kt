@@ -119,6 +119,7 @@ class CharacterActivity : AppCompatActivity() {
     /**
      * Send Email to author via intent
      */
+    @SuppressLint("IntentReset")
     @Suppress("SameParameterValue")
     private fun sendAuthorEmail(email: String, subject: String, body: String, chooserMessage: String){
         val intent = Intent(Intent.ACTION_SEND)
@@ -142,6 +143,7 @@ class CharacterActivity : AppCompatActivity() {
     /**
      * Process the behavior of the app when user press back button
      */
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val constraintLayout : ConstraintLayout = findViewById(R.id.author)
         if (authorOpened) {
